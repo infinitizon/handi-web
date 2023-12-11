@@ -6,6 +6,9 @@
 /out-tsc
 /bazel-out
 
+# github - azure pipeline
+/.github
+
 # Node
 /node_modules
 npm-debug.log
