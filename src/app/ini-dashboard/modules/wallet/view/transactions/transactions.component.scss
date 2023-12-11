@@ -1,0 +1,30 @@
+.transaction-filter {
+  margin-top: 20px;
+}
+
+::ng-deep .mat-datepicker-content .mat-calendar {
+  width: 296px;
+   height: auto !important;
+}
+
+.back-button-v2 {
+  a {
+    text-decoration: none;
+    width: 180px;
+    cursor: pointer;
+
+    i {
+      color: #191a1b;
+      font-size: 24px;
+    }
+
+    span {
+      color: var(--foundation-primary-primary-500, #191a1b);
+      font-family: DM Sans;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 130%;
+    }
+  }
+}

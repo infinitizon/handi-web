@@ -1,0 +1,287 @@
+<mat-sidenav-container [ngClass]="{'blur': isDialogOpen}">
+  <mat-sidenav
+    #sidenav
+    fixedInViewport="true"
+    class="side-bar"
+    [mode]="sideNavMode"
+    [opened]="sideNavOpen"
+  >
+    <div class="logo">
+      <a [routerLink]="['/app/home']">
+        <img src="/assets/logo/home-service.svg" alt="Primary Logo" />
+      </a>
+    </div>
+    <div class="side-bar-menu">
+      <div class="menu-section-bottom">
+        <nav>
+          <p class="menu-subtitle p-0 m-0">MENU</p>
+          <ul class="menu">
+            <li class="menu-item">
+              <a [routerLink]="['home']" routerLinkActive="current">
+                <span class="dash-menu-icon">
+                  <img src="/assets/logo/home.svg" alt="Home Icon" />
+                  <!-- <i class="ri-home-line"></i> -->
+                </span>
+                Home</a
+              >
+            </li>
+
+            <li class="menu-item">
+              <a [routerLink]="['transactions']" routerLinkActive="current">
+                <span class="dash-menu-icon">
+                  <!-- <i class="ri-arrow-up-down-line"></i> -->
+                  <img
+                    src="/assets/logo/assignment_add.svg"
+                    alt="Booking Icon"
+                  />
+                </span>
+                Booking
+              </a>
+            </li>
+            <li class="menu-item">
+              <a [routerLink]="['faq']" routerLinkActive="current">
+                <span class="dash-menu-icon">
+                  <img
+                    src="/assets/logo/folder_special.svg"
+                    alt="Favorite Icon"
+                  />
+                  <!-- <i class="ri-bill-line"></i> -->
+                </span>
+                Favorite
+              </a>
+            </li>
+            <li class="menu-item">
+              <a [routerLink]="['help']" routerLinkActive="current">
+                <span class="dash-menu-icon">
+                  <img
+                    src="/assets/logo/mark_chat_unread.svg"
+                    alt="Inbox Icon"
+                  />
+                  <!-- <i class="ri-bill-line"></i> -->
+                </span>
+                <span>Inbox</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a (click)="route('/app/wallet')" routerLinkActive="current">
+                <span class="dash-menu-icon">
+                  <img src="/assets/logo/Wallet.svg" alt="Wallet Icon" />
+                  <!-- <i class="ri-bill-line"></i> -->
+                </span>
+                <span>Wallet</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a (click)="route('/app/profile')" routerLinkActive="current">
+                <span class="dash-menu-icon">
+                  <img src="/assets/logo/person.svg" alt="Profile Icon" />
+                  <!-- <i class="ri-bill-line"></i> -->
+                </span>
+                <span>Profile</span>
+              </a>
+            </li>
+            <!-- <li class="menu-item" >
+              <a (click)="route('/app/settings')"  routerLinkActive="current">
+                <span class="dash-menu-icon">
+                  <img src="/assets/logo/Settings.svg" alt="Settings Icon" />
+                </span>
+                <span>Settings</span>
+              </a>
+            </li> -->
+          </ul>
+
+          <p class="menu-subtitle p-0 m-0">SUPPORT</p>
+
+          <ul class="menu">
+            <li class="menu-item">
+              <a [routerLink]="['home']" routerLinkActive="current">
+                <span class="dash-menu-icon">
+                  <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
+                  <!-- <i class="ri-home-line"></i> -->
+                </span>
+                FAQ</a
+              >
+            </li>
+
+            <li class="menu-item">
+              <a [routerLink]="['transactions']" routerLinkActive="current">
+                <span class="dash-menu-icon">
+                  <!-- <i class="ri-arrow-up-down-line"></i> -->
+                  <img src="/assets/logo/Support.svg" alt="Support Icon" />
+                </span>
+                Support
+              </a>
+            </li>
+            <li class="menu-item">
+              <a [routerLink]="['faq']" routerLinkActive="current">
+                <span class="dash-menu-icon">
+                  <img src="/assets/logo/Feedback.svg" alt="Feedback Icon" />
+                  <!-- <i class="ri-bill-line"></i> -->
+                </span>
+                Feedback
+              </a>
+            </li>
+          </ul>
+
+          <!-- <button mat-icon-button (click)="sidenav.toggle()" class="sidemenu-toggle">
+            Collaspe
+          </button> -->
+        </nav>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="main-content">
+    <mat-toolbar class="notify-toolbar">
+      <div class="row align-items-center w-100">
+        <!-- <div class="icon"></div> -->
+        <div class="col-md-4 text">
+          <div class="d-flex justify-content-center justify-content-sm-center justify-content-md-start">
+          <span
+            ><img
+              src="/assets/logo/sell.svg"
+              width="24"
+              height="24"
+              alt="Sell Icon" /></span
+          >&nbsp;<span>Sell on Home Service.</span>
+        </div>
+        </div>
+        <div class="col-md-4 btn">
+          <div class="d-flex justify-content-center">
+            <span
+              ><img
+                src="/assets/logo/mastercard.svg"
+                alt="Mastercard Icon" /></span
+            >&nbsp;&nbsp;
+            <span
+              ><img src="/assets/logo/paystack.svg" alt="Paystack Icon" /></span
+            >&nbsp;&nbsp;
+            <span><img src="/assets/logo/visa.svg" alt="Visa Icon" /></span>
+            &nbsp;&nbsp;
+          </div>
+        </div>
+      </div>
+    </mat-toolbar>
+    <mat-toolbar class="toolbar">
+      <!-- (click)="sidenav.toggle()" -->
+      <div
+        class="toolbar-wrapper d-flex flex-column flex-sm-column d-md-flex justify-content-md-between align-items-md-center flex-md-row w-100"
+      >
+        <div class="sidemenu-toggle">
+          <div
+            class="welcome d-flex align-items-start"
+
+          >
+            <h3 class="m-0 p-0">Welcome</h3>
+          </div>
+          <div class="cheers">
+            <p class="m-0 p-0">
+              Cheers and happy activities - {{today}}
+            </p>
+          </div>
+        </div>
+
+        <div class="spacer"></div>
+        <div>
+          <div class="d-flex justify-content-between align-items-center">
+          <div class="input-box"    *ngIf="dashboardService?.isHome">
+            <i class="ri-search-line"></i>
+            <input type="text" class="form-control-sm" placeholder="Search" />
+          </div>
+          <button mat-flat-button class="profile-menu">
+            <span class="profileName">
+              <i class="ri-notification-4-line"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+      </div>
+      <mat-menu #menu="matMenu" class="profile-menu-dropdown">
+        <div class="cscs-wrapper d-flex justify-content-center">
+          <div class="d-flex justify-content-between">
+            <span class="px-2 cscs">CSCS Number</span>
+            <span class="px-3"
+              ><span class="cscs-number">09477567585</span> &nbsp;<i
+                class="ri-file-copy-line"
+              ></i
+            ></span>
+          </div>
+        </div>
+        <a class="profile" [routerLink]="['settings']" mat-menu-item>
+          <div class="d-flex align-items-start">
+            <div class="flex-grow-1">
+              <div class="d-flex align-items-center">
+                <div class="profile-icon">
+                  <i class="ri-settings-line"></i>
+                </div>
+                <div class="d-flex align-items-start flex-column ml-4">
+                  <div class="profile-title px-4 mb-0">
+                    <h3 class="mb-0">Settings</h3>
+                  </div>
+                  <div class="profile-subtitle px-4">
+                    <span>Profile, Cards, Notification & Security</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="profile" mat-menu-item>
+          <div class="d-flex align-items-start">
+            <div class="flex-grow-1">
+              <div class="d-flex align-items-center">
+                <div class="profile-icon">
+                  <i class="ri-gift-2-line"></i>
+                </div>
+                <div class="d-flex align-items-start flex-column ml-4">
+                  <div class="profile-title px-4 mb-0">
+                    <h3 class="mb-0">Referrals</h3>
+                  </div>
+                  <div class="profile-subtitle px-4">
+                    <span>Get 10% on every completed transaction</span>
+
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        placeholder="https://primaryoffer.ng/refer/223.."
+                        aria-label="Recipient's username"
+                        aria-describedby="basic-addon2"
+                      />
+                      <span class="input-group-text" id="basic-addon2"
+                        >Copy link</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="profile" [routerLink]="['/auth/login']" mat-menu-item>
+          <div class="d-flex align-items-start">
+            <div class="flex-grow-1">
+              <div class="d-flex align-items-center">
+                <div class="profile-icon">
+                  <i class="ri-logout-box-r-line"></i>
+                </div>
+                <div class="d-flex align-items-start flex-column ml-4">
+                  <div class="profile-title px-4 mb-0">
+                    <h3 class="mb-0">Logout</h3>
+                  </div>
+                  <div class="profile-subtitle px-4">
+                    <span>See you soon! <i class="ri-heart-fill"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </mat-menu>
+
+    </mat-toolbar>
+  <div class="main-router">
+    <router-outlet></router-outlet>
+  </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
