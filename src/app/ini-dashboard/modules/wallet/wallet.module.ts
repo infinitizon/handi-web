@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WalletComponent } from './wallet.component';
-import { SharedModule } from '@app/shared/shared.module';
+import { SharedModule } from '@app/_shared/shared.module';
 import { ViewWalletComponent } from './view/view-wallet/view-wallet.component';
 import { WalletRoutingModule } from './wallet-routing.module';
 import { HomeComponent } from './view/home/home.component';

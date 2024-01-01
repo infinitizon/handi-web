@@ -4,11 +4,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { ApplicationContextService } from '@app/shared/services/application-context.service';
-import { CommonService } from '@app/shared/services/common.service';
+import { ApplicationContextService } from '@app/_shared/services/application-context.service';
+import { CommonService } from '@app/_shared/services/common.service';
 import { environment } from '@environments/environment';
 import { FormErrors, ValidationMessages } from './withdraw.validators';
-import { SnackBarComponent } from '@app/shared/components/snack-bar/snack-bar.component';
+import { SnackBarComponent } from '@app/_shared/components/snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-withdraw',

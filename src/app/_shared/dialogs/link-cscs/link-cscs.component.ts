@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ApplicationContextService } from '@app/shared/services/application-context.service';
-import { CommonService } from '@app/shared/services/common.service';
+import { ApplicationContextService } from '@app/_shared/services/application-context.service';
+import { CommonService } from '@app/_shared/services/common.service';
 
 @Component({
   selector: 'app-link-cscs',

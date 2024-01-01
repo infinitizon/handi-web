@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ApplicationContextService } from '@app/shared/services/application-context.service';
-import { CommonService } from '@app/shared/services/common.service';
+import { ApplicationContextService } from '@app/_shared/services/application-context.service';
+import { CommonService } from '@app/_shared/services/common.service';
 import { FormErrors, ValidationMessages } from './gateway.validators';
 import { Router } from '@angular/router';
 import { OffersService } from '@app/ini-dashboard/modules/offers/offers.service';

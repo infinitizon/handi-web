@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CommonService } from '@app/shared/services/common.service';
+import { CommonService } from '@app/_shared/services/common.service';
 import {
   FormErrors,
   ValidationMessages,

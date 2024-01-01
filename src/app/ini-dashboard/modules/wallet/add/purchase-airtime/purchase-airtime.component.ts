@@ -4,11 +4,11 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { FormErrors, ValidationMessages } from './purchase-airtime';
 import { environment } from '@environments/environment';
 import { Router } from '@angular/router';
-import { CommonService } from '@app/shared/services/common.service';
+import { CommonService } from '@app/_shared/services/common.service';
 import { HttpClient } from '@angular/common/http';
-import { ApplicationContextService } from '@app/shared/services/application-context.service';
+import { ApplicationContextService } from '@app/_shared/services/application-context.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackBarComponent } from '@app/shared/components/snack-bar/snack-bar.component';
+import { SnackBarComponent } from '@app/_shared/components/snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-purchase-airtime',

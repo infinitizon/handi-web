@@ -3,13 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { SnackBarComponent } from '@app/shared/components/snack-bar/snack-bar.component';
-import { ApplicationContextService } from '@app/shared/services/application-context.service';
-import { AuthService } from '@app/shared/services/auth.service';
-import { CommonService } from '@app/shared/services/common.service';
+import { SnackBarComponent } from '@app/_shared/components/snack-bar/snack-bar.component';
+import { ApplicationContextService } from '@app/_shared/services/application-context.service';
+import { AuthService } from '@app/_shared/services/auth.service';
+import { CommonService } from '@app/_shared/services/common.service';
 import { environment } from '@environments/environment';
 import { take } from 'rxjs';
-import { Crypto } from '@app/shared/classes/Crypto';
+import { Crypto } from '@app/_shared/classes/Crypto';
 
 @Component({
   selector: 'app-login',

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CommonService } from '@app/shared/services/common.service';
+import { CommonService } from '@app/_shared/services/common.service';
 import { FormErrors, ValidationMessages } from '../sign-up/sign-up.validators';
-import { AuthService } from '@app/shared/services/auth.service';
+import { AuthService } from '@app/_shared/services/auth.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
-import { SnackBarComponent } from '@app/shared/components/snack-bar/snack-bar.component';
-import { Crypto } from '@app/shared/classes/Crypto';
+import { SnackBarComponent } from '@app/_shared/components/snack-bar/snack-bar.component';
+import { Crypto } from '@app/_shared/classes/Crypto';
 
 @Component({
   selector: 'app-sign-up',

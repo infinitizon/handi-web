@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormErrors, ValidationMessages } from './create-bank.validators';
-import { ApplicationContextService } from '@app/shared/services/application-context.service';
+import { ApplicationContextService } from '@app/_shared/services/application-context.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { CommonService } from '@app/shared/services/common.service';
+import { CommonService } from '@app/_shared/services/common.service';
 import { environment } from '@environments/environment';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
-import { SnackBarComponent } from '@app/shared/components/snack-bar/snack-bar.component';
+import { SnackBarComponent } from '@app/_shared/components/snack-bar/snack-bar.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

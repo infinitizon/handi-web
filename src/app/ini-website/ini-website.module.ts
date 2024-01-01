@@ -6,7 +6,7 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { IniWebsiteRoutingModule } from './ini-website-routing.module';
-import { SharedModule } from '@app/shared/shared.module';
+import { SharedModule } from '@app/_shared/shared.module';
 import { SignUpContinueComponent } from './auth/sign-up-continue/sign-up-continue.component';
 import { SuccessfulPageComponent } from './auth/successful-page/successful-page.component';
 import { VerifyOtpComponent } from './auth/verify-otp/verify-otp.component';

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { GetStartedComponent } from '@app/shared/dialogs/get-started/get-started.component';
+import { GetStartedComponent } from '@app/_shared/dialogs/get-started/get-started.component';
 import { environment } from '@environments/environment';
 
 @Component({

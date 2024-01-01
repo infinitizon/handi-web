@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
-import { SharedModule } from '@app/shared/shared.module';
+import { SharedModule } from '@app/_shared/shared.module';
 import { ViewHomeComponent } from './view/view-home/view-home.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { ViewCategoriesComponent } from './view/view-categories/view-categories.component';

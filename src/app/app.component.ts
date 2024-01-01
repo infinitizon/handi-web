@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AutoLogoutService } from './shared/services/auto-logout.service';
+import { AutoLogoutService } from './_shared/services/auto-logout.service';
 
 @Component({
   selector: 'app-root',

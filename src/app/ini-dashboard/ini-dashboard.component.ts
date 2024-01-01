@@ -28,12 +28,12 @@ import {
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ApplicationContextService } from '@app/shared/services/application-context.service';
+import { ApplicationContextService } from '@app/_shared/services/application-context.service';
 import { IniDashboardService } from './ini-dashboard.service';
-import { LinkCscsComponent } from '@app/shared/dialogs/link-cscs/link-cscs.component';
+import { LinkCscsComponent } from '@app/_shared/dialogs/link-cscs/link-cscs.component';
 import * as moment from 'moment';
-import { LogInComponent } from '@app/shared/dialogs/log-in/log-in.component';
-import { AuthService } from '@app/shared/services/auth.service';
+import { LogInComponent } from '@app/_shared/dialogs/log-in/log-in.component';
+import { AuthService } from '@app/_shared/services/auth.service';
 import { environment } from '@environments/environment';
 
 @Component({

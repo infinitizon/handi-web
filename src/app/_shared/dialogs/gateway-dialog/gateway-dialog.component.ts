@@ -15,7 +15,7 @@ import {
 import { Router } from '@angular/router';
 
 import { HttpClient } from '@angular/common/http';
-import { CommonService } from '@app/shared/services/common.service';
+import { CommonService } from '@app/_shared/services/common.service';
 import { environment } from '@environments/environment';
 import {
   FormErrors,
@@ -23,7 +23,7 @@ import {
   ValidationMessages,
 } from './gateway.validators';
 import { DOCUMENT } from '@angular/common';
-import { ApplicationContextService } from '@app/shared/services/application-context.service';
+import { ApplicationContextService } from '@app/_shared/services/application-context.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 // import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload';
 

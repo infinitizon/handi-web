@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
-import { SharedModule } from '@app/shared/shared.module';
+import { SharedModule } from '@app/_shared/shared.module';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileContainerComponent } from './profile-container/profile-container.component';
 import { PersonalInfoComponent } from './profile-container/personal-info/personal-info.component';

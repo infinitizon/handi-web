@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { IniDashboardComponent } from './ini-dashboard.component';
-import { AuthGuard } from '@app/shared/guards/auth.guard';
+import { AuthGuard } from '@app/_shared/guards/auth.guard';
 
 const routes: Routes = [
   {

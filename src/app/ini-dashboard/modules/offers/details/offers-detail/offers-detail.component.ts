@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { SnackBarComponent } from '@app/shared/components/snack-bar/snack-bar.component';
-import { GatewayComponent } from '@app/shared/dialogs/gateway/gateway.component';
+import { SnackBarComponent } from '@app/_shared/components/snack-bar/snack-bar.component';
+import { GatewayComponent } from '@app/_shared/dialogs/gateway/gateway.component';
 import {
   ApexAxisChartSeries,
   ApexChart,

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { GatewayDialogComponent } from '@app/shared/dialogs/gateway-dialog/gateway-dialog.component';
+import { GatewayDialogComponent } from '@app/_shared/dialogs/gateway-dialog/gateway-dialog.component';
 import { environment } from '@environments/environment';
 
 @Component({

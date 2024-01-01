@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SettingsComponent } from './settings.component';
-import { SharedModule } from '@app/shared/shared.module';
+import { SharedModule } from '@app/_shared/shared.module';
 import { SettingsRoutingModule } from './settings-routing.module';
 import { ViewSettingsComponent } from './view/view-settings/view-settings.component';
 import { ProfileComponent } from './view/profile/profile.component';
