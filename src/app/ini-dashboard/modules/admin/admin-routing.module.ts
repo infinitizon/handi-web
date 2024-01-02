@@ -1,25 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminComponent } from './admin.component';
+import { VendorListComponent } from './vendor/vendor-list.component';
 
 const routes: Routes = [
   {
-    path: 'admin',
-    // component: OffersComponent,
+    path: '',
+    component: AdminComponent,
     children: [
-        {
-          path: 'my-portfolio-distribution/:id',
-          // component: MyPortfolioDistributionComponent
-        },
-        {
-          path: 'offers-detail/:id',
-          // component: OffersDetailComponent
-        },
-        {
-          path: 'vendor',
-          // component: GatewayPaymentComponent
-        }
+      {
+        path: 'vendor',
+        component: VendorListComponent
+      },
+      { path: '', redirectTo: 'vendor', pathMatch: 'full' }
     ]
-  }
+  },
+  { path: '', redirectTo: '/app/admin/vendor', pathMatch: 'full' },
 ];
 
 @NgModule({

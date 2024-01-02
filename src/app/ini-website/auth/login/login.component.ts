@@ -3,13 +3,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { take } from 'rxjs';
+import { Crypto } from '@app/_shared/classes/Crypto';
 import { SnackBarComponent } from '@app/_shared/components/snack-bar/snack-bar.component';
 import { ApplicationContextService } from '@app/_shared/services/application-context.service';
 import { AuthService } from '@app/_shared/services/auth.service';
 import { CommonService } from '@app/_shared/services/common.service';
 import { environment } from '@environments/environment';
-import { take } from 'rxjs';
-import { Crypto } from '@app/_shared/classes/Crypto';
+import { ProfileSelectComponent } from '@app/_shared/dialogs/profile-select/profile-select.component';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +30,7 @@ export class LoginComponent implements OnInit {
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     private authService: AuthService,
+    public dialog: MatDialog,
     public appContext: ApplicationContextService,
   ) {}
 
@@ -62,9 +65,28 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (response: any) => {
           this.submitting = false;
+          if (response?.multiTenant) {
+            const profileSelectDialog = this.dialog.open(
+              ProfileSelectComponent,
+              {
+                data: {
+                  users: response?.user,
+                  password: fd?.password
+                },
+                width: '408px',
+              }
+            );
+
+            profileSelectDialog.afterClosed().subscribe((result) => {
+              if (result) {
+              }
+            });
+          } else {
             this.authService.setToken(response);
             this.appContext.userInformation$.next(response.user);
+            this.authService.setRole(response?.user?.Tenant.length > 0 ? response?.user?.Tenant[0]?.Roles[0]?.name: 'CUSTOMER');
               this.router.navigate(['/app/home']);
+          }
         },
         (errResp) => {
           this.submitting = false;

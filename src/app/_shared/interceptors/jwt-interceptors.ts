@@ -24,30 +24,14 @@ export class JwtInterceptor implements HttpInterceptor {
 
     if (isLoggedIn) {
       const getUrl = new URL(request.url);
-
-      if (getUrl.origin && environment.ZANIBAL_BASES.includes(getUrl.origin)) {
-          let credentials = btoa(`tradeinuser:G0the3n3erg_!`);
-          request = request.clone({
-            setHeaders: {
-              Authorization: `Basic ${credentials}`,
-            },
-          });
-      } else if (getUrl.origin && environment.FUND_BASES.includes(getUrl.origin) ) {
-        request = request.clone({
-          setHeaders: {
-            Authorization: `Bearer KEY_INVEST-NAIJA`,
-            // Bypass-Tunnel-Reminder:
-          },
-        });
-      }
-      else {
-          request = request.clone({
-            setHeaders: {
-              Authorization: this.auth.getToken(),
-              "x-uuid-token": this.auth.getUUIDToken(),
-            },
-          });
-      }
+      let role = JSON.parse(this.auth.getRole());
+      request = request.clone({
+        setHeaders: {
+          Authorization: this.auth.getToken(),
+          "x-uuid-token": this.auth.getUUIDToken(),
+          "role": role ? role : 'CUSTOMER'
+        },
+      });
     }
 
     return next.handle(request).pipe(

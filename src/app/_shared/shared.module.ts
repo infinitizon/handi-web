@@ -14,10 +14,12 @@ import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { GatewayComponent } from './dialogs/gateway/gateway.component';
 import { GetStartedComponent } from './dialogs/get-started/get-started.component';
-import { LinkCscsComponent } from './dialogs/link-cscs/link-cscs.component';
+import { ProfileSelectComponent } from './dialogs/profile-select/profile-select.component';
+import { GetRolesComponent } from './components/get-roles/get-roles.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { LogInComponent } from './dialogs/log-in/log-in.component';
+import { LogoutDialogComponent } from './dialogs/logout-dialog/logout-dialog.component';
 import { LottieModule } from 'ngx-lottie';
 import { EmptyDataComponent } from './components/empty-data/empty-data.component';
 import { ColorPipe, ImagePipe } from './pipes/random-color.pipe';
@@ -53,8 +55,10 @@ const maskConfig: Partial<IConfig> = {
     SnackBarComponent,
     GatewayComponent,
     GetStartedComponent,
-    LinkCscsComponent,
+    ProfileSelectComponent,
+    GetRolesComponent,
     LogInComponent,
+    LogoutDialogComponent,
     EmptyDataComponent,
     ColorPipe,
     ImagePipe,
@@ -91,10 +95,12 @@ const maskConfig: Partial<IConfig> = {
     NgApexchartsModule,
     GatewayComponent,
     GetStartedComponent,
-    LinkCscsComponent,
+    ProfileSelectComponent,
+    GetRolesComponent,
     SlickCarouselModule,
     NgbModule,
     LogInComponent,
+    LogoutDialogComponent,
     LottieModule,
     EmptyDataComponent,
     ColorPipe,

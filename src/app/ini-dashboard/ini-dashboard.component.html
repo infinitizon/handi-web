@@ -94,7 +94,7 @@
 
           <ul class="menu">
             <li class="menu-item">
-              <a [routerLink]="['admin/vendor']" routerLinkActive="current">
+              <a [routerLink]="['admin']" routerLinkActive="current">
                 <span class="dash-menu-icon">
                   <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
                   <!-- <i class="ri-home-line"></i> -->
@@ -191,32 +191,30 @@
         </div>
 
         <div class="spacer"></div>
-        <div>
-          <div class="d-flex justify-content-between align-items-center">
-          <div class="input-box"    *ngIf="dashboardService?.isHome">
-            <i class="ri-search-line"></i>
-            <input type="text" class="form-control-sm" placeholder="Search" />
+          <div>
+            <div class="d-flex justify-content-between align-items-center">
+            <div class="input-box"    *ngIf="dashboardService?.isHome">
+              <i class="ri-search-line"></i>
+              <input type="text" class="form-control-sm" placeholder="Search" />
+            </div>
+            <button mat-flat-button class="profile-menu">
+              <span class="profileName">
+                <i class="ri-notification-4-line"></i>
+              </span>
+            </button>
+            <!-- <span mat-menu-item class="profile-name" [matMenuTriggerFor]="menu" disableRipple>Hi{{'Test'? ', ' + 'Testing' : ''}}</span> -->
+            <button mat-flat-button [matMenuTriggerFor]="menu" class="profile-menu">
+              <span *ngIf="true" class="profileName">
+                {{ (userInformation?.firstName | titlecase) | slice : 0 : 1 }}{{ (userInformation?.lastName| titlecase) | slice : 0 : 1 }}
+              </span>
+              <img *ngIf="false" [src]="" alt="" />
+              <!-- <mat-icon>expand_more</mat-icon> -->
+            </button>
           </div>
-          <button mat-flat-button class="profile-menu">
-            <span class="profileName">
-              <i class="ri-notification-4-line"></i>
-            </span>
-          </button>
         </div>
-      </div>
       </div>
       <mat-menu #menu="matMenu" class="profile-menu-dropdown">
-        <div class="cscs-wrapper d-flex justify-content-center">
-          <div class="d-flex justify-content-between">
-            <span class="px-2 cscs">CSCS Number</span>
-            <span class="px-3"
-              ><span class="cscs-number">09477567585</span> &nbsp;<i
-                class="ri-file-copy-line"
-              ></i
-            ></span>
-          </div>
-        </div>
-        <a class="profile" [routerLink]="['settings']" mat-menu-item>
+        <a class="profile" [routerLink]="['settings']" mat-menu-item *ngIf="userInformation">
           <div class="d-flex align-items-start">
             <div class="flex-grow-1">
               <div class="d-flex align-items-center">
@@ -235,7 +233,7 @@
             </div>
           </div>
         </a>
-        <a class="profile" mat-menu-item>
+        <a class="profile" mat-menu-item *ngIf="userInformation">
           <div class="d-flex align-items-start">
             <div class="flex-grow-1">
               <div class="d-flex align-items-center">
@@ -267,7 +265,7 @@
             </div>
           </div>
         </a>
-        <a class="profile" [routerLink]="['/auth/login']" mat-menu-item>
+        <a class="profile" *ngIf="userInformation" (click)="openLogOutDialog()" mat-menu-item>
           <div class="d-flex align-items-start">
             <div class="flex-grow-1">
               <div class="d-flex align-items-center">
@@ -278,7 +276,26 @@
                   <div class="profile-title px-4 mb-0">
                     <h3 class="mb-0">Logout</h3>
                   </div>
-                  <div class="profile-subtitle px-4">
+                  <div class="profile-subtitle px-4" *ngIf="userInformation">
+                    <span>See you soon! <i class="ri-heart-fill"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a class="profile" *ngIf="!userInformation" [routerLink]="['/auth/login']" mat-menu-item>
+          <div class="d-flex align-items-start">
+            <div class="flex-grow-1">
+              <div class="d-flex align-items-center">
+                <div class="profile-icon">
+                  <i class="ri-logout-box-r-line"></i>
+                </div>
+                <div class="d-flex align-items-start flex-column ml-4">
+                  <div class="profile-title px-4 mb-0">
+                    <h3 class="mb-0">Login</h3>
+                  </div>
+                  <div class="profile-subtitle px-4" *ngIf="userInformation">
                     <span>See you soon! <i class="ri-heart-fill"></i></span>
                   </div>
                 </div>

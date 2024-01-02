@@ -1,0 +1,68 @@
+<div class="container-fluid m-5" [ngClass]="{'blur': create}">
+  <div class="offers-wrapper">
+    <div class="row d-flex flex-row column-gap-sm">
+      <div class="mat-elevation-z8 px-0">
+        <table  class="table mb-0 no-wrap v-middle">
+          <thead>
+              <tr>
+                <th *ngFor="let column of agentsDisplayedColumns">
+                  <div [ngSwitch]="column['name']">
+                    <div *ngSwitchDefault>{{ column["title"] }}</div>
+                    <div *ngSwitchCase="'amount'" class="text-right tableAmount">
+                      {{ column["title"] }}
+                    </div>
+                    <div *ngSwitchCase="'noOfCustomer'" class="text-right tableAmount">
+                      {{ column["title"] }}
+                    </div>
+                    <div *ngSwitchCase="'noOfTransactions'" class="text-right tableAmount">
+                      {{ column["title"] }}
+                    </div>
+                  </div>
+                </th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="container['agents']?.length <= 0">
+              <td  [attr.colspan]="agentsDisplayedColumns.length" class="text-center">{{'Loading new data!!!'}}</td>
+            </tr>
+            <ng-container *ngFor="let element of container['agents']">
+              <tr  class="cursor-pointer">
+                <td *ngFor="let column of agentsDisplayedColumns">
+                  <div [ngSwitch]="column['name']">
+                    <div *ngSwitchDefault>{{element[column['name']]}}</div>
+                    <div *ngSwitchCase="'expand'" (click)="$event.stopPropagation();">
+                      <ng-container>
+                        <i  *ngIf="!element.expanded" (click)="element.expanded=true;"  class="ri-arrow-down-s-line pointer"></i>
+                        <i *ngIf="element.expanded" (click)="element.expanded=false" class="ri-arrow-up-s-line pointer"></i>
+                      </ng-container>
+                    </div>
+                    <div *ngSwitchCase="'contact'">
+                      <div class="d-flex flex-column contact">
+                        <div>{{ element.phone}}</div>
+                        <small>{{ element.email}}</small>
+                      </div>
+                    </div>
+                    <div *ngSwitchCase="'action'" (click)="$event.stopPropagation()">
+                      <!-- <a (click)="createUser(element)" class="header-menu txns-action">Add User</a> -->
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <ng-container *ngIf="element.expanded">
+                <tr>
+                  <td [attr.colspan]="agentsDisplayedColumns.length">
+                    <!-- <app-recieving-agents-child [agent]="element"></app-recieving-agents-child> -->
+                  </td>
+                </tr>
+              </ng-container>
+            </ng-container>
+          </tbody>
+        </table>
+        <div *ngIf="container['agentsLoading']" class="mat-spinner-container">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

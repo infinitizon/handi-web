@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { LinkCscsComponent } from './link-cscs.component';
+import { GetRolesComponent } from './get-roles.component';
 
-describe('LinkCscsComponent', () => {
-  let component: LinkCscsComponent;
-  let fixture: ComponentFixture<LinkCscsComponent>;
+describe('GetRolesComponent', () => {
+  let component: GetRolesComponent;
+  let fixture: ComponentFixture<GetRolesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LinkCscsComponent ]
+      declarations: [ GetRolesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LinkCscsComponent);
+    fixture = TestBed.createComponent(GetRolesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

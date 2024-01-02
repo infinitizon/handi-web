@@ -30,9 +30,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ApplicationContextService } from '@app/_shared/services/application-context.service';
 import { IniDashboardService } from './ini-dashboard.service';
-import { LinkCscsComponent } from '@app/_shared/dialogs/link-cscs/link-cscs.component';
 import * as moment from 'moment';
 import { LogInComponent } from '@app/_shared/dialogs/log-in/log-in.component';
+import { LogoutDialogComponent } from '@app/_shared/dialogs/logout-dialog/logout-dialog.component';
 import { AuthService } from '@app/_shared/services/auth.service';
 import { environment } from '@environments/environment';
 
@@ -82,6 +82,8 @@ export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         (response: any) => {
           this.appContext.userInformation$.next(response.data);
           if (response) {
+            console.log(`this.userInformation => `, this.userInformation);
+
             this.userInformation = response.data;
             if(this.userInformation.firstLogin) {
 
@@ -151,19 +153,6 @@ export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  addDetails () {
-    const linkCSCSDialog = this.dialog.open(LinkCscsComponent, {
-      data: {},
-      width: '408px',
-    });
-
-    linkCSCSDialog.afterClosed().subscribe((result) => {
-      if (result) {
-      }
-    });
-  }
-
-
   route(routeName: any) {
        if(this.auth.isLoggedIn()) {
          this.router.navigate([routeName]);
@@ -180,6 +169,10 @@ export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
           this.isDialogOpen = false;
         });
        }
+  }
+
+  openLogOutDialog(): void {
+    this.dialog.open(LogoutDialogComponent);
   }
 
   ngOnDestroy() {
