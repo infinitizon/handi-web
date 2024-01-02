@@ -14,6 +14,7 @@ import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { GatewayComponent } from './dialogs/gateway/gateway.component';
 import { GetStartedComponent } from './dialogs/get-started/get-started.component';
+import { FileUploadModule } from '@iplab/ngx-file-upload';
 import { ProfileSelectComponent } from './dialogs/profile-select/profile-select.component';
 import { GetRolesComponent } from './components/get-roles/get-roles.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
@@ -79,6 +80,7 @@ const maskConfig: Partial<IConfig> = {
     NgxOtpInputModule,
     NgApexchartsModule,
     SlickCarouselModule,
+    FileUploadModule,
     NgbModule,
     LottieModule.forRoot({ player: playerFactory }),
   ],
@@ -106,6 +108,7 @@ const maskConfig: Partial<IConfig> = {
     ColorPipe,
     ImagePipe,
     GatewayDialogComponent,
+    FileUploadModule,
     LoaderComponent
   ]
 })

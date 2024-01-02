@@ -4,6 +4,7 @@ import { AdminComponent } from './admin.component';
 import { SharedModule } from '@app/_shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { VendorListComponent } from './vendor/vendor-list.component';
+import { VendorDetailComponent } from './vendor/vendor-detail.component';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { VendorListComponent } from './vendor/vendor-list.component';
   declarations: [
     AdminComponent,
     VendorListComponent,
+    VendorDetailComponent,
   ]
 })
 export class AdminModule { }

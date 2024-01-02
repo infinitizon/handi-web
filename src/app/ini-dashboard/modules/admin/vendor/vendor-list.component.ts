@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ApplicationContextService } from '@app/_shared/services/application-context.service';
 import { IniDashboardService } from '@app/ini-dashboard/ini-dashboard.service';
 import { environment } from '@environments/environment';
+import { VendorDetailComponent } from './vendor-detail.component';
 
 @Component({
   selector: 'app-vendor-list',
@@ -46,10 +47,10 @@ export class VendorListComponent implements OnInit {
         this.dashboardService.isHome = false;
     });
     this.paginator1.itemsPerPageLabel = 'Rows per page:';
-    this.getAgents();
+    this.getVendors();
   }
 
-  getAgents() {
+  getVendors() {
     this.container['agentsLoading'] = true;
     this.http
       .get(`${environment.baseApiUrl}/admin/vendors`)
@@ -64,21 +65,21 @@ export class VendorListComponent implements OnInit {
       );
   }
 
-  // createUser(data: any) {
-  //   this.create = true;
-  //   const createUserDialog = this.dialog.open(CreateUserComponent, {
-  //     data: {
-  //       role: 'TENANT_ADMIN',
-  //       parentData: data
-  //     },
-  //     // width: '408px',
-  //     height: '550px'
-  //   });
-  //   createUserDialog.afterClosed().subscribe((result) => {
-  //     this.getAgents();
-  //     this.create = false;
-  //   });
-  // }
+  onAddVendor(data: any) {
+    this.create = true;
+    const createUserDialog = this.dialog.open(VendorDetailComponent, {
+      data: {
+        role: 'TENANT_ADMIN',
+        parentData: data
+      },
+      // width: '408px',
+      height: '550px'
+    });
+    createUserDialog.afterClosed().subscribe((result) => {
+      this.getVendors();
+      this.create = false;
+    });
+  }
 
   ngAfterViewInit() {
     this.agentsDataSource.paginator = this.paginator;
