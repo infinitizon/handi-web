@@ -6,10 +6,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  FormBuilder,
+  FormControl,
   FormGroup,
-  UntypedFormBuilder,
-  UntypedFormControl,
-  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -84,7 +83,7 @@ export class GatewayDialogComponent implements OnInit {
   // public fileUploadControl = new FileUploadControl  ({ listVisible: true, accept: ['image/*'], discardInvalid: true, multiple: false }, FileUploadValidators.filesLimit(1));
 
   constructor(
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private router: Router,
     private commonService: CommonService,
     public _dialogRef: MatDialogRef<GatewayDialogComponent>,
@@ -232,7 +231,7 @@ export class GatewayDialogComponent implements OnInit {
 
   onControlChanged(ctrlName: string) {
     this.errors = this.commonService.controlnvalid(
-      this.myForm.get(ctrlName) as UntypedFormControl
+      this.myForm.get(ctrlName) as FormControl
     );
     if (Object.keys(this.errors).length === 0) {
       this.errors[ctrlName] = {};
