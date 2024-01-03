@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
   // styleUrls: ['./vendor-detail.component.scss'],
 })
 export class VendorDetailComponent implements OnInit {
-  receivingAgentForm!: FormGroup;
+  vendorForm!: FormGroup;
   submitting: boolean = false;
 
   errors: any = [];
@@ -48,7 +48,7 @@ export class VendorDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.receivingAgentForm = this.fb.group({
+    this.vendorForm = this.fb.group({
       name: ['', [Validators.required]],
       email: [
         '',
@@ -61,7 +61,7 @@ export class VendorDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    const fd = JSON.parse(JSON.stringify(this.receivingAgentForm.value));
+    const fd = JSON.parse(JSON.stringify(this.vendorForm.value));
     this.submitting = true;
     this.http
       .post(`${environment.baseApiUrl}/admin/tenants`, fd)
@@ -69,11 +69,9 @@ export class VendorDetailComponent implements OnInit {
       .subscribe(
         (response: any) => {
           this.submitting = false;
-          this.successSnackBar('Receiving Agent created successfully');
-          this.router.navigate([
-            '/app/receiving-agents/view/view-receiving-agent',
-          ]);
-          this.receivingAgentForm.reset();
+          this.successSnackBar('Vendor(s) created successfully');
+          this._dialogRef.close(response)
+          this.vendorForm.reset();
         },
         (errResp) => {
           this.submitting = false;
@@ -84,7 +82,7 @@ export class VendorDetailComponent implements OnInit {
 
   controlChanged(ctrlName: string) {
     this.errors = this.commonServices.controlnvalid(
-      this.receivingAgentForm.get(ctrlName) as FormControl
+      this.vendorForm.get(ctrlName) as FormControl
     );
     if (Object.keys(this.errors).length === 0) {
       this.errors[ctrlName] = {};
@@ -128,7 +126,7 @@ export class VendorDetailComponent implements OnInit {
         let blob = new Blob([response.body], {
           type: response.headers.get('content-type'),
         });
-        saveAs(blob, `Receiving Agent.xlsx`);
+        saveAs(blob, `Vendors.xlsx`);
       },
       (errResp) => {
         this.openSnackBar(errResp?.statusText);
@@ -159,7 +157,7 @@ export class VendorDetailComponent implements OnInit {
     });
   }
 
-  uploadAgent() {
+  uploadVendors() {
     this.submitting = true;
     if (!this.file) {
       this.openSnackBar('Add Proof');
@@ -167,15 +165,13 @@ export class VendorDetailComponent implements OnInit {
     } else {
       const formData = new FormData();
       formData.append('sheet', this.file[0]);
-      formData.append('fileType', 'agent');
+      formData.append('fileType', 'vendor');
       this.http
         .post(`${environment.baseApiUrl}/admin/tenants`, formData)
         .subscribe(
           (response: any) => {
-            this.successSnackBar('Receiving agents Uploaded Successfully');
-            this.router.navigate([
-              '/app/receiving-agents/view/view-receiving-agent',
-            ]);
+            this.successSnackBar('Vendors Uploaded Successfully');
+            this._dialogRef.close(response)
             this.submitting = false;
           },
           (errorResp) => {

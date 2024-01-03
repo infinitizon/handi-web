@@ -6,9 +6,9 @@
           <div class="auth-c1-wrapper">
             <div class="auth-body">
               <div class="auth-form-wrapper">
-                <form [formGroup]="receivingAgentForm" [autocomplete]="'off'">
+                <form [formGroup]="vendorForm" [autocomplete]="'off'">
                   <div class="form-group">
-                    <label>Receiving-agent Name</label>
+                    <label>Vendor Name</label>
                     <div class="input mt-1">
                       <mat-form-field appearance="outline" class="col-md-12 w-100">
                         <input autocomplete="off" matInput name="name" type="text" class="" placeholder="" formControlName="name" (keyup)="controlChanged('name')" />
@@ -63,7 +63,7 @@
                   </div>
 
                   <div class="button-wrapper mt-4">
-                    <button type="submit" class="submit-btn col-md-12 w-100" [disabled]="receivingAgentForm.invalid || submitting" (click)="onSubmit()">
+                    <button type="submit" class="submit-btn col-md-12 w-100" [disabled]="vendorForm.invalid || submitting" (click)="onSubmit()">
                       Submit <i *ngIf="submitting" class="ri-loader-4-fill"></i>
                     </button>
                   </div>
@@ -97,8 +97,8 @@
             </file-upload>
           </div>
           <div class="button-wrapper mt-4">
-            <button [disabled]="submitting" type="submit" class="upload-btn col-md-12 w-100" (click)="uploadAgent()">
-              Upload bulk Receiving-agent <i *ngIf="submitting" class="ri-loader-4-fill"></i>
+            <button [disabled]="submitting" type="submit" class="upload-btn col-md-12 w-100" (click)="uploadVendors()">
+              Upload bulk Vendors <i *ngIf="submitting" class="ri-loader-4-fill"></i>
             </button>
           </div>
           <div class="button-wrapper mt-4">

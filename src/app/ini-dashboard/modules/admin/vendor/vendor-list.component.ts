@@ -72,8 +72,10 @@ export class VendorListComponent implements OnInit {
         role: 'TENANT_ADMIN',
         parentData: data
       },
-      // width: '408px',
-      height: '550px'
+      width: '80vw',
+      maxWidth: '80vw',
+      height: '90vh',
+      maxHeight: '90vh',
     });
     createUserDialog.afterClosed().subscribe((result) => {
       this.getVendors();
