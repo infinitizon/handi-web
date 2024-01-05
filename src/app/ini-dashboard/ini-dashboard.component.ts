@@ -35,11 +35,12 @@ import { LogInComponent } from '@app/_shared/dialogs/log-in/log-in.component';
 import { LogoutDialogComponent } from '@app/_shared/dialogs/logout-dialog/logout-dialog.component';
 import { AuthService } from '@app/_shared/services/auth.service';
 import { environment } from '@environments/environment';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-ini-dashboard',
   templateUrl: './ini-dashboard.component.html',
-  styleUrls: ['./ini-dashboard.component.scss']
+  styleUrls: ['./ini-dashboard.component.scss'],
 })
 export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('sidenav') sidenav: any;
@@ -55,6 +56,8 @@ export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   isDialogOpen: boolean = false;
   userInformation: any;
   userSubscription$!: Subscription;
+  referrals: any;
+  role: any;
 
   constructor(
     public dialog: MatDialog,
@@ -63,17 +66,23 @@ export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     private appContext: ApplicationContextService,
     private ngZone: NgZone,
     public dashboardService: IniDashboardService,
-    private auth: AuthService
-  ) {
-
-  }
+    private auth: AuthService,
+    private clipboard: Clipboard,
+  ) {}
 
   ngOnInit() {
-    this.getUserInformation();
+    if (this.auth.isLoggedIn()) {
+      this.getUserInformation();
+    }
     this.setupSideBar();
     this.sidenavFunction();
   }
 
+
+
+  copyReferral() {
+    this.clipboard.copy(this.referrals);
+  }
 
   getUserInformation() {
     this.userSubscription$ = this.http
@@ -82,11 +91,12 @@ export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         (response: any) => {
           this.appContext.userInformation$.next(response.data);
           if (response) {
-            console.log(`this.userInformation => `, this.userInformation);
+            // console.log(`this.userInformation => `, this.userInformation);
 
             this.userInformation = response.data;
-            if(this.userInformation.firstLogin) {
-
+            this.referrals = this.userInformation?.refCode;
+            this.role = this.userInformation?.Tenant[0].Roles[0].name;
+            if (this.userInformation.firstLogin) {
             }
           }
         },
@@ -95,8 +105,8 @@ export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-
-    this.scroller?.elementScrolled()
+    this.scroller
+      ?.elementScrolled()
       .pipe(
         map(() => this.scroller.measureScrollOffset('bottom')),
         pairwise(),
@@ -154,21 +164,21 @@ export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   route(routeName: any) {
-       if(this.auth.isLoggedIn()) {
-         this.router.navigate([routeName]);
-       } else {
-        this.isDialogOpen = true;
-        const loginDialog = this.dialog.open(LogInComponent, {
-          data: {},
-          width: '552px',
-        });
+    if (this.auth.isLoggedIn()) {
+      this.router.navigate([routeName]);
+    } else {
+      this.isDialogOpen = true;
+      const loginDialog = this.dialog.open(LogInComponent, {
+        data: {},
+        width: '552px',
+      });
 
-        loginDialog.afterClosed().subscribe((result) => {
-          if (result) {
-          }
-          this.isDialogOpen = false;
-        });
-       }
+      loginDialog.afterClosed().subscribe((result) => {
+        if (result) {
+        }
+        this.isDialogOpen = false;
+      });
+    }
   }
 
   openLogOutDialog(): void {
@@ -179,8 +189,8 @@ export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.sidenavSubscription$) this.sidenavSubscription$.unsubscribe();
     if (this.sidenavClickSubscription$)
       this.sidenavClickSubscription$.unsubscribe();
-
-      this.userSubscription$.unsubscribe();
+      if (this.auth.isLoggedIn()) {
+    this.userSubscription$.unsubscribe();
+      }
   }
-
 }

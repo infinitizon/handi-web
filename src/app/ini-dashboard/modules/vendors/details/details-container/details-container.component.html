@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="profile-nav-wrapper">
+    <nav class="link-tab">
+      <a class="mx-4"
+      (click)="tab='info'"
+        ><span class="px-2 p"><i class="ri-user-3-line"></i></span> Personal
+        Info
+      </a>
+      <a class="mx-4"
+      (click)="tab='business'"
+        ><span class="px-2 m"><i class="ri-file-text-line"></i></span>Business Info
+      </a>
+    </nav>
+  </div>
+
+  <div class="profile-content-wrapper">
+    <app-vendor-info *ngIf="tab === 'info'" [data]="infoData"></app-vendor-info>
+    <app-vendor-business *ngIf="tab === 'business'"></app-vendor-business>
+  </div>
+</div>

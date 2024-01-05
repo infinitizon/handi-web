@@ -77,7 +77,7 @@ export class VerifyOtpComponent implements OnInit {
          token: this.otp
     }
     this.submitting = true;
-    this.http.patch(`${environment.baseApiUrl}/auth/user/signup-complete`, fd)
+    this.http.patch(`${environment.baseApiUrl}/auth/completeSignup`, fd)
       .subscribe((response: any) => {
         this.submitting = false;
         this.successSnackBar("Verification successful")
