@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
+import { GoogleMapsModule } from '@angular/google-maps'
+
 import { SharedModule } from '@app/_shared/shared.module';
 import { ViewHomeComponent } from './view/view-home/view-home.component';
 import { HomeRoutingModule } from './home-routing.module';
@@ -11,6 +13,7 @@ import { ViewProvidersComponent } from './view/view-providers/view-providers.com
 @NgModule({
   imports: [
     CommonModule,
+    GoogleMapsModule,
     SharedModule,
     HomeRoutingModule
   ],
