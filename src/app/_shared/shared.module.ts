@@ -25,7 +25,7 @@ import { LottieModule } from 'ngx-lottie';
 import { EmptyDataComponent } from './components/empty-data/empty-data.component';
 import { ColorPipe, ImagePipe } from './pipes/random-color.pipe';
 import { GatewayDialogComponent } from './dialogs/gateway-dialog/gateway-dialog.component';
-import { IConfig, provideEnvironmentNgxMask } from 'ngx-mask';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 import { LoaderComponent } from './components/loader/loader.component';
 
 const MY_DATE_FORMAT = {
@@ -44,9 +44,6 @@ export function playerFactory() {
   return import(/* webpackChunkName: 'lottie-web' */ 'lottie-web');
 }
 
-const maskConfig: Partial<IConfig> = {
-  validation: false,
-};
 
 @NgModule({
   declarations: [
@@ -68,7 +65,7 @@ const maskConfig: Partial<IConfig> = {
 
   ],
   providers: [
-    provideEnvironmentNgxMask(maskConfig)
+    provideNgxMask()
   ],
   imports: [
     CommonModule,
@@ -83,6 +80,7 @@ const maskConfig: Partial<IConfig> = {
     FileUploadModule,
     NgbModule,
     LottieModule.forRoot({ player: playerFactory }),
+    NgxMaskDirective, NgxMaskPipe
   ],
   exports: [
     CommonModule,
@@ -109,7 +107,8 @@ const maskConfig: Partial<IConfig> = {
     ImagePipe,
     GatewayDialogComponent,
     FileUploadModule,
-    LoaderComponent
+    LoaderComponent,
+    NgxMaskDirective, NgxMaskPipe
   ]
 })
 export class SharedModule { }

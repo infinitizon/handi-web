@@ -93,8 +93,17 @@
           <p class="menu-subtitle p-0 m-0">SUPPORT</p>
 
           <ul class="menu">
-            <li class="menu-item">
-              <a [routerLink]="['admin']" routerLinkActive="current">
+            <li class="menu-item" *ngIf="role === 'SUPER_ADMIN'">
+              <a (click)="route('/app/categories')" routerLinkActive="current">
+                <span class="dash-menu-icon">
+                  <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
+                  <!-- <i class="ri-home-line"></i> -->
+                </span>
+             Categories
+              </a>
+            </li>
+            <li class="menu-item" *ngIf="role === 'SUPER_ADMIN'">
+              <a (click)="route('/app/vendors')" [routerLink]="['vendors']" routerLinkActive="current">
                 <span class="dash-menu-icon">
                   <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
                   <!-- <i class="ri-home-line"></i> -->
@@ -145,7 +154,7 @@
       <div class="row align-items-center w-100">
         <!-- <div class="icon"></div> -->
         <div class="col-md-4 text">
-          <div class="d-flex justify-content-center justify-content-sm-center justify-content-md-start">
+          <div class="d-flex justify-content-center justify-content-sm-center justify-content-md-start pointer" routerLink="/vendors-onboarding/signup">
           <span
             ><img
               src="/assets/logo/sell.svg"
@@ -204,9 +213,12 @@
             </button>
             <!-- <span mat-menu-item class="profile-name" [matMenuTriggerFor]="menu" disableRipple>Hi{{'Test'? ', ' + 'Testing' : ''}}</span> -->
             <button mat-flat-button [matMenuTriggerFor]="menu" class="profile-menu">
-              <span *ngIf="true" class="profileName">
+              <span *ngIf="userInformation" class="profileName">
                 {{ (userInformation?.firstName | titlecase) | slice : 0 : 1 }}{{ (userInformation?.lastName| titlecase) | slice : 0 : 1 }}
               </span>
+              <span *ngIf="!userInformation" class="profileName">
+                <i class="ri-user-3-line"></i>
+                </span>
               <img *ngIf="false" [src]="" alt="" />
               <!-- <mat-icon>expand_more</mat-icon> -->
             </button>
@@ -223,10 +235,10 @@
                 </div>
                 <div class="d-flex align-items-start flex-column ml-4">
                   <div class="profile-title px-4 mb-0">
-                    <h3 class="mb-0">Settings</h3>
+                    <h3 class="mb-0">Profile</h3>
                   </div>
                   <div class="profile-subtitle px-4">
-                    <span>Profile, Cards, Notification & Security</span>
+                    <span>Profile, Orders, Security</span>
                   </div>
                 </div>
               </div>
@@ -251,12 +263,14 @@
                       <input
                         type="text"
                         class="form-control form-control-sm"
-                        placeholder="https://primaryoffer.ng/refer/223.."
+                        placeholder=""
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
+                        [(ngModel)]="referrals"
+
                       />
                       <span class="input-group-text" id="basic-addon2"
-                        >Copy link</span
+                        ><a (click)="copyReferral()">Copy link</a></span
                       >
                     </div>
                   </div>

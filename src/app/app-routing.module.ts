@@ -8,6 +8,10 @@ const routes: Routes = [
     loadChildren: () => import('./ini-website/ini-website.module').then(m => m.IniWebsiteModule)
   },
   {
+    path: 'vendors-onboarding',
+    loadChildren: () => import('./ini-vendors-website/ini-vendors-website.module').then(m => m.IniVendorsWebsiteModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./ini-dashboard/ini-dashboard.module').then(m => m.IniDashboardModule)
   },

@@ -301,7 +301,7 @@ body {
   line-height: 20px;
   letter-spacing: 0.035px;
   border: none;
-  background: var(--accent);
+  background: var(--primary);
   width: 100%;
 }
 
@@ -1119,7 +1119,7 @@ span.profileName {
 }
 
 .profile {
-  margin-top: 32px !important;
+  margin: 10px 0 !important;
 
   .profile-icon {
     i {
@@ -1451,7 +1451,7 @@ span.profileName {
 }
 
 .mat-mdc-menu-content {
-  padding: 37px 12px 37px 12px !important;
+  // padding: 37px 12px 37px 12px !important;
   border-radius: 16px !important;
   background: #fff !important;
   box-shadow: none !important;
@@ -2905,4 +2905,27 @@ input::placeholder {
     letter-spacing: 0.014px;
   }
 
+}
+
+
+.back-button-v2 {
+  a {
+    text-decoration: none;
+    width: 180px;
+    cursor: pointer;
+
+    i {
+      color: #191a1b;
+      font-size: 24px;
+    }
+
+    span {
+      color: var(--foundation-primary-primary-500, #191a1b);
+      font-family: DM Sans;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 130%;
+    }
+  }
 }
