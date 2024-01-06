@@ -74,8 +74,8 @@ export class AuthService {
     localStorage.removeItem('lastAction');
     localStorage.clear();
     this.redirectUrl = url;
-    // this.router.navigate(['/']);
-    window.location.reload();
+    this.router.navigate(['/']);
+    // window.location.reload();
     // console.log('Logging out >>>>>>');
 
     // document.location.reload();
