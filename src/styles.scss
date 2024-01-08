@@ -2929,3 +2929,45 @@ input::placeholder {
     }
   }
 }
+.back-button-v2 {
+  a {
+    text-decoration: none;
+    width: 100px;
+    cursor: pointer;
+
+    i {
+      color: #191a1b;
+      font-size: 24px;
+    }
+
+    span {
+      color: var(--foundation-primary-primary-500, #191a1b);
+      font-family: DM Sans;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 130%;
+    }
+  }
+}
+
+
+tr th {
+  border-style: none !important;
+}
+
+td,
+th {
+  height: 48px !important;
+  vertical-align: middle !important;
+}
+
+table {
+  --mat-table-row-item-outline-width: 1px;
+  table-layout: auto;
+  white-space: normal;
+  background-color: var(--mat-table-background-color);
+}
+
+
+a { text-decoration: none;}

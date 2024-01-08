@@ -43,7 +43,7 @@ export class VendorBusinessComponent implements OnInit {
      { }
 
   ngOnInit() {
-    // this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
     // if (this.authService.isLoggedIn()) {
     //   this.router.navigate(['/app']);
     // }
@@ -51,13 +51,13 @@ export class VendorBusinessComponent implements OnInit {
 
     this.signupForm = this.fb.group(
       {
-        name: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.pattern(this.commonServices.email)]],
+        name: [this.data[0]?.name, [Validators.required]],
+        email: [this.data[0]?.email, [Validators.required, Validators.pattern(this.commonServices.email)]],
         userId: [this.id],
-        category: ['', [Validators.required]],
-        address1: ['', [Validators.required]],
-        city: ['', [Validators.required]],
-        country: ['',[Validators.required]]
+        category: [this.data[0]?.category, [Validators.required]],
+        address1: [this.data[0]?.Addresses[0]?.no + ' ' + this.data[0]?.Addresses[0]?.address1, [Validators.required]],
+        city: [this.data[0]?.Addresses[0]?.city, [Validators.required]],
+        country: [this.data[0]?.Addresses[0]?.country,[Validators.required]]
       }
     );
 

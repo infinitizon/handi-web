@@ -1,17 +1,22 @@
 export const ValidationMessages = {
   title: {
-    required: 'Amount is required',
+    required: 'Title is required',
   },
   summary: {
-    required: 'Payment is required',
+    required: 'Summary is required',
+  },
+  sku: {
+    required: 'Sku is required',
   }
 };
 export let FormErrors = {
   title: '',
-  summary: ''
+  summary: '',
+  sku: ''
 };
 
-export interface Gateway {
+export interface Category {
   title: string;
   summary: string;
+  sku: string;
 }

@@ -1,4 +1,5 @@
 <div class="container-fluid">
+
   <div class="profile-nav-wrapper">
     <nav class="link-tab">
       <a class="mx-4"
@@ -12,9 +13,19 @@
       </a>
     </nav>
   </div>
-
-  <div class="profile-content-wrapper">
+  <div class="back-button-v2 mt-3 mx-5">
+    <a
+      (click)="goBack()"
+      class="d-flex justify-content-between align-items-center  p-0"
+      ><i class="ri-arrow-left-line"></i><span>Back</span></a
+    >
+  </div>
+  <div class="profile-content-wrapper" *ngIf="!container['loading']">
     <app-vendor-info *ngIf="tab === 'info'" [data]="infoData"></app-vendor-info>
-    <app-vendor-business *ngIf="tab === 'business'"></app-vendor-business>
+    <app-vendor-business *ngIf="tab === 'business'" [data]="infoData"></app-vendor-business>
+  </div>
+
+  <div *ngIf="container['loading']">
+    <app-loader></app-loader>
   </div>
 </div>

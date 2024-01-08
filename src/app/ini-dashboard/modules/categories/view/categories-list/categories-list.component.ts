@@ -14,9 +14,11 @@ import { AddCategoryComponent } from '../../dialog/add-category/add-category.com
 })
 export class CategoriesListComponent implements OnInit {
   categoriesDisplayedColumns: any = [
+    { name:'expand', title:  '', type: 'expand' },
     { name: 'title', title: 'Title', type: '' },
     { name: 'summary', title: 'Summary', type: '' },
-    { name: 'createdAt', title: 'Date', type: 'date' }
+    { name: 'createdAt', title: 'Date', type: 'date' },
+    { name: 'action', title: '', type: '' },
   ];
   categoriesDataSource = new MatTableDataSource<any>([]);
   categoriesColumnsToDisp = this.categoriesDisplayedColumns.map((col: any) => col.name);
@@ -45,7 +47,7 @@ export class CategoriesListComponent implements OnInit {
       .get(`${environment.baseApiUrl}/products/category`)
       .subscribe(
         (response: any) => {
-          this.categoriesDataSource = new MatTableDataSource<any>(response);
+          this.container['category'] = response;
           // this.total_count = response.data.length;
           this.container['categoriesLoading'] = false;
         },
@@ -61,7 +63,9 @@ export class CategoriesListComponent implements OnInit {
   }
 
   addCategory() {
-    const data = {};
+    const data = {
+      type: 'category'
+    };
     const categoryDialog = this.dialog.open(AddCategoryComponent, {
       data,
       minWidth: '30%',
@@ -69,13 +73,14 @@ export class CategoriesListComponent implements OnInit {
     });
 
     categoryDialog.afterClosed().subscribe((response) => {
-      this.categoriesDataSource = new MatTableDataSource<any>([]);
+      this.container['category'] = [];
        this.getCategories();
     })
   }
 
   viewCategory(element: any) {
     const data = {};
+    element.type = 'category';
     const categoryDialog = this.dialog.open(AddCategoryComponent, {
       data: element,
       minWidth: '30%',
@@ -83,7 +88,24 @@ export class CategoriesListComponent implements OnInit {
     });
 
     categoryDialog.afterClosed().subscribe((response) => {
-      this.categoriesDataSource = new MatTableDataSource<any>([]);
+      this.container['category'] = [];
+       this.getCategories();
+    })
+  }
+
+  addSubCategory(element:any) {
+    const data = {
+      type: 'sub_category',
+      pId: element.id
+    };
+    const categoryDialog = this.dialog.open(AddCategoryComponent, {
+      data,
+      minWidth: '30%',
+      disableClose: false,
+    });
+
+    categoryDialog.afterClosed().subscribe((response) => {
+      this.container['category'] = [];
        this.getCategories();
     })
   }

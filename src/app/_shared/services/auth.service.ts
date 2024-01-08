@@ -75,7 +75,7 @@ export class AuthService {
     localStorage.clear();
     this.redirectUrl = url;
     this.router.navigate(['/']);
-    // window.location.reload();
+    window.location.reload();
     // console.log('Logging out >>>>>>');
 
     // document.location.reload();
