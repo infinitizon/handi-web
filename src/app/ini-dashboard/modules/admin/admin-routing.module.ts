@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
-import { VendorListComponent } from './vendor/vendor-list.component';
 
 const routes: Routes = [
   {
@@ -9,13 +8,21 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
-        path: 'vendor',
-        component: VendorListComponent
+        path: 'product-xter',
+        loadChildren: () => import('./product-xter/product-xter.module').then(m => m.ProductXterModule),
       },
-      { path: '', redirectTo: 'vendor', pathMatch: 'full' }
+      {
+        path: 'vendors',
+        loadChildren: () => import('./vendors/vendors.module').then(m => m.VendorsModule),
+      },
+      {
+        path: 'categories',
+        loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule),
+      },
+      { path: '', redirectTo: 'vendors', pathMatch: 'full' }
     ]
   },
-  { path: '', redirectTo: '/app/admin/vendor', pathMatch: 'full' },
+  { path: '', redirectTo: '/app/admin/vendors', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -90,20 +90,19 @@
             </li> -->
           </ul>
 
-          <p class="menu-subtitle p-0 m-0">SUPPORT</p>
-
-          <ul class="menu">
-            <li class="menu-item" *ngIf="role === 'SUPER_ADMIN'">
-              <a (click)="route('/app/categories')" routerLinkActive="current">
+          <p class="menu-subtitle p-0 m-0" *ngIf="role === 'SUPER_ADMIN'">ADMIN</p>
+          <ul class="menu" *ngIf="role === 'SUPER_ADMIN'">
+            <li class="menu-item">
+              <a (click)="route('/app/admin/categories')" routerLinkActive="current">
                 <span class="dash-menu-icon">
                   <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
                   <!-- <i class="ri-home-line"></i> -->
                 </span>
-             Categories
+                Categories
               </a>
             </li>
-            <li class="menu-item" *ngIf="role === 'SUPER_ADMIN'">
-              <a (click)="route('/app/vendors')" [routerLink]="['vendors']" routerLinkActive="current">
+            <li class="menu-item">
+              <a (click)="route('/app/admin/vendors')" routerLinkActive="current">
                 <span class="dash-menu-icon">
                   <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
                   <!-- <i class="ri-home-line"></i> -->
@@ -111,6 +110,19 @@
                 Vendors
               </a>
             </li>
+            <li class="menu-item">
+              <a (click)="route('/app/admin/product-xter')" routerLinkActive="current">
+                <span class="dash-menu-icon">
+                  <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
+                  <!-- <i class="ri-home-line"></i> -->
+                </span>
+                Characters
+              </a>
+            </li>
+          </ul>
+          <p class="menu-subtitle p-0 m-0">SUPPORT</p>
+
+          <ul class="menu">
             <li class="menu-item">
               <a [routerLink]="['home']" routerLinkActive="current">
                 <span class="dash-menu-icon">
