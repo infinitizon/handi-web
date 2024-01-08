@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -13,10 +14,11 @@ export class DetailsContainerComponent implements OnInit {
   tab = 'info';
   infoSubscription$!: Subscription;
   container: any = {};
-  infoData: any = {};
+  infoData: any;
   constructor(
     public aRoute: ActivatedRoute,
     private http: HttpClient,
+    private location: Location,
   ) { }
 
   ngOnInit() {
@@ -24,15 +26,19 @@ export class DetailsContainerComponent implements OnInit {
     .pipe(
       switchMap((params: any) => {
         this.container['loading'] = true;
-        return params.get('id') ? this.http.get(`${environment.baseApiUrl}/admins/vendors/${params.get('id')}`) : of({data: {}});
+        return params.get('id') ? this.http.get(`${environment.baseApiUrl}/admin/vendors/${params.get('id')}?includes=users&roles=provider_admin`) : of({data: {}});
       })
       // ).subscribe((security: any)  => {
     )
     .subscribe((response: any) => {
-      this.infoData = response.data
+      this.infoData = response.data;
       this.container['loading'] = false;
 
     });
   }
+
+  goBack() {
+    this.location.back();
+}
 
 }

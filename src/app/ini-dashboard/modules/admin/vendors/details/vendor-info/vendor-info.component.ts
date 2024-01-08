@@ -43,13 +43,12 @@ export class VendorInfoComponent implements OnInit {
      { }
 
   ngOnInit() {
-
     this.signupForm = this.fb.group(
       {
-        firstName: [this.data?.firstName, [Validators.required]],
-        lastName: [this.data?.lastName, [Validators.required]],
-        email: [this.data?.email, [Validators.required, Validators.pattern(this.commonServices.email)]],
-        phone: [this.data?.phone, [Validators.required]],
+        firstName: [this.data[0]?.TenantUserRoles[0]?.User?.firstName, [Validators.required]],
+        lastName: [this.data[0]?.TenantUserRoles[0]?.User?.lastName, [Validators.required]],
+        email: [this.data[0]?.TenantUserRoles[0]?.User?.email, [Validators.required, Validators.pattern(this.commonServices.email)]],
+        phone: [this.data[0]?.TenantUserRoles[0]?.User?.phone, [Validators.required]],
         // password: [
         //   '',
         //   [

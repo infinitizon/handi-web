@@ -39,7 +39,11 @@ export class AddCategoryComponent implements OnInit {
   ngOnInit() {
     this.categoryForm = this.fb.group({
       title: [this.data?.title, [Validators.required]],
-      summary: [this.data?.summary, [Validators.required]]
+      summary: [this.data?.summary, [Validators.required]],
+      sku: [this.data?.sku, [Validators.required]],
+      type: [this.data?.type],
+      description: [''],
+      // pId: [this.data?.pId || '']
     })
   }
 
@@ -56,11 +60,15 @@ export class AddCategoryComponent implements OnInit {
         return;
       }
       const fd = JSON.parse(JSON.stringify(this.categoryForm.value));
+      fd.description = fd.summary;
+      if(fd.type === 'sub_category') {
+        fd.pId = this.data.pId
+      }
       const payload = {...this.data, ...fd};
       (this.data?.id ? this.http
-        .patch(`${environment.baseApiUrl}/users/beneficiary/${this.data.id}`, payload) :
+        .patch(`${environment.baseApiUrl}/admin/products/${this.data.id}`, payload) :
         this.http
-        .post(`${environment.baseApiUrl}/users/beneficiary`, fd))
+        .post(`${environment.baseApiUrl}/admin/products`, fd))
         .subscribe(
           (response: any) => {
             this.container['submitting'] = false;
