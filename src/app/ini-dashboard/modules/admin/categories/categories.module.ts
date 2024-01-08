@@ -5,7 +5,7 @@ import { SharedModule } from '@app/_shared/shared.module';
 import { CategoriesListComponent } from './view/categories-list/categories-list.component';
 import { CategoriesRoutingModule } from './categories-routing.module';
 import { AddCategoryComponent } from './dialog/add-category/add-category.component';
-// import { SubCategoriesListComponent } from './view/sub-categories-list/sub-categories-list.component';
+import { SubCategoriesListComponent } from './view/sub-categories-list/sub-categories-list.component';
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { AddCategoryComponent } from './dialog/add-category/add-category.compone
     CategoriesComponent,
     CategoriesListComponent,
     AddCategoryComponent,
-    // SubCategoriesListComponent
+    SubCategoriesListComponent
   ]
 })
 export class CategoriesModule { }

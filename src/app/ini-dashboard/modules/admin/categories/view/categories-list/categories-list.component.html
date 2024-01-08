@@ -49,7 +49,6 @@
                   </th>
                 </tr>
             </thead>
-
             <tbody>
               <tr *ngIf="container['category']?.length <= 0">
                 <td  [attr.colspan]="categoriesDisplayedColumns.length" class="text-center">{{'Loading new data!!!'}}</td>
@@ -77,7 +76,7 @@
                 <ng-container *ngIf="element.expanded">
                   <tr>
                     <td [attr.colspan]="categoriesDisplayedColumns.length">
-                      <!-- <app-sub-categories-list [subCategory]="element"></app-sub-categories-list> -->
+                      <app-sub-categories-list [subCategory]="element"></app-sub-categories-list>
                     </td>
                   </tr>
                 </ng-container>
