@@ -46,14 +46,13 @@ export class AddProductXterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.data?.Product);
+    console.log(this.data);
 
     this.categoryForm = this.fb.group({
-      category: [this.data?.Product?.id, [Validators.required]],
-      name: [this.data?.name, [Validators.required]],
-      type: [this.data?.type, [Validators.required]],
-      minPrice: [this.data?.minPrice, [Validators.required]],
-      maxPrice: [this.data?.maxPrice, [Validators.required]],
+      name: [this.data?.xter?.name, [Validators.required]],
+      type: [this.data?.xter?.type, [Validators.required]],
+      minPrice: [this.data?.xter?.minPrice, [Validators.required]],
+      maxPrice: [this.data?.xter?.maxPrice, [Validators.required]],
     })
     this.getCategories();
   }
@@ -86,11 +85,11 @@ export class AddProductXterComponent implements OnInit {
       }
       const fd = JSON.parse(JSON.stringify(this.categoryForm.value));
       // Check for changes
-      (this.data?.maxPrice == fd.maxPrice ) ? delete fd.maxPrice : 0;
-      (this.data?.minPrice == fd.minPrice ) ? delete fd.minPrice : 0;
-      (this.data?.misc == fd.misc ) ? delete fd.misc : 0;
-      (this.data?.name == fd.name ) ? delete fd.name : 0;
-      (this.data?.type == fd.type ) ? delete fd.type : 0;
+      (this.data?.xter?.maxPrice == fd.maxPrice ) ? delete fd.maxPrice : 0;
+      (this.data?.xter?.minPrice == fd.minPrice ) ? delete fd.minPrice : 0;
+      (this.data?.xter?.misc == fd.misc ) ? delete fd.misc : 0;
+      (this.data?.xter?.name == fd.name ) ? delete fd.name : 0;
+      (this.data?.xter?.type == fd.type ) ? delete fd.type : 0;
 
       if(Object.keys(fd)?.length === 1 && fd.category) {
         this.errorSnackBar('There are no changes detected');
@@ -99,10 +98,10 @@ export class AddProductXterComponent implements OnInit {
       }
       // console.log(fd);return;
       // const payload = {...this.data, ...fd};
-      (this.data?.id ? this.http
-        .patch(`${environment.baseApiUrl}/admin/product/xteristics/${this.data.id}`, fd) :
+      (this.data?.xter?.id ? this.http
+        .patch(`${environment.baseApiUrl}/admin/product/xteristics/${this.data?.xter?.id}`, fd) :
         this.http
-        .post(`${environment.baseApiUrl}/admin/product/xteristics`, fd))
+        .post(`${environment.baseApiUrl}/admin/product/${this.data?.category?.id}/xteristics`, fd))
         .subscribe(
           (response: any) => {
             this.container['submitting'] = false;

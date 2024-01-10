@@ -1,7 +1,4 @@
 export const ValidationMessages = {
-  category: {
-    required: 'Category is required',
-  },
   name: {
     required: 'Character name is required',
   },
@@ -16,7 +13,6 @@ export const ValidationMessages = {
   },
 };
 export let FormErrors = {
-  category: '',
   name: '',
   type: '',
   minPrice: '',
@@ -24,7 +20,6 @@ export let FormErrors = {
 };
 
 export interface Gateway {
-  category: string;
   name: string;
   type: string;
   minPrice: string;

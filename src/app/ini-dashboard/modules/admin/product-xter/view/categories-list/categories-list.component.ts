@@ -5,22 +5,20 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { environment } from '@environments/environment';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { AddProductXterComponent } from '../../dialog/add-product-xter/add-product-xter.component';
 
 @Component({
-  selector: 'product-xter-list',
-  templateUrl: './product-xter-list.component.html',
-  styleUrls: ['./product-xter-list.component.scss']
+  selector: 'app-categories-list',
+  templateUrl: './categories-list.component.html',
+  styleUrls: ['./categories-list.component.scss']
 })
-export class ProductXterListComponent implements OnInit {
-  @Input() category: any;
+export class CategoriesListComponent implements OnInit {
 
   categoriesDisplayedColumns: any = [
-    { name: 'name', title: 'Character', type: '' },
+    { name: 'expand', title:  '', type: 'expand' },
+    { name: 'title', title: 'Title', type: '' },
     { name: 'summary', title: 'Summary', type: '' },
-    { name: 'minPrice', title: 'Min Price', type: 'money' },
-    { name: 'maxPrice', title: 'Max Price', type: 'money' },
-    { name: 'createdAt', title: 'Date', type: 'date' }
+    { name: 'createdAt', title: 'Date', type: 'date' },
+    { name: 'action', title: '', type: '' },
   ];
   categoriesDataSource = new MatTableDataSource<any>([]);
   categoriesColumnsToDisp = this.categoriesDisplayedColumns.map((col: any) => col.name);
@@ -46,10 +44,10 @@ export class ProductXterListComponent implements OnInit {
   getCategories() {
     this.container['categoriesLoading'] = true;
     this.http
-      .get(`${environment.baseApiUrl}/admin/product/${this.category?.id}/xteristics`)
+      .get(`${environment.baseApiUrl}/products/category`)
       .subscribe(
         (response: any) => {
-          this.categoriesDataSource = new MatTableDataSource<any>(response?.data);
+          this.container['category'] = response;
           // this.total_count = response.data.length;
           this.container['categoriesLoading'] = false;
         },
@@ -64,21 +62,8 @@ export class ProductXterListComponent implements OnInit {
     this.categoriesDataSource.paginator = this.paginator;
   }
 
-  onCategoryDetailClick(xter: any) {
-    const categoryDialog = this.dialog.open(AddProductXterComponent, {
-      data: {category: this.category, xter},
-      minWidth: '30%',
-      disableClose: false,
-    });
-
-    categoryDialog.afterClosed().subscribe((response) => {
-      this.categoriesDataSource = new MatTableDataSource<any>([]);
-       this.getCategories();
-    })
-  }
-
-
   goBack() {
     this.location.back();
   }
+
 }

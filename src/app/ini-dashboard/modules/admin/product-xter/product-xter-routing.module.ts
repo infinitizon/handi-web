@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProductXterComponent } from './product-xter.component';
-import { ProductXterListComponent } from './view/product-xter-list/product-xter-list.component';
+import { CategoriesListComponent } from './view/categories-list/categories-list.component';
 
 const routes: Routes = [
   {
@@ -10,7 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: 'view',
-        component: ProductXterListComponent
+        component: CategoriesListComponent
       },
       { path: '', redirectTo: 'view', pathMatch: 'full' }
     ]

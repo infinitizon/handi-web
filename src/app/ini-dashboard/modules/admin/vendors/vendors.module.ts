@@ -7,6 +7,7 @@ import { VendorsRoutingModule } from './vendors-routing.module';
 import { DetailsContainerComponent } from './details/details-container/details-container.component';
 import { VendorBusinessComponent } from './details/vendor-business/vendor-business.component';
 import { VendorInfoComponent } from './details/vendor-info/vendor-info.component';
+import { VendorUsersListComponent } from './view/vendor-users-list/vendor-users-list.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { VendorInfoComponent } from './details/vendor-info/vendor-info.component
   declarations: [
     VendorsComponent,
     VendorsListComponent,
+    VendorUsersListComponent,
     DetailsContainerComponent,
     VendorBusinessComponent,
     VendorInfoComponent

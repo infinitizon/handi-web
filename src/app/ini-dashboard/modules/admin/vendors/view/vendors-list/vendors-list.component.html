@@ -59,7 +59,7 @@
                 <ng-container *ngIf="element.expanded">
                   <tr>
                     <td [attr.colspan]="vendorsDisplayedColumns.length">
-                      <!-- <vendor-sub-categories-list [category]="element"></vendor-sub-categories-list> -->
+                      <app-vendor-users-list [tenant]="element"></app-vendor-users-list>
                     </td>
                   </tr>
                 </ng-container>
