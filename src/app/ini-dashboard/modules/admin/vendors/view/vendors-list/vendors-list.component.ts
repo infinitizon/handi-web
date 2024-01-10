@@ -13,10 +13,11 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class VendorsListComponent implements OnInit {
   vendorsDisplayedColumns: any = [
+    { name: 'expand', title:  '', type: 'expand' },
     { name: 'name', title: 'Business Name', type: '' },
     { name: 'email', title: 'Email', type: '' },
     { name: 'phone', title: 'phone', type: '' },
-    // { name: 'createdAt', title: 'Date', type: 'date' }
+    { name: 'createdAt', title: 'Date', type: 'date' }
   ];
   vendorsDataSource = new MatTableDataSource<any>([]);
   vendorsColumnsToDisp = this.vendorsDisplayedColumns.map((col: any) => col.name);
@@ -44,7 +45,8 @@ export class VendorsListComponent implements OnInit {
       .get(`${environment.baseApiUrl}/admin/vendors`)
       .subscribe(
         (response: any) => {
-          this.vendorsDataSource = new MatTableDataSource<any>(response.data);
+          // this.vendorsDataSource = new MatTableDataSource<any>(response.data);
+          this.container['vendors'] = response.data;
           // this.total_count = response.data.length;
           this.container['vendorsLoading'] = false;
         },

@@ -120,6 +120,18 @@
               </a>
             </li>
           </ul>
+          <p class="menu-subtitle p-0 m-0" *ngIf="role === 'PROVIDER_ADMIN'">VENDOR</p>
+          <ul class="menu" *ngIf="role === 'PROVIDER_ADMIN'">
+            <li class="menu-item">
+              <a (click)="route('/app/admin/vendor/configure')" routerLinkActive="current">
+                <span class="dash-menu-icon">
+                  <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
+                  <!-- <i class="ri-home-line"></i> -->
+                </span>
+                Configure Sub-Category
+              </a>
+            </li>
+          </ul>
           <p class="menu-subtitle p-0 m-0">SUPPORT</p>
 
           <ul class="menu">
