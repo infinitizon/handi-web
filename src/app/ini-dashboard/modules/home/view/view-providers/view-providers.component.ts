@@ -1,4 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { IniDashboardService } from '@app/ini-dashboard/ini-dashboard.service';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-view-providers',
@@ -7,9 +11,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewProvidersComponent implements OnInit {
 
-  constructor() { }
+  container: any = {
+    providersLoading: true
+  };
+  providersData: any;
+  id: any;
+  constructor(
+    public dashboardService: IniDashboardService,
+    private http: HttpClient,
+    private activatedRoute: ActivatedRoute,
+  ) { }
 
   ngOnInit() {
+   this.id = this.activatedRoute.snapshot.paramMap.get('id');
+   this.getProviders();
+  }
+
+
+  getProviders() {
+   let coords: any = localStorage.getItem('coords');
+   const coord = JSON.parse(coords);
+    this.container['providersLoading'] = true;
+    this.http
+      .get(`${environment.baseApiUrl}/products/${this.id}/tenants?lat=${coord?.lat}&lng=${coord?.lng}`)
+      .subscribe(
+        (response: any) => {
+          this.providersData = response.data;
+          this.container['providersLoading'] = false; },
+        (errResp) => {
+          this.container['providersLoading'] = false;
+        }
+      );
   }
 
 }

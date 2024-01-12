@@ -4,7 +4,7 @@
   </div>
 
   <div class="providers-wrapper">
-    <div class="providers-header d-flex">
+    <!-- <div class="providers-header d-flex">
       <div class="providers-item d-flex flex-column align-items-center pe-5">
         <div class="providers-item-img">
           <img src="/assets/img/filter.svg" alt="Filter image" />
@@ -49,10 +49,19 @@
           <p>Auto Mobile</p>
         </div>
       </div>
+    </div> -->
+    <div
+    class="services-header d-flex justify-content-between align-items-center"
+  >
+    <div class="services-header-title v1">
+      <h4>Select a service provider</h4>
+      <p>
+        You can pick one out of our wide selection of providers.
+      </p>
     </div>
-
+  </div>
     <div class="providers-content pe-5">
-      <div class="d-flex bd-highlight mb-3 align-items-center">
+      <div class="d-flex bd-highlight mb-3 align-items-center" *ngFor="let p of providersData">
         <div class="bd-highlight">
           <div class="providers-content-img-wrapper">
             <img src="/assets/img/provider-1.svg" alt="Provider image" />
@@ -61,10 +70,10 @@
         <div class="px-2 px-sm-2 px-md-4 bd-highlight">
           <div class="d-flex flex-column">
             <div class="providers-text">
-              <h4 class="p-0 m-0">Ayelabowo Services</h4>
+              <h4 class="p-0 m-0">{{p?.name}}</h4>
             </div>
             <div class="mt-1 providers-text">
-              <span> 2.7 KM | Ikosi, Ketu Alapere </span>
+              <span> {{p?.Addresses[0].distance | number:"1.2-2"}} KM | {{p?.Addresses[0].address1}}, {{p?.Addresses[0].city}} </span>
             </div>
           </div>
         </div>
@@ -82,65 +91,6 @@
         </div>
       </div>
 
-      <div class="d-flex bd-highlight mb-3 align-items-center">
-        <div class="bd-highlight">
-          <div class="providers-content-img-wrapper">
-            <img src="/assets/img/provider-2.svg" alt="Provider image" />
-          </div>
-        </div>
-        <div class="px-2 px-sm-2 px-md-4 bd-highlight">
-          <div class="d-flex flex-column">
-            <div class="providers-text">
-              <h4 class="p-0 m-0">Ayelabowo Services</h4>
-            </div>
-            <div class="mt-1 providers-text">
-              <span> 2.7 KM | Ikosi, Ketu Alapere </span>
-            </div>
-          </div>
-        </div>
-        <div class="ms-auto bd-highlight d-flex flex-column align-items-center">
-          <div class="providers-rating-wrapper">
-            <span>4.2</span>
-          </div>
-          <div class="providers-icon-wrapper">
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-          </div>
-        </div>
-      </div>
-
-      <div class="d-flex bd-highlight mb-3 align-items-center">
-        <div class="bd-highlight">
-          <div class="providers-content-img-wrapper">
-            <img src="/assets/img/provider-3.svg" alt="Provider image" />
-          </div>
-        </div>
-        <div class="px-2 px-sm-2 px-md-4 bd-highlight">
-          <div class="d-flex flex-column">
-            <div class="providers-text">
-              <h4 class="p-0 m-0">Ayelabowo Services</h4>
-            </div>
-            <div class="mt-1 providers-text">
-              <span> 2.7 KM | Ikosi, Ketu Alapere </span>
-            </div>
-          </div>
-        </div>
-        <div class="ms-auto bd-highlight d-flex flex-column align-items-center">
-          <div class="providers-rating-wrapper">
-            <span>5.0</span>
-          </div>
-          <div class="providers-icon-wrapper">
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>

@@ -76,6 +76,19 @@ export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.setupSideBar();
     this.sidenavFunction();
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position=>{
+        let coords: any =  {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+        localStorage.setItem('coords', JSON.stringify(coords));
+
+      });
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
   }
 
 
