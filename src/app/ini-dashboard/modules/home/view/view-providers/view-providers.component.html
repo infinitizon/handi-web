@@ -61,7 +61,7 @@
     </div>
   </div>
     <div class="providers-content pe-5">
-      <div class="d-flex bd-highlight mb-3 align-items-center" *ngFor="let p of providersData">
+      <div class="d-flex bd-highlight mb-3 align-items-center" *ngFor="let p of providersData" (click)="navigateToProviderXteristics(p)">
         <div class="bd-highlight">
           <div class="providers-content-img-wrapper">
             <img src="/assets/img/provider-1.svg" alt="Provider image" />

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IniDashboardService } from '@app/ini-dashboard/ini-dashboard.service';
 import { environment } from '@environments/environment';
 
@@ -20,6 +20,7 @@ export class ViewProvidersComponent implements OnInit {
     public dashboardService: IniDashboardService,
     private http: HttpClient,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -42,6 +43,10 @@ export class ViewProvidersComponent implements OnInit {
           this.container['providersLoading'] = false;
         }
       );
+  }
+  navigateToProviderXteristics(p: any) {
+    console.log(this.id, p)
+    this.router.navigate(['/app/home/provider', p.id, this.id, 'characteristics'])
   }
 
 }

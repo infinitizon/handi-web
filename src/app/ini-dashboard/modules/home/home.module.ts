@@ -9,6 +9,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { ViewCategoriesComponent } from './view/view-categories/view-categories.component';
 import { ViewSubCategoriesComponent } from './view/view-sub-categories/view-sub-categories.component';
 import { ViewProvidersComponent } from './view/view-providers/view-providers.component';
+import { ViewProviderAttrComponent } from './view/view-provider-attr/provider-attr.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { ViewProvidersComponent } from './view/view-providers/view-providers.com
     ViewHomeComponent,
     ViewCategoriesComponent,
     ViewSubCategoriesComponent,
-    ViewProvidersComponent
+    ViewProvidersComponent,
+    ViewProviderAttrComponent,
   ]
 })
 export class HomeModule { }
