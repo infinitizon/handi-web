@@ -45,8 +45,7 @@ export class ViewProvidersComponent implements OnInit {
       );
   }
   navigateToProviderXteristics(p: any) {
-    console.log(this.id, p)
-    this.router.navigate(['/app/home/provider', p.id, this.id, 'characteristics'])
+    this.router.navigate(['/app/home/view-checkout', p.id, this.id, 'characteristics'])
   }
 
 }

@@ -1,0 +1,93 @@
+<div class="container-fluid px-2 px-sm-2 px-md-4 px-lg-4 pb-5" *ngIf="!container['providersLoading']">
+  <div class="col-md-12 back-wrapper">
+    <in-backbutton></in-backbutton>
+  </div>
+
+  <div class="checkout-wrapper">
+    <div
+      class="checkout-header d-flex justify-content-center align-items-center"
+    >
+      <div class="checkout-header-title v1">
+        <h4>Checkout</h4>
+        <p>
+          <!-- You can pick one out of our wide selection of providers. -->
+        </p>
+      </div>
+    </div>
+
+    <div class="checkout-body">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="address-wrapper">
+          <div class="address-header">
+            <h3>Delivery Address</h3>
+          </div>
+
+          <div class="address-body">
+            <div class="address-text">
+              <h5>Riley Sanchez</h5>
+              <h6 class="m-0">
+                16 Ajanlekoko Street, oloriburuku Lane, Ikota, Lagos +234
+                8004567907
+              </h6>
+              <div class="default">
+                <a>Default Address</a>
+                <a class="mx-3">Change Address</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="items-wrapper">
+          <div class="items-header">
+            <h3>Items</h3>
+          </div>
+
+          <form [formGroup]="priceForm" [autocomplete]="'off'" *ngIf="providerXterData" >
+          <div class="items-body" *ngFor="let p of providerXterData let i = index;">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex flex-column">
+                <div class="name">
+                  <p>{{p?.ProductCharacter?.name}}</p>
+                  <span>₦{{p?.price | number}}</span>
+                </div>
+              </div>
+              <div *ngIf="p?.ProductCharacter?.type == 'inc_dcr'">
+                <div class="value-button" id="decrease" (click)="decrement(p)" value="Decrease Value">-</div>
+                <input type="number" id="number"  [formControlName]="p?.ProductCharacter?.name" />
+                <div class="value-button" id="increase" (click)="increment(p)" value="Increase Value">+</div>
+              </div>
+              <div *ngIf="['string','number'].includes(p?.ProductCharacter?.type)">
+                <input class="w-100" [type]="p?.ProductCharacter?.type" id="number" [formControlName]="p?.ProductCharacter?.name" />
+              </div>
+            </div>
+          </div>
+        </form>
+
+        </div>
+        <div class="price-wrapper">
+                <div class="d-flex justify-content-between">
+                  <div class="total">
+                    <span>Total ({{providerXterData?.length}}):</span>
+                  </div>
+                  <div class="total">
+                    <!-- <span>N16,5000</span> -->
+                  </div>
+                </div>
+
+                <div class="price-btn mt-3">
+                  <button (click)="onSubmit()" type="submit" class="action-btn col-md-12 w-100" [disabled]="container['submitting']">
+                    <div class="d-flex justify-content-center align-items-center">
+                    <span>Proceed</span> &nbsp;<i *ngIf="container['submitting']" style="font-size: 14px;" class="ri-arrow-right-line"></i>
+                  </div>
+                  </button>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="container['providersLoading']">
+  <app-loader></app-loader>
+</div>

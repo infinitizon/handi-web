@@ -10,6 +10,7 @@ import { ViewCategoriesComponent } from './view/view-categories/view-categories.
 import { ViewSubCategoriesComponent } from './view/view-sub-categories/view-sub-categories.component';
 import { ViewProvidersComponent } from './view/view-providers/view-providers.component';
 import { ViewProviderAttrComponent } from './view/view-provider-attr/provider-attr.component';
+import { ViewCheckoutComponent } from './view/view-checkout/view-checkout.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { ViewProviderAttrComponent } from './view/view-provider-attr/provider-at
     ViewSubCategoriesComponent,
     ViewProvidersComponent,
     ViewProviderAttrComponent,
+    ViewCheckoutComponent
   ]
 })
 export class HomeModule { }
