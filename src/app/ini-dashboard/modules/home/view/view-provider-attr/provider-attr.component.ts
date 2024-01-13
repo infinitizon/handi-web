@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IniDashboardService } from '@app/ini-dashboard/ini-dashboard.service';
 import { environment } from '@environments/environment';
@@ -17,7 +18,9 @@ export class ViewProviderAttrComponent implements OnInit {
   providerXterData: any;
   providerId: any;
   subCategoryId: any;
+  priceForm!: FormGroup;
   constructor(
+    private fb: FormBuilder,
     public dashboardService: IniDashboardService,
     private http: HttpClient,
     private aRoute: ActivatedRoute,
@@ -42,7 +45,12 @@ export class ViewProviderAttrComponent implements OnInit {
         (response: any) => {
           this.providerXterData = response.data;
           console.log(this.providerXterData);
+          const group: any = {};
 
+          this.providerXterData.forEach((xter: any) => {
+            group[xter?.ProductCharacter?.name] = new FormControl(xter.value || '', Validators.required)
+          });
+          this.priceForm = new FormGroup(group);
           this.container['providersLoading'] = false; },
         (errResp) => {
           this.container['providersLoading'] = false;
@@ -50,14 +58,20 @@ export class ViewProviderAttrComponent implements OnInit {
       );
   }
   decrement(p: any) {
-    p.value = p.value??0
-    p.value>0?p.value--:0
+    let value = +this.priceForm.get(p?.ProductCharacter?.name)?.value
+    value>0?value--:0
+    this.priceForm.get(p?.ProductCharacter?.name)?.patchValue(value);
+    this.priceForm.get(p?.ProductCharacter?.name)?.updateValueAndValidity();
   }
   increment(p: any) {
-    p.value = p.value??0
-    p.value++
+    let val = +this.priceForm.get(p?.ProductCharacter?.name)?.value
+    this.priceForm.get(p?.ProductCharacter?.name)?.patchValue(val+1);
+    this.priceForm.get(p?.ProductCharacter?.name)?.updateValueAndValidity();
+
   }
   onSubmit() {
+    const payLoad = JSON.stringify(this.priceForm.getRawValue());
+    console.log(payLoad);
 
   }
 }
