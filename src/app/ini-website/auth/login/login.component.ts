@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs';
 import { Crypto } from '@app/_shared/classes/Crypto';
@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     private authService: AuthService,
+    private aRoute: ActivatedRoute,
     public dialog: MatDialog,
     public appContext: ApplicationContextService,
   ) {}
@@ -85,7 +86,13 @@ export class LoginComponent implements OnInit {
             this.authService.setToken(response);
             this.appContext.userInformation$.next(response.user);
             this.authService.setRole(response?.user?.Tenant.length > 0 ? response?.user?.Tenant[0]?.Roles[0]?.name: 'CUSTOMER');
+
+            if (this.authService.redirectUrl || this.aRoute.snapshot.queryParamMap.get('redirectUrl')) {
+              this.router.navigate([this.authService.redirectUrl || this.aRoute.snapshot.queryParamMap.get('redirectUrl')]);
+              this.authService.redirectUrl = '';
+            } else {
               this.router.navigate(['/app/home']);
+            }
           }
         },
         (errResp) => {

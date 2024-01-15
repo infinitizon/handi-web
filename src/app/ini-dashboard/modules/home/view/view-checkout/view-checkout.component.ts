@@ -1,9 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MessageDialogComponent } from '@app/_shared/dialogs/message-dialog/message-dialog.component';
+import { CommonService } from '@app/_shared/services/common.service';
 import { IniDashboardService } from '@app/ini-dashboard/ini-dashboard.service';
 import { environment } from '@environments/environment';
+import { AuthService } from '@app/_shared/services/auth.service';
+import { GMapService } from '@app/_shared/services/google-map.service';
+import { ApplicationContextService } from '@app/_shared/services/application-context.service';
 
 @Component({
   selector: 'app-view-checkout',
@@ -12,19 +19,32 @@ import { environment } from '@environments/environment';
 })
 export class ViewCheckoutComponent implements OnInit {
 
-
+  user: any;
   container: any = {
-    providersLoading: true
+    providersLoading: true,
+    total: 0,
   };
   providerXterData: any;
   providerId: any;
   subCategoryId: any;
   priceForm!: FormGroup;
+
+  errors: any = [];
+  formErrors: any = {};
+  uiErrors: any = this.formErrors;
+  validationMessages: any = {}
+
   constructor(
-    private fb: FormBuilder,
+    private location: Location,
     public dashboardService: IniDashboardService,
+    public appContext: ApplicationContextService,
     private http: HttpClient,
     private aRoute: ActivatedRoute,
+    public commonServices: CommonService,
+    public dialog: MatDialog,
+    private router: Router,
+    private authService: AuthService,
+    private gMapService: GMapService,
   ) { }
 
   ngOnInit() {
@@ -33,8 +53,10 @@ export class ViewCheckoutComponent implements OnInit {
       this.subCategoryId = paramMap.get('subCategoryId');
       this.getProviderXteristics();
     })
+    this.appContext.getUserInformation().subscribe(user=>{
+      this.user = user
+    })
   }
-
 
   getProviderXteristics() {
    let coords: any = localStorage.getItem('coords');
@@ -45,35 +67,103 @@ export class ViewCheckoutComponent implements OnInit {
       .subscribe(
         (response: any) => {
           this.providerXterData = response.data;
-          console.log(this.providerXterData);
           const group: any = {};
-
           this.providerXterData.forEach((xter: any) => {
-            group[xter?.ProductCharacter?.name] = new FormControl(xter.value || '', Validators.required)
+            group[xter?.id] = new FormControl(xter.value || null, Validators.required);
+            this.validationMessages[xter?.id] = {'required': `${xter?.ProductCharacter?.name} is required`,}
+            this.formErrors[xter?.id] = '';
           });
           this.priceForm = new FormGroup(group);
-          this.container['providersLoading'] = false; },
-        (errResp) => {
+          this.priceForm.valueChanges.subscribe(pf => {
+            this.container['total'] = 0;
+            Object.keys(pf).forEach((f:any)=>{
+              const obj = this.providerXterData?.find((pxd:any)=>f==pxd.id);
+              this.container['total'] += (+pf[f] * obj.price)
+            })
+          })
           this.container['providersLoading'] = false;
+
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode({location: coord },  (results, status)=>{
+          if (status == google.maps.GeocoderStatus.OK) {
+            this.container.address = this.gMapService.getAddresses(results?.find(a=>a.types.includes("street_address") && !a.plus_code)?.address_components);
+          }
+        })
+        }, (errResp) => {
+          this.container['providersLoading'] = false;
+
+          if(errResp.status === 402) {
+            //
+            const messageDialog = this.dialog.open(MessageDialogComponent, {
+              data: {
+                title: 'Login Required', message: errResp?.error?.error?.message,
+                acceptButtonText: 'Proceed',cancelButtonText: 'Cancel',
+              },
+            });
+            messageDialog.afterClosed().subscribe((result) => {
+              if (result) {
+                // localStorage.setItem('puchase', JSON.stringify({providerId: this.providerId, subCategoryId: this.subCategoryId, payload}))
+                this.authService.redirectUrl = `/app/home/view-checkout/${this.providerId}/${this.subCategoryId}/characteristics`;
+                this.router.navigateByUrl(`/auth/login?redirectUrl=/app/home/view-checkout/${this.providerId}/${this.subCategoryId}/characteristics`);
+              } else {
+                this.location.back();
+              }
+            });
+          }
         }
       );
   }
   decrement(p: any) {
-    let value = +this.priceForm.get(p?.ProductCharacter?.name)?.value
+    let value = +this.priceForm.get(p?.id)?.value
     value>0?value--:0
-    this.priceForm.get(p?.ProductCharacter?.name)?.patchValue(value);
-    this.priceForm.get(p?.ProductCharacter?.name)?.updateValueAndValidity();
+    this.priceForm.get(p?.id)?.patchValue(value);
   }
   increment(p: any) {
-    let val = +this.priceForm.get(p?.ProductCharacter?.name)?.value
-    this.priceForm.get(p?.ProductCharacter?.name)?.patchValue(val+1);
-    this.priceForm.get(p?.ProductCharacter?.name)?.updateValueAndValidity();
-
+    let val = +this.priceForm.get(p?.id)?.value
+    this.priceForm.get(p?.id)?.patchValue(val+1);
   }
   onSubmit() {
-    const payLoad = JSON.stringify(this.priceForm.getRawValue());
-    console.log(payLoad);
+    if (this.priceForm.invalid) {
+      this.uiErrors = JSON.parse(JSON.stringify(this.formErrors));
+      this.errors = this.commonServices.findInvalidControlsRecursive(
+        this.priceForm
+      );
+      this.commonServices.displayErrors(this.formErrors, this.validationMessages, this.errors, this.uiErrors)
+      this.container['submitting'] = false;
+      return;
+    }
+    const payload =  this.priceForm.getRawValue();
 
+    this.http.post(`${environment.baseApiUrl}/users/purchase/${this.providerId}/${this.subCategoryId}`, payload)
+      .subscribe({
+        next: (response: any) => {
+          this.container['submitting'] = false;
+          console.log(response);
+
+          this.commonServices.successSnackBar(response?.message);
+        },
+        error: (errResp: any) => {
+          if(errResp.status === 402) {
+            //
+            const messageDialog = this.dialog.open(MessageDialogComponent, {
+              data: {
+                title: 'Login Required', message: errResp?.error?.error?.message,
+                acceptButtonText: 'Proceed',cancelButtonText: 'Cancel',
+              },
+            });
+            messageDialog.afterClosed().subscribe((result) => {
+              if (result) {
+                localStorage.setItem('puchase', JSON.stringify({providerId: this.providerId, subCategoryId: this.subCategoryId, payload}))
+                this.authService.redirectUrl = `/app/home/view-checkout/${this.providerId}/${this.subCategoryId}/characteristics`;
+                this.router.navigateByUrl(`/auth/login?redirectUrl=/app/home/view-checkout/${this.providerId}/${this.subCategoryId}/characteristics`);
+              } else {
+                this.location.back();
+              }
+            });
+          } else {
+            this.commonServices.openSnackBar(errResp?.error?.error?.message || `Error saving request`);
+          }
+        }
+    });
   }
-
 }

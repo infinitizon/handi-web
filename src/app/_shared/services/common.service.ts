@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment';
 
 import * as $ from "jquery";
 import { HttpClient } from '@angular/common/http';
+import { SnackBarComponent } from '../components/snack-bar/snack-bar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +31,7 @@ export class CommonService {
 
   constructor(
     // public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
     private http: HttpClient
   ) { }
 
@@ -173,5 +176,27 @@ export class CommonService {
         ia[i] = byteString.charCodeAt(i)
 
     return new Blob([ia], { type: mimeString });
+  }
+
+  successSnackBar(message: string) {
+    this._snackBar.openFromComponent(SnackBarComponent, {
+      duration: 2000,
+      data: {
+        message: message,
+        icon: 'ri-checkbox-circle-fill',
+      },
+      panelClass: ['success'],
+    });
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.openFromComponent(SnackBarComponent, {
+      duration: 2000,
+      data: {
+        message: message,
+        icon: 'ri-close-circle-fill',
+      },
+      panelClass: ['error'],
+    });
   }
 }

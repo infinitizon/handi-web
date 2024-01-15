@@ -140,16 +140,16 @@ export class SignUpContinueComponent implements OnInit {
        });
    }
 
-   initAutocomplete(maps: Maps) {
-     const autocomplete = new maps.places.Autocomplete(
-       this.searchElementRef.nativeElement
-     );
-     autocomplete.addListener('place_changed', () => {
-       const  place  =  autocomplete.getPlace();
-       this.container.address = this.gMapService.getAddresses(place?.address_components);
-       this.container.address = {...this.container.address, geometry: {lng: place?.geometry?.location?.lng(), lat: place?.geometry?.location?.lat()}}
-     });
-   }
+  initAutocomplete(maps: Maps) {
+    const autocomplete = new maps.places.Autocomplete(
+      this.searchElementRef.nativeElement
+    );
+    autocomplete.addListener('place_changed', () => {
+      const  place  =  autocomplete.getPlace();
+      this.container.address = this.gMapService.getAddresses(place?.address_components);
+      this.container.address = {...this.container.address, geometry: {lng: place?.geometry?.location?.lng(), lat: place?.geometry?.location?.lat()}}
+    });
+  }
 
   // initAutocomplete() {
 	// 	const  autocomplete  =  new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);

@@ -6,6 +6,10 @@
   .address-header {
     h3 {
       text-decoration: underline;
+      small {
+        text-decoration: none;
+        font-size: smaller;
+      }
     }
   }
 

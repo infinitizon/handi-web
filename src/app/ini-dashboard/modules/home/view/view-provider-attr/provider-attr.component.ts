@@ -18,6 +18,9 @@ export class ViewProviderAttrComponent implements OnInit {
   providerXterData: any;
   providerId: any;
   subCategoryId: any;
+
+  // formErrors: any = FormErrors;
+  // uiErrors: any = FormErrors;
   priceForm!: FormGroup;
   constructor(
     private fb: FormBuilder,
@@ -48,7 +51,7 @@ export class ViewProviderAttrComponent implements OnInit {
           const group: any = {};
 
           this.providerXterData.forEach((xter: any) => {
-            group[xter?.ProductCharacter?.name] = new FormControl(xter.value || '', Validators.required)
+            group[xter?.id] = new FormControl(xter.value || '', Validators.required)
           });
           this.priceForm = new FormGroup(group);
           this.container['providersLoading'] = false; },
@@ -58,20 +61,29 @@ export class ViewProviderAttrComponent implements OnInit {
       );
   }
   decrement(p: any) {
-    let value = +this.priceForm.get(p?.ProductCharacter?.name)?.value
+    let value = +this.priceForm.get(p?.id)?.value
     value>0?value--:0
-    this.priceForm.get(p?.ProductCharacter?.name)?.patchValue(value);
-    this.priceForm.get(p?.ProductCharacter?.name)?.updateValueAndValidity();
+    this.priceForm.get(p?.id)?.patchValue(value);
+    this.priceForm.get(p?.id)?.updateValueAndValidity();
   }
   increment(p: any) {
-    let val = +this.priceForm.get(p?.ProductCharacter?.name)?.value
-    this.priceForm.get(p?.ProductCharacter?.name)?.patchValue(val+1);
-    this.priceForm.get(p?.ProductCharacter?.name)?.updateValueAndValidity();
+    let val = +this.priceForm.get(p?.id)?.value
+    this.priceForm.get(p?.id)?.patchValue(val+1);
+    this.priceForm.get(p?.id)?.updateValueAndValidity();
 
   }
   onSubmit() {
+    this.container['submitting'] = true;
+    // if (this.priceForm.invalid) {
+    //   this.uiErrors = JSON.parse(JSON.stringify(this.formErrors));
+    //   this.errors = this.commonService.findInvalidControlsRecursive(
+    //     this.categoryForm
+    //   );
+    //   this.displayErrors();
+    //   this.container['submitting'] = false;
+    //   return;
+    // }
     const payLoad = JSON.stringify(this.priceForm.getRawValue());
     console.log(payLoad);
-
   }
 }

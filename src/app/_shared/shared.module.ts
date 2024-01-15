@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './third-party/material.module';
 import { BackbuttonComponent } from './components/backbutton/backbutton.component';
 import { SuccessfulPageComponent } from '../ini-website/auth/successful-page/successful-page.component';
+import { MessageDialogComponent } from './dialogs/message-dialog/message-dialog.component';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { NgxOtpInputModule } from 'ngx-otp-input';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
@@ -54,6 +55,7 @@ export function playerFactory() {
     GatewayComponent,
     GetStartedComponent,
     ProfileSelectComponent,
+    MessageDialogComponent,
     GetRolesComponent,
     LogInComponent,
     LogoutDialogComponent,
@@ -101,6 +103,7 @@ export function playerFactory() {
     NgbModule,
     LogInComponent,
     LogoutDialogComponent,
+    MessageDialogComponent,
     LottieModule,
     EmptyDataComponent,
     ColorPipe,

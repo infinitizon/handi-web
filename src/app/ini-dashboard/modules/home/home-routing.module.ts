@@ -5,7 +5,6 @@ import { ViewHomeComponent } from './view/view-home/view-home.component';
 import { ViewCategoriesComponent } from './view/view-categories/view-categories.component';
 import { ViewSubCategoriesComponent } from './view/view-sub-categories/view-sub-categories.component';
 import { ViewProvidersComponent } from './view/view-providers/view-providers.component';
-import { ViewProviderAttrComponent } from './view/view-provider-attr/provider-attr.component';
 import { ViewCheckoutComponent } from './view/view-checkout/view-checkout.component';
 
 const routes: Routes = [
@@ -28,10 +27,6 @@ const routes: Routes = [
       {
         path: 'view-providers/:id',
         component: ViewProvidersComponent
-      },
-      {
-        path: 'provider/:id/:subCategoryId/characteristics',
-        component: ViewProviderAttrComponent
       },
       {
         path: 'view-checkout/:id/:subCategoryId/characteristics',
