@@ -61,6 +61,7 @@
     </div>
   </div>
     <div class="providers-content pe-5">
+
       <div class="d-flex bd-highlight mb-3 align-items-center pointer" *ngFor="let p of providersData" (click)="navigateToProviderXteristics(p)">
         <div class="bd-highlight">
           <div class="providers-content-img-wrapper">
@@ -89,6 +90,10 @@
             <i class="ri-star-fill"></i>
           </div>
         </div>
+      </div>
+
+      <div class="d-flex bd-highlight mb-3 align-items-center pointer" *ngIf="providersData.length <= 0">
+        No Tenants offer this service
       </div>
 
     </div>

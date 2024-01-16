@@ -6,6 +6,7 @@ import { ViewCategoriesComponent } from './view/view-categories/view-categories.
 import { ViewSubCategoriesComponent } from './view/view-sub-categories/view-sub-categories.component';
 import { ViewProvidersComponent } from './view/view-providers/view-providers.component';
 import { ViewCheckoutComponent } from './view/view-checkout/view-checkout.component';
+import { CartComponent } from './view/cart/cart.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'view-checkout/:id/:subCategoryId/characteristics',
         component: ViewCheckoutComponent
+      },
+      {
+        path: 'cart',
+        component: CartComponent
       },
       { path: '', redirectTo: 'view', pathMatch: 'full' }
     ]

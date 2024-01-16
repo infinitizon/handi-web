@@ -11,6 +11,7 @@ import { ViewSubCategoriesComponent } from './view/view-sub-categories/view-sub-
 import { ViewProvidersComponent } from './view/view-providers/view-providers.component';
 import { ViewProviderAttrComponent } from './view/view-provider-attr/provider-attr.component';
 import { ViewCheckoutComponent } from './view/view-checkout/view-checkout.component';
+import { CartComponent } from './view/cart/cart.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { ViewCheckoutComponent } from './view/view-checkout/view-checkout.compon
     ViewSubCategoriesComponent,
     ViewProvidersComponent,
     ViewProviderAttrComponent,
-    ViewCheckoutComponent
+    ViewCheckoutComponent,
+    CartComponent,
   ]
 })
 export class HomeModule { }

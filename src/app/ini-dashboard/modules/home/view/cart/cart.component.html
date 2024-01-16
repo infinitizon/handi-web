@@ -1,14 +1,12 @@
-<div class="container-fluid px-2 px-sm-2 px-md-4 px-lg-4 pb-5" *ngIf="!container['providersLoading']">
+<div class="container-fluid px-2 px-sm-2 px-md-4 px-lg-4 pb-5" *ngIf="!container['cartsLoading']">
   <div class="col-md-12 back-wrapper">
     <in-backbutton></in-backbutton>
   </div>
 
   <div class="checkout-wrapper">
-    <div
-      class="checkout-header d-flex justify-content-center align-items-center"
-    >
+    <div class="checkout-header d-flex justify-content-center align-items-center">
       <div class="checkout-header-title v1">
-        <h4>Checkout</h4>
+        <h4>Summary</h4>
         <p>
           <!-- You can pick one out of our wide selection of providers. -->
         </p>
@@ -17,61 +15,21 @@
 
     <div class="checkout-body">
       <div class="d-flex justify-content-between align-items-center">
-        <div class="address-wrapper" *ngIf="activeAddress">
-          <div class="address-header">
-            <h3>Delivery Address</h3>
-          </div>
-          <div class="address-body">
-            <div class="address-text">
-              <h5>Riley Sanchez</h5>
-              <h6 class="m-0">
-                <div>{{activeAddress?.houseNo ? activeAddress?.houseNo +',':''}} {{activeAddress?.address1 ? activeAddress?.address1 + ",":''}}</div>
-                <div>{{activeAddress?.address2 ? activeAddress?.address2+',' : ''}}</div>
-                <div>{{activeAddress?.city ? activeAddress?.city+',':''}} {{activeAddress?.state?.name ? activeAddress?.state?.name+',' : ''}}</div>
-                <div>{{activeAddress?.country?.name ? activeAddress?.country?.name : ''}}</div>
-              </h6>
-              <div class="default">
-                <a>Default Address</a>
-                <a class="mx-3">Change Address</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="address-wrapper" *ngIf="!activeAddress">
-          <div class="address-header">
-            <h3>Delivery Address <small>(current location)</small></h3>
-          </div>
-          <div class="address-body">
-            <div class="address-text">
-              <h6 class="m-0">
-                <div>{{container.address?.number?container.address?.number+',':''}} {{container.address?.address1?container.address?.address1 + ",":''}}</div>
-                <div>{{container.address?.address2?container.address?.address2+',':''}}</div>
-                <div>{{container.address?.city?container.address?.city+',':''}} {{container.address?.state?.name ? container.address?.state?.name+',' : ''}}</div>
-                <div>{{container.address?.country?.name?container.address?.country?.name:''}}</div>
-              </h6>
-              <div class="default">
-                <a>Default Address</a>
-                <a class="mx-3">Change Address</a>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div class="items-wrapper">
           <div class="items-header">
-            <h3>Items</h3>
+            <h3>Items ({{providerXterData?.length}})</h3>
           </div>
-
           <form [formGroup]="priceForm" [autocomplete]="'off'" *ngIf="providerXterData" >
             <div class="items-body" *ngFor="let p of providerXterData let i = index;">
               <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex flex-column">
                   <div class="name">
-                    <p>{{p?.ProductCharacter?.name}}</p>
+                    <p>{{p?.ProductVendorCharacter?.ProductCharacter?.name}}</p>
                     <span>{{p?.price |currency:"NGN":"symbol-narrow"}}</span>
                   </div>
                 </div>
-                <div *ngIf="p?.ProductCharacter?.type == 'inc_dcr'">
+                <div *ngIf="p?.ProductVendorCharacter?.ProductCharacter?.type == 'inc_dcr'">
                   <div class="input mt-1 ">
                     <mat-form-field fxFlexFill style="width:10vw">
                       <button mat-button matPrefix mat-stroked-button aria-label="search" type="button" (click)="decrement(p)">
@@ -87,10 +45,10 @@
                     </div>
                   </div>
                 </div>
-                <div *ngIf="['string','number'].includes(p?.ProductCharacter?.type)">
+                <div *ngIf="['string','number'].includes(p?.ProductVendorCharacter?.ProductCharacter?.type)">
                   <div class="input mt-1 ">
                     <mat-form-field  style="width:10vw">
-                      <input autocomplete="off" [ngClass]="{'text-right':p?.ProductCharacter?.type=='number'}" matInput name="lastName" [type]="p?.ProductCharacter?.type" [formControlName]="p?.id">
+                      <input autocomplete="off" [ngClass]="{'text-right':p?.ProductVendorCharacter?.ProductCharacter?.type=='number'}" matInput name="lastName" [type]="p?.ProductVendorCharacter?.ProductCharacter?.type" [formControlName]="p?.id">
                     </mat-form-field>
                     <div class="error-wrapper">
                       <span *ngIf="uiErrors[p?.id]" class="error">{{ uiErrors[p?.id] }}</span>
@@ -113,7 +71,7 @@
           <div class="price-btn mt-3">
             <button (click)="onSubmit()" type="submit" class="action-btn col-md-12 w-100" [disabled]="container['submitting']">
               <div class="d-flex justify-content-center align-items-center">
-              <span>Proceed</span> &nbsp;<i *ngIf="container['submitting']" style="font-size: 14px;" class="ri-arrow-right-line"></i>
+              <span>Confirm Order & Make Payment</span> &nbsp;<i *ngIf="container['submitting']" style="font-size: 14px;" class="ri-arrow-right-line"></i>
             </div>
             </button>
           </div>
@@ -124,6 +82,6 @@
 </div>
 
 
-<div *ngIf="container['providersLoading']">
+<div *ngIf="container['cartsLoading']">
   <app-loader></app-loader>
 </div>

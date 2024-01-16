@@ -13,15 +13,15 @@ import { GMapService } from '@app/_shared/services/google-map.service';
 import { ApplicationContextService } from '@app/_shared/services/application-context.service';
 
 @Component({
-  selector: 'app-view-checkout',
-  templateUrl: './view-checkout.component.html',
-  styleUrls: ['./view-checkout.component.scss']
+  selector: 'app-cart',
+  templateUrl: './cart.component.html',
+  styleUrls: ['./cart.component.scss']
 })
-export class ViewCheckoutComponent implements OnInit {
+export class CartComponent implements OnInit {
 
   activeAddress: any;
   container: any = {
-    providersLoading: true,
+    cartsLoading: true,
     total: 0,
   };
   providerXterData: any;
@@ -48,72 +48,37 @@ export class ViewCheckoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.aRoute.paramMap.subscribe(paramMap => {
-      this.providerId = paramMap.get('id');
-      this.subCategoryId = paramMap.get('subCategoryId');
-      this.getProviderXteristics();
-    })
+    this.getProviderXteristics();
     this.appContext.getUserInformation().subscribe(user=>{
       this.activeAddress = user?.Addresses?.find((u: any)=>u.isActive)
-      console.log(this.activeAddress);
     })
   }
 
   getProviderXteristics() {
-   let coords: any = localStorage.getItem('coords');
-   const coord = JSON.parse(coords);
-    this.container['providersLoading'] = true;
+    this.container['cartsLoading'] = true;
     this.http
-      .get(`${environment.baseApiUrl}/products/tenant/${this.providerId}/${this.subCategoryId}/characteristics`)
-      .subscribe(
-        (response: any) => {
+      .get(`${environment.baseApiUrl}/users/cart`)
+      .subscribe({
+        next: (response: any) => {
+          this.container['cartsLoading'] = false;
           this.providerXterData = response.data;
 
           const group: any = {};
-          this.providerXterData.forEach((xter: any) => {
-            group[xter?.id] = new FormControl(xter.value || null, Validators.required);
-            this.validationMessages[xter?.id] = {'required': `${xter?.ProductCharacter?.name} is required`,}
-            this.formErrors[xter?.id] = '';
+          this.providerXterData.forEach((p: any) => {
+            group[p?.id] = new FormControl(p?.value || null, Validators.required);
+            this.validationMessages[p?.id] = {'required': `${p?.ProductVendorCharacter?.ProductCharacter?.name} is required`,}
+            this.formErrors[p?.id] = '';
           });
           this.priceForm = new FormGroup(group);
-          this.priceForm.valueChanges.subscribe(pf => {
-            this.container['total'] = 0;
-            Object.keys(pf).forEach((f:any)=>{
-              const obj = this.providerXterData?.find((pxd:any)=>f==pxd.id);
-              this.container['total'] += (+pf[f] * obj.price)
-            })
-          })
-          this.container['providersLoading'] = false;
+          this.calculatePrice();
+          this.priceForm.updateValueAndValidity({ onlySelf: false, emitEvent: true });
 
-          const geocoder = new google.maps.Geocoder();
-          geocoder.geocode({location: coord },  (results, status)=>{
-            if (status == google.maps.GeocoderStatus.OK) {
-              this.container.address = this.gMapService.getAddresses(results?.find(a=>a.types.includes("street_address") && !a.plus_code)?.address_components);
-            }
-          })
-        }, (errResp) => {
-          this.container['providersLoading'] = false;
 
-          if(errResp.status === 402) {
-            //
-            const messageDialog = this.dialog.open(MessageDialogComponent, {
-              data: {
-                title: 'Login Required', message: errResp?.error?.error?.message,
-                acceptButtonText: 'Proceed',cancelButtonText: 'Cancel',
-              },
-            });
-            messageDialog.afterClosed().subscribe((result) => {
-              if (result) {
-                // localStorage.setItem('puchase', JSON.stringify({providerId: this.providerId, subCategoryId: this.subCategoryId, payload}))
-                this.authService.redirectUrl = `/app/home/view-checkout/${this.providerId}/${this.subCategoryId}/characteristics`;
-                this.router.navigateByUrl(`/auth/login?redirectUrl=/app/home/view-checkout/${this.providerId}/${this.subCategoryId}/characteristics`);
-              } else {
-                this.location.back();
-              }
-            });
-          }
+        },
+        error: (errResp) => {
+          this.container['cartsLoading'] = false;
         }
-      );
+      });
   }
   decrement(p: any) {
     let value = +this.priceForm.get(p?.id)?.value
@@ -123,6 +88,17 @@ export class ViewCheckoutComponent implements OnInit {
   increment(p: any) {
     let val = +this.priceForm.get(p?.id)?.value
     this.priceForm.get(p?.id)?.patchValue(val+1);
+  }
+  calculatePrice() {
+    this.priceForm.valueChanges.subscribe(pf => {
+      this.container['total'] = 0;
+      Object.keys(pf).forEach((f:any)=>{
+        const obj = this.providerXterData?.find((p:any)=>f==p?.id);
+        console.log(f, obj);
+
+        this.container['total'] += (+pf[f] * obj?.ProductVendorCharacter?.price)
+      })
+    })
   }
   onSubmit() {
     if (this.priceForm.invalid) {
@@ -136,11 +112,11 @@ export class ViewCheckoutComponent implements OnInit {
     }
     const payload =  this.priceForm.getRawValue();
 
-    this.http.post(`${environment.baseApiUrl}/users/cartify/${this.providerId}/${this.subCategoryId}`, payload)
+    this.http.post(`${environment.baseApiUrl}/users/checkout`, payload)
       .subscribe({
         next: (response: any) => {
           this.container['submitting'] = false;
-          this.router.navigateByUrl(`/app/home/cart`);
+          console.log(response);
 
           this.commonServices.successSnackBar(response?.message);
         },
@@ -156,8 +132,8 @@ export class ViewCheckoutComponent implements OnInit {
             messageDialog.afterClosed().subscribe((result) => {
               if (result) {
                 localStorage.setItem('puchase', JSON.stringify({providerId: this.providerId, subCategoryId: this.subCategoryId, payload}))
-                this.authService.redirectUrl = `/app/home/view-checkout/${this.providerId}/${this.subCategoryId}/characteristics`;
-                this.router.navigateByUrl(`/auth/login?redirectUrl=/app/home/view-checkout/${this.providerId}/${this.subCategoryId}/characteristics`);
+                this.authService.redirectUrl = `/app/home/cart/${this.providerId}/${this.subCategoryId}/characteristics`;
+                this.router.navigateByUrl(`/auth/login?redirectUrl=/app/home/cart/${this.providerId}/${this.subCategoryId}/characteristics`);
               } else {
                 this.location.back();
               }
