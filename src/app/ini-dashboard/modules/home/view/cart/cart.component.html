@@ -58,6 +58,25 @@
               </div>
             </div>
           </form>
+          <div class="address-wrapper" *ngIf="activeAddress">
+            <div class="address-header">
+              <h3>Delivery Address</h3>
+            </div>
+            <div class="address-body">
+              <div class="address-text">
+                <h5>Riley Sanchez</h5>
+                <h6 class="m-0">
+                  <div>{{activeAddress?.houseNo ? activeAddress?.houseNo +',':''}} {{activeAddress?.address1 ? activeAddress?.address1 + ",":''}}</div>
+                  <div>{{activeAddress?.address2 ? activeAddress?.address2+',' : ''}}</div>
+                  <div>{{activeAddress?.city ? activeAddress?.city+',':''}} {{activeAddress?.state?.name ? activeAddress?.state?.name+',' : ''}}</div>
+                  <div>{{activeAddress?.country?.name ? activeAddress?.country?.name : ''}}</div>
+                </h6>
+                <div class="default">
+                  <a class="mx-3">Change Address</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="price-wrapper">
           <div class="d-flex justify-content-between">

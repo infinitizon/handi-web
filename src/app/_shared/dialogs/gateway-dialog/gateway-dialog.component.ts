@@ -70,7 +70,9 @@ export class GatewayDialogComponent implements OnInit {
   validationMessages: any = ValidationMessages;
 
   walletBalance: number = 0;
-  cardPayment: any = [];
+  cardPayment: any = [{
+    id: 'paystack', gateway: 'paystack'
+  }];
   bankPayment: any = [];
   saved: boolean = true;
   savedCards: any = [];
@@ -114,7 +116,7 @@ export class GatewayDialogComponent implements OnInit {
       .get(
         this.data?.gatewayEndpoints
           ? this.data?.gatewayEndpoints
-          : `${environment.baseApiUrl}/3rd-party-services/gateway?module=${this.data?.callback_params?.module}&id=${this.data?.callback_params?.asset_id}`
+          : `${environment.baseApiUrl}/3rd-party-services/gateway?module=${this.data?.callbackParams?.module}&id=${this.data?.callbackParams?.assetId}`
       )
       .subscribe(
         (response: any) => {
@@ -159,11 +161,11 @@ export class GatewayDialogComponent implements OnInit {
     this.container['submitting'] = true;
     let formData = { ...this.myForm.value, ...this.data, ...fd };
     formData.amount = Number(formData.amount);
-    formData.callback_params.gateway_id = formData.gateway_id;
-    // formData.callback_params.saveCard = this.saveCard;
+    formData.callbackParams.gatewayId = formData.gatewayId;
+    // formData.callbackParams.saveCard = this.saveCard;
     delete formData.source;
     delete formData.paymentMethod;
-    delete formData.gateway_id;
+    delete formData.gatewayId;
     delete formData.description;
     console.log(formData);
     this.http
@@ -189,7 +191,7 @@ export class GatewayDialogComponent implements OnInit {
           //     () => {
           //       this.container['submitting'] = true;
           //       fd.amount = 50;
-          //       fd.callback_params = { module: 'wallet' };
+          //       fd.callbackParams = { module: 'wallet' };
           //       this.http
           //         .post(
           //           `${environment.baseApiUrl}/3rd-party-services/payment/initiate`,

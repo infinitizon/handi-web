@@ -11,6 +11,7 @@ import { environment } from '@environments/environment';
 import { AuthService } from '@app/_shared/services/auth.service';
 import { GMapService } from '@app/_shared/services/google-map.service';
 import { ApplicationContextService } from '@app/_shared/services/application-context.service';
+import { GatewayComponent } from '@app/_shared/dialogs/gateway/gateway.component';
 
 @Component({
   selector: 'app-cart',
@@ -57,7 +58,7 @@ export class CartComponent implements OnInit {
   getProviderXteristics() {
     this.container['cartsLoading'] = true;
     this.http
-      .get(`${environment.baseApiUrl}/users/cart`)
+      .get(`${environment.baseApiUrl}/users/cart?status=pending`)
       .subscribe({
         next: (response: any) => {
           this.container['cartsLoading'] = false;
@@ -84,10 +85,12 @@ export class CartComponent implements OnInit {
     let value = +this.priceForm.get(p?.id)?.value
     value>0?value--:0
     this.priceForm.get(p?.id)?.patchValue(value);
+    this.onChangeOrderItemValue(p?.id, value);
   }
   increment(p: any) {
     let val = +this.priceForm.get(p?.id)?.value
     this.priceForm.get(p?.id)?.patchValue(val+1);
+    this.onChangeOrderItemValue(p?.id, val+1);
   }
   calculatePrice() {
     this.priceForm.valueChanges.subscribe(pf => {
@@ -99,6 +102,17 @@ export class CartComponent implements OnInit {
         this.container['total'] += (+pf[f] * obj?.ProductVendorCharacter?.price)
       })
     })
+  }
+  onChangeOrderItemValue(orderId: any, value: any) {
+    this.http.patch(`${environment.baseApiUrl}/users/cart/${orderId}/update`, {value})
+      .subscribe({
+        next: (response: any) => {
+          this.commonServices.successSnackBar(response?.message);
+        },
+        error: (errResp: any) => {
+            this.commonServices.openSnackBar(errResp?.error?.error?.message || `Error updating cart`);
+        }
+    });
   }
   onSubmit() {
     if (this.priceForm.invalid) {
@@ -112,36 +126,45 @@ export class CartComponent implements OnInit {
     }
     const payload =  this.priceForm.getRawValue();
 
-    this.http.post(`${environment.baseApiUrl}/users/checkout`, payload)
-      .subscribe({
-        next: (response: any) => {
-          this.container['submitting'] = false;
-          console.log(response);
+    // this.http.post(`${environment.baseApiUrl}/users/checkout`, payload)
+    //   .subscribe({
+    //     next: (response: any) => {
+    //       this.container['submitting'] = false;
+    //       console.log(response);
 
-          this.commonServices.successSnackBar(response?.message);
+    //       this.commonServices.successSnackBar(response?.message);
+    //     },
+    //     error: (errResp: any) => {
+    //         this.commonServices.openSnackBar(errResp?.error?.error?.message || `Error saving request`);
+    //     }
+    // });
+  // console.log(this.container['total']); return;
+
+
+    const getUrl = window.location;
+    const gatewayDialog = this.dialog.open(GatewayComponent, {
+      data: {
+        type: 'debit',
+        currency: 'NGN',
+        // id: this.providerXterData[0]?.Order?.id,
+        amount: this.container['total'],
+        module: 'order',
+        description: `Payment for order ${this.providerXterData[0]?.Order?.id}`,
+        redirectUrl: getUrl.protocol + '//' + getUrl.host + '/app/home/view',
+        callbackParams: {
+          module: 'order',
+          assetId: this.providerXterData[0]?.Order?.id,
         },
-        error: (errResp: any) => {
-          if(errResp.status === 402) {
-            //
-            const messageDialog = this.dialog.open(MessageDialogComponent, {
-              data: {
-                title: 'Login Required', message: errResp?.error?.error?.message,
-                acceptButtonText: 'Proceed',cancelButtonText: 'Cancel',
-              },
-            });
-            messageDialog.afterClosed().subscribe((result) => {
-              if (result) {
-                localStorage.setItem('puchase', JSON.stringify({providerId: this.providerId, subCategoryId: this.subCategoryId, payload}))
-                this.authService.redirectUrl = `/app/home/cart/${this.providerId}/${this.subCategoryId}/characteristics`;
-                this.router.navigateByUrl(`/auth/login?redirectUrl=/app/home/cart/${this.providerId}/${this.subCategoryId}/characteristics`);
-              } else {
-                this.location.back();
-              }
-            });
-          } else {
-            this.commonServices.openSnackBar(errResp?.error?.error?.message || `Error saving request`);
-          }
-        }
+        gatewayEndpoints: `${environment.baseApiUrl}/3rd-party-services/gateway?id=${this.providerXterData[0]?.Order?.id}`
+      },
+
+      width: '408px',
+      height: '500px'
+    });
+
+    gatewayDialog.afterClosed().subscribe((result) => {
+      if (result) {
+      }
     });
   }
 }

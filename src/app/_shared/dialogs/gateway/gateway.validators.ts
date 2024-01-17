@@ -2,16 +2,16 @@ export const ValidationMessages = {
   amount: {
     required: 'Amount is required',
   },
-  payment: {
-    required: 'Payment is required',
+  gateway: {
+    required: 'gateway is required',
   }
 };
 export let FormErrors = {
   amount: '',
-  payment: ''
+  gateway: ''
 };
 
 export interface Gateway {
   amount: string;
-  payment: string;
+  gateway: string;
 }

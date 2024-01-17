@@ -33,6 +33,8 @@ export class ViewWalletComponent implements OnInit {
       .subscribe(
         (response: any) => {
           this.walletBalance = response.data;
+          console.log(this.walletBalance);
+
           this.container['walletBalanceLoading'] = false;       },
         (errResp) => {
           this.container['walletBalanceLoading'] = false;
@@ -46,12 +48,12 @@ export class ViewWalletComponent implements OnInit {
     const data = {
       currency: 'NGN',
       description: 'Wallet Deposit',
-      redirect_url: getUrl.protocol + "//" + getUrl.host + this.router.url,
+      redirectUrl: getUrl.protocol + "//" + getUrl.host + this.router.url,
       source: 'wallet',
       type: 'credit',
-      callback_params: {
+      callbackParams: {
         module: 'wallet',
-        asset_id: this.walletBalance.asset_id,
+        assetId: this.walletBalance.assetId,
       }
     }
     const gatewayDialog = this.dialog.open(GatewayDialogComponent, {
@@ -63,7 +65,7 @@ export class ViewWalletComponent implements OnInit {
     gatewayDialog.afterClosed().subscribe((response) => {
       if (response?.data?.authorization_url) {
         // callBack();
-        window.location = response.data.authorization_url;
+        window.location = response.data.authorizationUrl;
       }
     })
   }

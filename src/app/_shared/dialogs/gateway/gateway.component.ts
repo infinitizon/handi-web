@@ -6,6 +6,8 @@ import { CommonService } from '@app/_shared/services/common.service';
 import { FormErrors, ValidationMessages } from './gateway.validators';
 import { Router } from '@angular/router';
 import { OffersService } from '@app/ini-dashboard/modules/offers/offers.service';
+import { environment } from '@environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-gateway',
@@ -28,28 +30,51 @@ export class GatewayComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<GatewayComponent>,
     private fb: FormBuilder,
-    private router: Router,
+    private http: HttpClient,
     public offerService: OffersService
   ) {}
 
   ngOnInit() {
     this.gatewayForm = this.fb.group({
-      amount: ['', [Validators.required]],
-      payment: ['', [Validators.required]]
+      amount: [this.data?.amount||null, [Validators.required]],
+      gateway: ['paystack', [Validators.required]]
     })
   }
 
 
   submit() {
-    if(this.data.currency === 'USD') {
-         this.router.navigate(['/app/offers/gateway-payment']);
-         this.offerService.gatewayDetails = {
-          currency: this.data.currency,
-          payment_method: this.gatewayForm.get('payment')?.value,
-          id: this.data.id
-         }
-         this.dialog.closeAll();
-    }
+    // if(this.data.currency === 'USD') {
+    //      this.router.navigate(['/app/offers/gateway-payment']);
+    //      this.offerService.gatewayDetails = {
+    //       currency: this.data.currency,
+    //       payment_method: this.gatewayForm.get('payment')?.value,
+    //       id: this.data.id
+    //      }
+    //      this.dialog.closeAll();
+    // }
+
+    let formData = { ...this.gatewayForm.value, ...this.data, };
+    formData.amount = Number(formData.amount);
+    formData.callbackParams.gatewayId = formData.gatewayId;
+    // formData.callbackParams.saveCard = this.saveCard;
+    delete formData.source;
+    delete formData.paymentMethod;
+    delete formData.gatewayId;
+    delete formData.description;
+    console.log(formData);
+
+    this.http.post(`${environment.baseApiUrl}/users/checkout`, formData)
+      .subscribe({
+        next: (response: any) => {
+          this.container['submitting'] = false;
+          window.location = response.data.authorization_url;
+
+          this.commonServices.successSnackBar(response?.message);
+        },
+        error: (errResp: any) => {
+            this.commonServices.openSnackBar(errResp?.error?.error?.message || `Error saving request`);
+        }
+    });
   }
 
 
