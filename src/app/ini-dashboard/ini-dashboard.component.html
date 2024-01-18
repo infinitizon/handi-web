@@ -175,20 +175,29 @@
 
   <mat-sidenav-content class="main-content">
     <mat-toolbar class="notify-toolbar">
-      <div class="row align-items-center w-100">
+      <div class="d-flex flex-md-row align-items-center w-100">
+        <div class="col-md-1">
+          <button mat-icon-button  (click)="sidenav.toggle()" class="sidemenu-toggle">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
         <!-- <div class="icon"></div> -->
         <div class="col-md-4 text">
+
           <div class="d-flex justify-content-center justify-content-sm-center justify-content-md-start pointer" routerLink="/vendors-onboarding/signup">
+
           <span
-            ><img
+            >
+            <img
               src="/assets/logo/sell.svg"
               width="24"
               height="24"
               alt="Sell Icon" /></span
-          >&nbsp;<span>Sell on Home Service.</span>
+          >&nbsp;
+          <span>Sell on Home Service.</span>
         </div>
         </div>
-        <div class="col-md-4 btn">
+        <!-- <div class="col-12 col-sm-12 col-md-4 btn">
           <div class="d-flex justify-content-center">
             <span
               ><img
@@ -201,7 +210,7 @@
             <span><img src="/assets/logo/visa.svg" alt="Visa Icon" /></span>
             &nbsp;&nbsp;
           </div>
-        </div>
+        </div> -->
       </div>
     </mat-toolbar>
     <mat-toolbar class="toolbar">
@@ -214,18 +223,18 @@
             class="welcome d-flex align-items-start"
 
           >
-            <h3 class="m-0 p-0">Welcome</h3>
+            <h3 class="m-0 p-0 ps-sm-1 ps-1 ps-md-4">Welcome</h3>
           </div>
           <div class="cheers">
-            <p class="m-0 p-0">
+            <p class="m-0 p-0 ps-sm-1 ps-1 ps-md-4">
               Cheers and happy activities - {{today}}
             </p>
           </div>
         </div>
 
         <div class="spacer"></div>
-          <div>
-            <div class="d-flex justify-content-between align-items-center">
+          <div class="ps-sm-1 ps-1">
+            <div class="d-flex justify-content-between align-items-center ">
             <div class="input-box"    *ngIf="dashboardService?.isHome">
               <i class="ri-search-line"></i>
               <input type="text" class="form-control-sm" placeholder="Search" />
@@ -250,7 +259,7 @@
         </div>
       </div>
       <mat-menu #menu="matMenu" class="profile-menu-dropdown">
-        <a class="profile" [routerLink]="['settings']" mat-menu-item *ngIf="userInformation">
+        <a class="profile" [routerLink]="['profile']" mat-menu-item *ngIf="userInformation">
           <div class="d-flex align-items-start">
             <div class="flex-grow-1">
               <div class="d-flex align-items-center">

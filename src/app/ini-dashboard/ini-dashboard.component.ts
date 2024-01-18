@@ -183,7 +183,7 @@ export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isDialogOpen = true;
       const loginDialog = this.dialog.open(LogInComponent, {
         data: {},
-        width: '552px',
+        width: '600px',
       });
 
       loginDialog.afterClosed().subscribe((result) => {

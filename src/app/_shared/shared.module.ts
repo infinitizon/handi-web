@@ -28,6 +28,7 @@ import { ColorPipe, ImagePipe } from './pipes/random-color.pipe';
 import { GatewayDialogComponent } from './dialogs/gateway-dialog/gateway-dialog.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 import { LoaderComponent } from './components/loader/loader.component';
+import { AddAddressComponent } from './dialogs/add-address/add-address.component';
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -63,7 +64,8 @@ export function playerFactory() {
     ColorPipe,
     ImagePipe,
     GatewayDialogComponent,
-    LoaderComponent
+    LoaderComponent,
+    AddAddressComponent
 
   ],
   providers: [
@@ -111,7 +113,8 @@ export function playerFactory() {
     GatewayDialogComponent,
     FileUploadModule,
     LoaderComponent,
-    NgxMaskDirective, NgxMaskPipe
+    NgxMaskDirective, NgxMaskPipe,
+    AddAddressComponent
   ]
 })
 export class SharedModule { }

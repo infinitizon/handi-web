@@ -28,26 +28,26 @@ const routes: Routes = [
       loadChildren: () => import('./modules/wallet/wallet.module').then(m => m.WalletModule),
       canActivate: [AuthGuard]
      },
-      {
-        path: 'faq',
-        loadChildren: () => import('./modules/faq/faq.module').then(m => m.FaqModule),
-        // canActivate: [AuthGuard]
-      },
+      // {
+      //   path: 'faq',
+      //   loadChildren: () => import('./modules/faq/faq.module').then(m => m.FaqModule),
+      //   // canActivate: [AuthGuard]
+      // },
       {
         path: 'help',
         loadChildren: () => import('./modules/help/help.module').then(m => m.HelpModule),
         // canActivate: [AuthGuard]
       },
-      {
-        path: 'offers',
-        loadChildren: () => import('./modules/offers/offers.module').then(m => m.OffersModule),
-        // canActivate: [AuthGuard]
-      },
-      {
-        path: 'settings',
-        loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule),
-        canActivate: [AuthGuard]
-      },
+      // {
+      //   path: 'offers',
+      //   loadChildren: () => import('./modules/offers/offers.module').then(m => m.OffersModule),
+      //   // canActivate: [AuthGuard]
+      // },
+      // {
+      //   path: 'settings',
+      //   loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule),
+      //   canActivate: [AuthGuard]
+      // },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   },
