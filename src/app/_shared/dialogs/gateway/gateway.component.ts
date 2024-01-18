@@ -52,7 +52,16 @@ export class GatewayComponent implements OnInit {
     //      }
     //      this.dialog.closeAll();
     // }
-
+    this.container['submitting'] = true;
+    if (this.gatewayForm.invalid) {
+      this.uiErrors = JSON.parse(JSON.stringify(this.formErrors));
+      this.errors = this.commonServices.findInvalidControlsRecursive(
+        this.gatewayForm
+      );
+      this.commonServices.displayErrors(this.formErrors, this.validationMessages, this.errors, this.uiErrors)
+      this.container['submitting'] = false;
+      return;
+    }
     let formData = { ...this.gatewayForm.value, ...this.data, };
     formData.amount = Number(formData.amount);
     formData.callbackParams.gatewayId = formData.gatewayId;

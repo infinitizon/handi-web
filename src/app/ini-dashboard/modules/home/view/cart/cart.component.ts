@@ -159,7 +159,7 @@ export class CartComponent implements OnInit {
       },
 
       width: '408px',
-      height: '500px'
+      height: '310px'
     });
 
     gatewayDialog.afterClosed().subscribe((result) => {

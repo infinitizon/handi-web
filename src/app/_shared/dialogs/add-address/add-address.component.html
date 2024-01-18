@@ -47,10 +47,12 @@
         <button
           type="submit"
           class="action-btn col-md-12 w-100"
-          [disabled]="addressForm.invalid"
+          [disabled]="submitting"
           (click)=" submit()"
         >
-          Continue purchase
+          <div class="d-flex justify-content-center align-items-center">
+            <span class="">Save </span> <app-loader2 *ngIf="submitting"></app-loader2>
+          </div>
         </button>
       </div>
     </form>

@@ -5,7 +5,7 @@
 </div>
 <div mat-dialog-content class="gateway-wrapper">
   <div class="title gateway-header">
-    <h2 class="mb-0 text-center">Enter amount you wish to purchase</h2>
+    <h2 class="mb-0 text-center">Payment Method</h2>
   </div>
 
   <div class="gateway-content mt-4">
@@ -55,21 +55,24 @@
           </div>
         </div>
       </div>
-
+<!--
       <div class="auth-footer-wrapper mt-5 mb-2">
         <div class="auth-footer mt-3 ">
           <mat-checkbox class=""> <span>I've read and agree to the <a routerLink="/auth/terms">Terms of Service</a> for this purchase</span></mat-checkbox>
         </div>
-      </div>
+      </div> -->
 
       <div class="button-wrapper mt-3">
         <button
           type="submit"
-          class="submit-btn col-md-12 w-100"
-          [disabled]="gatewayForm.invalid"
+          class="action-btn col-md-12 w-100"
+          [disabled]="container['submitting']"
           (click)=" submit()"
         >
-          Continue purchase
+        <div class="d-flex justify-content-center align-items-center">
+          <span class="">Continue purchase</span> <app-loader2 *ngIf="container['submitting']"></app-loader2>
+        </div>
+
         </button>
       </div>
     </form>

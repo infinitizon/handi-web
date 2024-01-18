@@ -14,9 +14,29 @@
     </div>
 
     <div class="checkout-body">
-      <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex flex-sm-column flex-column flex-md-row justify-content-between align-items-center">
+        <div class="address-wrapper col-md-3 col-sm-12 col-12" *ngIf="activeAddress">
+          <div class="address-header">
+            <h3>Delivery Address</h3>
+          </div>
+          <div class="address-body">
+            <div class="address-text">
+              <!-- <h5>Riley Sanchez</h5> -->
+              <h6 class="m-0">
+                <div>{{activeAddress?.houseNo ? activeAddress?.houseNo +',':''}} {{activeAddress?.address1 ? activeAddress?.address1 + ",":''}}</div>
+                <div>{{activeAddress?.address2 ? activeAddress?.address2+',' : ''}}</div>
+                <div>{{activeAddress?.city ? activeAddress?.city+',':''}} {{activeAddress?.state?.name ? activeAddress?.state?.name+',' : ''}}</div>
+                <div>{{activeAddress?.country?.name ? activeAddress?.country?.name : ''}}</div>
+              </h6>
+              <div class="default">
+                <a class="mx-3">Change Address</a>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <div class="items-wrapper">
+
+        <div class="items-wrapper col-md-4 col-sm-12 col-12">
           <div class="items-header">
             <h3>Items ({{providerXterData?.length}})</h3>
           </div>
@@ -30,7 +50,10 @@
                   </div>
                 </div>
                 <div *ngIf="p?.ProductVendorCharacter?.ProductCharacter?.type == 'inc_dcr'">
-                  <div class="input mt-1 ">
+                  <div class="value-button" id="decrease" (click)="decrement(p)" value="Decrease Value">-</div>
+                  <input type="number" id="number" type="text" [formControlName]="p?.id" />
+                  <div class="value-button" id="increase" (click)="increment(p)" value="Increase Value">+</div>
+                  <!-- <div class="input mt-1 ">
                     <mat-form-field fxFlexFill style="width:10vw">
                       <button mat-button matPrefix mat-stroked-button aria-label="search" type="button" (click)="decrement(p)">
                         <mat-icon>remove</mat-icon>
@@ -43,7 +66,7 @@
                     <div class="error-wrapper">
                       <span *ngIf="uiErrors[p?.id]" class="error">{{ uiErrors[p?.id] }}</span>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
                 <div *ngIf="['string','number'].includes(p?.ProductVendorCharacter?.ProductCharacter?.type)">
                   <div class="input mt-1 ">
@@ -58,27 +81,9 @@
               </div>
             </div>
           </form>
-          <div class="address-wrapper" *ngIf="activeAddress">
-            <div class="address-header">
-              <h3>Delivery Address</h3>
-            </div>
-            <div class="address-body">
-              <div class="address-text">
-                <h5>Riley Sanchez</h5>
-                <h6 class="m-0">
-                  <div>{{activeAddress?.houseNo ? activeAddress?.houseNo +',':''}} {{activeAddress?.address1 ? activeAddress?.address1 + ",":''}}</div>
-                  <div>{{activeAddress?.address2 ? activeAddress?.address2+',' : ''}}</div>
-                  <div>{{activeAddress?.city ? activeAddress?.city+',':''}} {{activeAddress?.state?.name ? activeAddress?.state?.name+',' : ''}}</div>
-                  <div>{{activeAddress?.country?.name ? activeAddress?.country?.name : ''}}</div>
-                </h6>
-                <div class="default">
-                  <a class="mx-3">Change Address</a>
-                </div>
-              </div>
-            </div>
-          </div>
+
         </div>
-        <div class="price-wrapper">
+        <div class="price-wrapper col-md-3 col-sm-12 col-12 mt-sm-3 mt-3 mt-md-0">
           <div class="d-flex justify-content-between">
             <div class="total">
               <span>Total ({{providerXterData?.length}}):</span>
@@ -90,7 +95,7 @@
           <div class="price-btn mt-3">
             <button (click)="onSubmit()" type="submit" class="action-btn col-md-12 w-100" [disabled]="container['submitting']">
               <div class="d-flex justify-content-center align-items-center">
-              <span>Confirm Order & Make Payment</span> &nbsp;<i *ngIf="container['submitting']" style="font-size: 14px;" class="ri-arrow-right-line"></i>
+              <span>Confirm Order & Make Payment</span> <app-loader2 *ngIf="container['submitting']"></app-loader2>
             </div>
             </button>
           </div>

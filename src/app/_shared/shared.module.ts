@@ -29,6 +29,7 @@ import { GatewayDialogComponent } from './dialogs/gateway-dialog/gateway-dialog.
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 import { LoaderComponent } from './components/loader/loader.component';
 import { AddAddressComponent } from './dialogs/add-address/add-address.component';
+import { Loader2Component } from './components/loader_2/loader.component';
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -65,7 +66,8 @@ export function playerFactory() {
     ImagePipe,
     GatewayDialogComponent,
     LoaderComponent,
-    AddAddressComponent
+    AddAddressComponent,
+    Loader2Component
 
   ],
   providers: [
@@ -114,7 +116,8 @@ export function playerFactory() {
     FileUploadModule,
     LoaderComponent,
     NgxMaskDirective, NgxMaskPipe,
-    AddAddressComponent
+    AddAddressComponent,
+    Loader2Component
   ]
 })
 export class SharedModule { }

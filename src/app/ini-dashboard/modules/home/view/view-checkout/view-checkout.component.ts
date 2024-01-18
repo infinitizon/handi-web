@@ -125,6 +125,7 @@ export class ViewCheckoutComponent implements OnInit {
     this.priceForm.get(p?.id)?.patchValue(val+1);
   }
   onSubmit() {
+    this.container['submitting'] = true;
     if (this.priceForm.invalid) {
       this.uiErrors = JSON.parse(JSON.stringify(this.formErrors));
       this.errors = this.commonServices.findInvalidControlsRecursive(
