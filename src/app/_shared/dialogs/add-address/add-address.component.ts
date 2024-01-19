@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   Inject,
@@ -25,6 +26,7 @@ import { environment } from '@environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
 import { SnackBarComponent } from '@app/_shared/components/snack-bar/snack-bar.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-address',
@@ -53,7 +55,8 @@ export class AddAddressComponent implements OnInit {
     private renderer: Renderer2,
     private http: HttpClient,
     private _snackBar: MatSnackBar,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private aRoute: ActivatedRoute,
   ) {
     let interval = setInterval(() => {
       this.container.countdown--;
@@ -77,14 +80,25 @@ export class AddAddressComponent implements OnInit {
   ngOnInit() {
     console.log(this.data);
     this.addressForm = this.fb.group({
-      phone: ['', [Validators.required]],
+      phone: [this.data?.phone, [Validators.required]],
       address: ['', [Validators.required]],
     });
+
+    this.aRoute.paramMap.subscribe(paramMap => {
+      this.getLocation();
+    })
+
+  }
+
+
+  getLocation() {
     if (this.data) {
       let coords: any = {
         lat: this.data.lat,
         lng: this.data.lng,
       };
+
+      console.log(coords)
 
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode({ location: coords }, (results, status) => {
@@ -98,6 +112,8 @@ export class AddAddressComponent implements OnInit {
       });
     }
   }
+
+
 
 
 

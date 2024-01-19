@@ -23,7 +23,7 @@ export class AddressesComponent implements OnInit {
   ngOnInit() {
     this.appContext.getUserInformation().subscribe({
       next: (data: any) => {
-        // this.userInformation = data.Addresses;
+        this.userInformation = data;
         this.getAddress();
       },
     });
