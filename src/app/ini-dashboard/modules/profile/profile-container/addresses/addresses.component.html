@@ -18,10 +18,12 @@
       <div class="col-12 col-sm-12 col-md-4" *ngFor="let a of addresses">
         <div class="address-content" >
           <div class="address-text">
-            <h5>Riley Sanchez</h5>
+            <!-- <h5>Riley Sanchez</h5> -->
             <h6 class="m-0">
-              {{a?.houseNo}}  {{a?.address1}},  {{a?.city}},  {{a?.state}} +234
-              8004567907
+              <div>{{a?.houseNo ? a?.houseNo +',':''}} {{a?.address1 ? a?.address1 + ",":''}}</div>
+              <div>{{a?.address2 ? a?.address2+',' : ''}}</div>
+              <div>{{a?.city ? a?.city+',':''}} {{a?.state?.name ? a?.state?.name+',' : ''}}</div>
+              <div>{{a?.country?.name ? a?.country?.name : ''}}</div>
             </h6>
             <div class="default" *ngIf="a?.isActive">
               <a>Default Address</a>
