@@ -18,7 +18,7 @@
       <div class="col-12 col-sm-12 col-md-4" *ngFor="let a of addresses">
         <div class="address-content" >
           <div class="address-text">
-            <!-- <h5>Riley Sanchez</h5> -->
+            <h5>{{userInformation?.firstName}} {{userInformation?.lastName}}</h5>
             <h6 class="m-0">
               <div>{{a?.houseNo ? a?.houseNo +',':''}} {{a?.address1 ? a?.address1 + ",":''}}</div>
               <div>{{a?.address2 ? a?.address2+',' : ''}}</div>
@@ -34,12 +34,15 @@
               <a><span>Set as Default Address</span></a>
             </div>
             <div>
-              <span class="px-2"><a (click)="editAddress(a)"><i class="ri-pencil-line"></i></a></span>
+              <span class="px-2 "><a class="pointer text-light" (click)="editAddress(a)"><i class="ri-pencil-line"></i></a></span>
               <span><i class="ri-delete-bin-line"></i></span>
             </div>
           </div>
         </div>
       </div>
+
+
+      <div *ngIf="addresses.length<= 0" class="nodata text-center">No Address Added yet</div>
 
     </div>
   </div>
