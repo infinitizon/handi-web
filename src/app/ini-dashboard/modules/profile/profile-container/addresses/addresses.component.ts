@@ -48,7 +48,7 @@ export class AddressesComponent implements OnInit {
 
   addAddress(): void {
     const getUrl = window.location;
-    const data = {};
+    const data = null;
     const addressDialog = this.dialog.open(AddAddressComponent, {
       data,
       minWidth: '30%',

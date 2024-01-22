@@ -1,7 +1,12 @@
 
 
-<!-- <app-empty-data *ngIf="neworders?.filteredData?.length <= 0"></app-empty-data> -->
+<div *ngIf="container['ordersLoading']">
+  <app-loader></app-loader>
+</div>
 
+<div *ngIf="neworders?.filteredData?.length <= 0 && !container['ordersLoading']">
+<app-empty-data ></app-empty-data>
+</div>
 
 <div
   class="container-fluid px-2 px-sm-2 px-md-4 px-lg-4"
@@ -39,24 +44,24 @@
             </div> -->
             <div class="d-flex align-items-start flex-column ml-4">
               <div class="orders-desc mb-auto px-4 text-uppercase">
-                <h3>{{ trans?.TxnHeader?.Asset?.name }}</h3>
+                <h3>{{ trans?.orderId }}</h3>
               </div>
               <div
                 class="orders-status mx-4"
                 [ngClass]="{
-                  success: trans?.status === 'success',
+                  success: trans?.Order?.status === 'success',
                   pending:
-                    trans?.status === 'pending' ||
-                    trans?.status === 'pending_approval',
-                  failed: trans?.status === 'failed'
+                    trans?.Order?.status === 'pending' ||
+                    trans?.Order?.status === 'pending_approval',
+                  failed: trans?.Order?.status === 'failed'
                 }"
               >
                 <span>{{
-                  trans?.status === "success"
+                  trans?.Order?.status === "success"
                     ? "Successful"
-                    : trans?.status === "pending"
+                    : trans?.Order?.status === "pending"
                     ? "Pending"
-                    : trans?.status === "pending_approval"
+                    : trans?.Order?.status === "pending_approval"
                     ? "Pending Approval"
                     : "Failed"
                 }}</span>
@@ -67,9 +72,9 @@
         <div class="p-2 orders-amount">
           <h6>{{ trans?.currency }} {{ trans?.amount | number : "1.2-2" }}</h6>
         </div>
-        <!-- <div class="p-2  orders-amount">
-          <h6>{{ trans?.createdAt | date }}</h6>
-        </div> -->
+        <div class="p-2  orders-amount">
+          <h6>Items: {{ trans?.value }}</h6>
+        </div>
 
         <div class="p-0 orders-icon">
           <i class="ri-arrow-right-s-line"></i>
@@ -87,8 +92,3 @@
      aria-label="Select page">
    </mat-paginator>
   </div>
-
-
-<div *ngIf="container['ordersLoading']">
-  <app-loader></app-loader>
-</div>

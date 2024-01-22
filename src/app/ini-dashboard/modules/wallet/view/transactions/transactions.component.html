@@ -10,7 +10,7 @@
 
 
     <div class="transaction-filter">
-      <mat-form-field class="col-md-4" appearance="outline">
+      <mat-form-field class="col-md-6" appearance="outline">
         <!-- <mat-label>Enter a date range</mat-label> -->
         <mat-date-range-input [rangePicker]="picker">
           <input matStartDate placeholder="Start date" />
@@ -56,29 +56,29 @@
                   <div *ngSwitchCase="'status'" class="status">
                     <div
                       [ngClass]="{
-                        success: element?.header?.status === 'successful',
-                        failed: element?.header?.status === 'failed',
-                        pending: element?.header?.status === 'pending'
+                        success: element?.TxnHeader?.status === 'success',
+                        failed: element?.TxnHeader?.status === 'failed',
+                        pending: element?.TxnHeader?.status === 'pending'
                       }"
                     >
-                      {{ element?.header?.status | titlecase }}
+                      {{ element?.TxnHeader?.status | titlecase }}
                     </div>
                   </div>
                   <div *ngSwitchCase="'amount'" class="text-right tableAmount">
                     {{ element[column["name"]] | number }}
                   </div>
                   <div *ngSwitchCase="'date'">
-                    {{ element?.created_at | date }}
+                    {{ element?.createdAt | date }}
                   </div>
                   <div *ngSwitchCase="'name'">
-                    {{ element?.User?.first_name }}
+                    {{ element?.User?.firstName }}
                   </div>
                   <div *ngSwitchCase="'email'">{{ element?.User?.email }}</div>
                   <div *ngSwitchCase="'gateway'">
-                    {{ element?.header?.channel }}
+                    {{ element?.TxnHeader?.channel }}
                   </div>
                   <div *ngSwitchCase="'reference'">
-                    {{ element?.header?.reference }}
+                    {{ element?.TxnHeader?.reference }}
                   </div>
                 </div>
               </td>
