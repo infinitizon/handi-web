@@ -21,7 +21,7 @@
               <hr *ngIf="i>0">
               <div class="row" [formGroupName]="i">
                 <div class="form-group col-md-5"
-                  [ngClass]="{ 'is-invalid': g.get('price')?.touched && g.get('price')?.invalid }">
+                  [ngClass]="{ 'is-invalid': g.get('price').touched && g.get('price').invalid }">
                   <label for="{{'bank'+i}}">Type <span class="text-danger">*</span></label>
                   <!-- <ng-select [items]="container['prices']" [appendTo]="'body'" labelForId="{{'bank'+i}}" bindLabel="name"
                     notFoundText="{{container['bankNameLoading'] || 'No items found'}}" placeholder="Select Bank"
@@ -33,7 +33,7 @@
                       <mat-option *ngFor="let c of container['categories']" value="{{c.id}}">{{c?.name}} </mat-option>
                     </mat-select>
                   </mat-form-field>
-                  <div class="error-wrapper" *ngIf="g.get('characteristic')?.touched && g.get('characteristic')?.invalid">
+                  <div class="error-wrapper" *ngIf="g.get('characteristic').touched && g.get('characteristic').invalid">
                     <span class="error" *ngIf="g.get('characteristic')?.errors?.['required']">Type is required</span>
                   </div>
                 </div>
@@ -47,9 +47,9 @@
                     <div class="input mt-1">
                       <mat-form-field appearance="outline" class="w-100 mat-input-invalid">
                         <input autocomplete="off" matInput name="{{'price'+i}}" type="text" [id]="'price'+i" placeholder="" formControlName="price"
-                        [ngClass]="{ 'is-invalid': g.get('price')?.touched && g.get('price')?.invalid }" />
+                        [ngClass]="{ 'is-invalid': g.get('price').touched && g.get('price').invalid }" />
                       </mat-form-field>
-                      <div class="error-wrapper" *ngIf="g.get('price')?.touched && g.get('price')?.invalid">
+                      <div class="error-wrapper" *ngIf="g.get('price').touched && g.get('price').invalid">
                         <span class="error" *ngIf="g.get('price')?.errors?.['required']">Price is required</span>
                       </div>
                     </div>

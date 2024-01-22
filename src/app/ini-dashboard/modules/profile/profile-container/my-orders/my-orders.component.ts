@@ -72,15 +72,50 @@ export class MyOrdersComponent implements OnInit {
   }
 
   getOrders() {
+    // this.mainSubscription$ = this.paginator.page
+    // .pipe(
+    //   startWith({}),
+    //   switchMap(() => {
+    //   return  this.http
+    //     .get(`${environment.baseApiUrl}/users/cart?page=${this.paginator.pageIndex}&perPage=${
+    //       this.paginator.pageSize}`)
+
+    //   })).subscribe(
+    //     (response: any) => {
+    //       this.neworders = new MatTableDataSource<any>(response.data);
+    //       this.orders = response.data;
+    //       this.orders = this.orders.map((t: any) => {
+    //         t.createdAt = moment(t.createdAt).format('MMM D, YYYY');
+    //         return t;
+    //       });
+
+    //       this.orders = this.orders?.sort((a: any, b: any) => (a['createdAt'] > b['createdAt'] ? 1 : -1));
+
+    //       this.orders = this.orders?.reduce(
+    //         (prev: any, now: any) => {
+    //           if (!prev[now['createdAt']]) {
+    //             prev[now['createdAt']] = [];
+    //           }
+    //           prev[now['createdAt']].push(now);
+    //           return prev;
+    //         },
+    //         {}
+    //       );
+    //       this.total_count = response.total;
+    //       this.container['ordersLoading'] = false;
+    //     },
+    //     (errResp) => {
+    //       // this.container['paymentLoading'] = false;
+    //     }
+    //   );
     this.mainSubscription$ = this.paginator.page
     .pipe(
       startWith({}),
       switchMap(() => {
       return  this.http
-        .get(`${environment.baseApiUrl}/users/cart?page=${this.paginator.pageIndex}&perPage=${
-          this.paginator.pageSize}`)
-
-      })).subscribe(
+        .get(`${environment.baseApiUrl}/users/orders?page=${this.paginator.pageIndex}&perPage=${this.paginator.pageSize}`)
+      })
+    ).subscribe(
         (response: any) => {
           this.neworders = new MatTableDataSource<any>(response.data);
           this.orders = response.data;
@@ -89,19 +124,19 @@ export class MyOrdersComponent implements OnInit {
             return t;
           });
 
-          this.orders = this.orders?.sort((a: any, b: any) => (a['createdAt'] > b['createdAt'] ? 1 : -1));
+          // this.orders = this.orders?.sort((a: any, b: any) => (a['createdAt'] > b['createdAt'] ? 1 : -1));
 
-          this.orders = this.orders?.reduce(
-            (prev: any, now: any) => {
-              if (!prev[now['createdAt']]) {
-                prev[now['createdAt']] = [];
-              }
-              prev[now['createdAt']].push(now);
-              return prev;
-            },
-            {}
-          );
-          this.total_count = response.total;
+          // this.orders = this.orders?.reduce(
+          //   (prev: any, now: any) => {
+          //     if (!prev[now['createdAt']]) {
+          //       prev[now['createdAt']] = [];
+          //     }
+          //     prev[now['createdAt']].push(now);
+          //     return prev;
+          //   },
+          //   {}
+          // );
+          this.total_count = response.count;
           this.container['ordersLoading'] = false;
         },
         (errResp) => {

@@ -8,10 +8,7 @@
 <app-empty-data ></app-empty-data>
 </div>
 
-<div
-  class="container-fluid px-2 px-sm-2 px-md-4 px-lg-4"
-  *ngIf="!container['ordersLoading']"
->
+<div class="container-fluid px-2 px-sm-2 px-md-4 px-lg-4" *ngIf="!container['ordersLoading']">
   <div class="orders-header-wrapper">
     <div class="title mt-5">
       <h2>Orders</h2>
@@ -19,49 +16,25 @@
   </div>
 
   <div class="orders-body-wrapper">
-    <div class="row  py-3" *ngFor="let type of objectKey(orders);">
-       <div class="orders-time">
-      <span>{{(type) === (today) ? "Today" : ( (yesterday) === (type)  ? "Yesterday" : type )}}</span>
-    </div>
-    <div
-      *ngFor="let trans of orders[type]"
-      class="orders-content mt-3 col-md-9 pointer"
-      (click)="routeToDetail(trans)"
-    >
+    <div *ngFor="let trans of orders" class="orders-content mt-3 col-md-9 pointer" (click)="routeToDetail(trans)">
       <div class="d-flex align-items-center">
         <div class="p-2 flex-grow-1">
           <div class="d-flex align-items-center">
-            <!-- <div class="p-2">
-              <div class="image-wrapper">
-                <img
-                  src="{{ trans?.TxnHeader?.Asset?.Media[0]?.link }}"
-                  alt="Offer Logo"
-                  height="40"
-                  width="40"
-                  class="rounded-circle"
-                />
-              </div>
-            </div> -->
             <div class="d-flex align-items-start flex-column ml-4">
               <div class="orders-desc mb-auto px-4 text-uppercase">
-                <h3>{{ trans?.orderId }}</h3>
+                <h3>{{ trans?.id }}</h3>
               </div>
-              <div
-                class="orders-status mx-4"
+              <div class="orders-status mx-4"
                 [ngClass]="{
-                  success: trans?.Order?.status === 'success',
-                  pending:
-                    trans?.Order?.status === 'pending' ||
-                    trans?.Order?.status === 'pending_approval',
-                  failed: trans?.Order?.status === 'failed'
-                }"
-              >
+                  success: trans?.status === 'success',
+                  pending: trans?.status === 'pending' || trans?.status === 'pending_approval',
+                  failed: trans?.status === 'failed' }">
                 <span>{{
-                  trans?.Order?.status === "success"
+                  trans?.status === "success"
                     ? "Successful"
-                    : trans?.Order?.status === "pending"
+                    : trans?.status === "pending"
                     ? "Pending"
-                    : trans?.Order?.status === "pending_approval"
+                    : trans?.status === "pending_approval"
                     ? "Pending Approval"
                     : "Failed"
                 }}</span>
@@ -70,25 +43,16 @@
           </div>
         </div>
         <div class="p-2 orders-amount">
-          <h6>{{ trans?.currency }} {{ trans?.amount | number : "1.2-2" }}</h6>
+          <h6> {{ trans?.amount | currency :(trans?.currency||'NGN'):'symbol-narrow'}}</h6>
         </div>
         <div class="p-2  orders-amount">
-          <h6>Items: {{ trans?.value }}</h6>
+          <h6>Items: {{ trans?.totalitems }}</h6>
         </div>
-
         <div class="p-0 orders-icon">
           <i class="ri-arrow-right-s-line"></i>
         </div>
       </div>
     </div>
-</div>
-</div>
-</div>
-<div >
-    <mat-paginator
-    [length]="total_count"
-    [pageSize]="pageSize"
-    showFirstLastButtons
-     aria-label="Select page">
-   </mat-paginator>
   </div>
+</div>
+    <mat-paginator [length]="total_count" [pageSize]="pageSize" showFirstLastButtons aria-label="Select page"></mat-paginator>
