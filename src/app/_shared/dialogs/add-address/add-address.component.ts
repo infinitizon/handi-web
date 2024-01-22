@@ -73,7 +73,7 @@ export class AddAddressComponent implements OnInit {
         this.searchElementRef.nativeElement,
         'placeholder',
         'Search and pick your address here...'
-      );
+      ); if (data)  this.getLocation();
     });
   }
 
@@ -85,7 +85,7 @@ export class AddAddressComponent implements OnInit {
     });
 
     this.aRoute.paramMap.subscribe(paramMap => {
-      this.getLocation();
+
     })
 
   }
@@ -98,7 +98,7 @@ export class AddAddressComponent implements OnInit {
         lng: this.data.lng,
       };
 
-      console.log(coords)
+
 
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode({ location: coords }, (results, status) => {
@@ -108,6 +108,10 @@ export class AddAddressComponent implements OnInit {
               (a) => a.types.includes('street_address') && !a.plus_code
             )?.address_components
           );
+          this.addressForm.patchValue({
+            address:this.container?.address?.number + " " + this.container?.address?.address1 + " " + this.container.address.city + " " + this.container?.address?.state?.name
+          })
+          console.log(this.container.address)
         }
       });
     }
@@ -145,7 +149,8 @@ export class AddAddressComponent implements OnInit {
     //  delete fd.phone;
     //  console.log(fd); return
 
-    this.http.post(`${environment.baseApiUrl}/users/address`, fd).subscribe(
+   (this.data ? this.http.patch(`${environment.baseApiUrl}/users/address/${this.data.id}`, fd) : this.http.post(`${environment.baseApiUrl}/users/address`, fd))
+    .subscribe(
       (response: any) => {
         this.submitting = false;
         //  this.authService.email$.next(fd.email);

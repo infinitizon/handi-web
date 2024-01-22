@@ -1195,10 +1195,10 @@ span.profileName {
   margin-top: 60px !important;
 }
 
-.transactions-body-wrapper {
+.orders-body-wrapper {
   margin-top: 48px;
 
-  .transactions-time {
+  .orders-time {
     span {
       color: var(--gray-gray-500, #858585);
       font-size: 14px;
@@ -1210,7 +1210,7 @@ span.profileName {
   }
 }
 
-.transactions-desc {
+.orders-desc {
   h3 {
     color: var(--secondary);
     font-size: 14px;
@@ -1228,7 +1228,7 @@ span.profileName {
   }
 }
 
-.transactions-status {
+.orders-status {
   border-radius: 16px;
   padding: 2px 8px;
   font-size: 11px;
@@ -1252,7 +1252,7 @@ span.profileName {
   }
 }
 
-.transactions-amount {
+.orders-amount {
   h6 {
     color: var(--secondary);
     font-family: Inter;
@@ -1264,7 +1264,7 @@ span.profileName {
   }
 }
 
-.transactions-icon {
+.orders-icon {
   i {
     font-size: 20px;
     color: #aeaeae;
@@ -1278,7 +1278,7 @@ span.profileName {
   }
 }
 
-.transactions-subtitle {
+.orders-subtitle {
   span {
     color: var(--gray-gray-600, #595959);
     font-size: 12px;
@@ -1289,19 +1289,19 @@ span.profileName {
   }
 }
 
-.transactions-detail-wrapper {
+.orders-detail-wrapper {
   border-radius: 8px;
   border: 1px solid var(--gray-gray-100, #e7e7e7);
 }
 
-.transactions-detail-header {
+.orders-detail-header {
   background: var(--white-white-200, #fafafa);
   padding: 24px 0px;
   border-radius: 8px 8px 0 0;
   border-bottom: 1px solid var(--gray-gray-100, #e7e7e7);
 }
 
-.transactions-detail-body {
+.orders-detail-body {
   margin-top: 32px;
   padding: 20px 41px;
   border-bottom: 1px dashed var(--gray-gray-100, #e7e7e7);
@@ -1334,7 +1334,7 @@ span.profileName {
   }
 }
 
-.transactions-detail-footer {
+.orders-detail-footer {
   padding: 16px 41px;
 
   .key {
@@ -1360,13 +1360,13 @@ span.profileName {
   }
 }
 
-.transactions-content {
+.orders-content {
   &.details {
     padding: 16px 20px;
   }
 }
 
-.transactions-amount-details {
+.orders-amount-details {
   margin-top: 16px;
 
   h3 {
@@ -1384,7 +1384,7 @@ span.profileName {
   }
 }
 
-.transactions-status-details {
+.orders-status-details {
   // width: 193px;
   margin-top: 16px;
   padding: 6px 6px 6px 4px;
