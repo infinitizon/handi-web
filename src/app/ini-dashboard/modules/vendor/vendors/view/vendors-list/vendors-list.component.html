@@ -2,11 +2,7 @@
   <div class="transaction-wrapper" >
     <div class="d-flex justify-content-between align-items-center" >
     <div class="back-button-v2">
-      <a
-        (click)="goBack()"
-        class="m-0 p-0"
-        ><span>Vendors</span></a
-      >
+      <a (click)="goBack()" class="m-0 p-0"><span>Vendors</span></a>
     </div>
     <!-- <div class=""><button class="action-btn" routerLink="/app/vendors/details">Add new</button></div> -->
   </div>
@@ -19,10 +15,7 @@
           <input matEndDate placeholder="End date" />
         </mat-date-range-input>
         <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle
-          matIconSuffix
-          [for]="picker"
-        ></mat-datepicker-toggle>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
       </mat-form-field>
     </div> -->
@@ -43,26 +36,16 @@
                   </div>
                 </div>
               </th>
-              <mat-progress-bar
-                mode="indeterminate"
-                *ngIf="container['vendorsLoading']"
-              ></mat-progress-bar>
+              <mat-progress-bar mode="indeterminate" *ngIf="container['vendorsLoading']"></mat-progress-bar>
               <td mat-cell *matCellDef="let element">
-                <div
-                  [ngSwitch]="column['name']"
-                  [ngClass]="{
-                    tableAmount: column['name'] == ('number' || 'money')
-                  }"
-                >
+                <div [ngSwitch]="column['name']" [ngClass]="{ tableAmount: column['name'] == ('number' || 'money')}">
                   <div *ngSwitchDefault>{{ element[column["name"]] }}</div>
                   <div *ngSwitchCase="'status'" class="status">
-                    <div
-                      [ngClass]="{
+                    <div [ngClass]="{
                         success: element?.header?.status === 'successful',
                         failed: element?.header?.status === 'failed',
                         pending: element?.header?.status === 'pending'
-                      }"
-                    >
+                      }">
                       {{ element?.header?.status | titlecase }}
                     </div>
                   </div>

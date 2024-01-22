@@ -34,8 +34,8 @@ const routes: Routes = [
       //   // canActivate: [AuthGuard]
       // },
       {
-        path: 'help',
-        loadChildren: () => import('./modules/help/help.module').then(m => m.HelpModule),
+        path: 'feedback',
+        loadChildren: () => import('./modules/feedback/feedback.module').then(m => m.FeedbackModule),
         // canActivate: [AuthGuard]
       },
       // {

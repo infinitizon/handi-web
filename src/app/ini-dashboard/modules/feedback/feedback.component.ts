@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { IniDashboardService } from '@app/ini-dashboard/ini-dashboard.service';
 
 @Component({
-  selector: 'app-help',
-  templateUrl: './help.component.html',
-  styleUrls: ['./help.component.scss'],
+  selector: 'app-feedback',
+  templateUrl: './feedback.component.html',
+  styleUrls: ['./feedback.component.scss'],
 })
-export class HelpComponent implements OnInit {
+export class FeedbackComponent implements OnInit {
   constructor(public dashboardService: IniDashboardService) {}
 
   ngOnInit() {
