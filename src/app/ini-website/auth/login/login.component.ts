@@ -12,6 +12,7 @@ import { AuthService } from '@app/_shared/services/auth.service';
 import { CommonService } from '@app/_shared/services/common.service';
 import { environment } from '@environments/environment';
 import { ProfileSelectComponent } from '@app/_shared/dialogs/profile-select/profile-select.component';
+import { ActivateEmailComponent } from '@app/_shared/dialogs/activate-email/activate-email.component';
 
 @Component({
   selector: 'app-login',
@@ -97,19 +98,48 @@ export class LoginComponent implements OnInit {
         },
         (errResp) => {
           this.submitting = false;
-          this.openSnackBar(errResp?.error?.error?.message);
-          if (errResp.status == 423) {
-            this.authService.email$.next(fd.email);
-            this.http
-              .post(
-                `${environment.baseApiUrl}/auth/otp/generate`,
-                 {email: fd.email, subject: 'Verification'}
-              )
-              .subscribe((response: any) => {});
-              this.router.navigate(['/auth/verify-otp']);
+          if(errResp?.status !== 423 && errResp?.status !== 419) {
+            this.openSnackBar(errResp?.error?.error?.message);
+          }
+
+          if(errResp?.status === 419) {
+            fd.status = 419;
+            this.authService.signup$.next(fd);
+            this.router.navigate(['/auth/verify-otp']);
+          }
+
+          if(errResp?.status === 423) {
+            this.authService.signup$.next(fd);
+            const activeDialog = this.dialog.open(ActivateEmailComponent, {
+              data: {
+                response: errResp?.error?.error?.message,
+              },
+              width: '408px',
+              height: '320px',
+            });
+            activeDialog
+              .afterClosed()
+              .pipe(take(1))
+              .subscribe((result) => {
+                if(result) {
+                  this.router.navigate(['/auth/verify-otp']);
+                  this.sendOtp(fd.email);
+                }
+              });
           }
         }
       );
+  }
+
+  sendOtp(email: string) {
+    this.http.post(`${environment.baseApiUrl}/auth/generateOTP`, {email: email, subject: 'Verification'})
+    .subscribe((response: any) => {
+      this.submitting = false;
+    },
+    errResp => {
+      this.submitting = false;
+      this.openSnackBar(errResp?.error?.message)
+    });
   }
 
   showEyes() {

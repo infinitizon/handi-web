@@ -46,10 +46,10 @@ export class VerifyOtpComponent implements OnInit {
      { }
 
   ngOnInit() {
-    this.verifySub = this.authService.emailData().subscribe(
+    this.verifySub = this.authService.signup$.subscribe(
       (data: any) => {
         if(data) {
-          this.email = data
+          this.email = data.email
         } else {
           this.router.navigate(['/auth/signup']);
         }

@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
 import { SnackBarComponent } from '@app/_shared/components/snack-bar/snack-bar.component';
 import { Crypto } from '@app/_shared/classes/Crypto';
+import { take } from 'rxjs';
+import { ApplicationContextService } from '@app/_shared/services/application-context.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -30,6 +32,7 @@ export class SignUpComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private commonServices: CommonService,
+    public appContext: ApplicationContextService,
     private router: Router,
     private http: HttpClient,
     private _snackBar: MatSnackBar,
@@ -37,47 +40,52 @@ export class SignUpComponent implements OnInit {
      { }
 
   ngOnInit() {
-
-    // if (this.authService.isLoggedIn()) {
-    //   this.router.navigate(['/app']);
-    // }
-    // this.authService.logout();
-
-    this.signupForm = this.fb.group(
-      {
-        firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.pattern(this.commonServices.email)]],
-        phone: ['', [Validators.required]],
-        password: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(6),
-            this.commonServices.regexValidator(
-              new RegExp(this.commonServices.oneDigit),
-              { oneDigit: '' }
-            ),
-            this.commonServices.regexValidator(
-              new RegExp(this.commonServices.oneLowerCase),
-              { oneLowerCase: '' }
-            ),
-            this.commonServices.regexValidator(
-              new RegExp(this.commonServices.oneUpperCase),
-              { oneUpperCase: '' }
-            ),
-            this.commonServices.regexValidator(
-              new RegExp(this.commonServices.specialChar),
-              { specialChar: '' }
-            ),
-          ],
-        ],
-        confirmPassword: ['', [Validators.required]],
-        referralCode: ['']
-      }
-      ,
-      { validators: this.commonServices.mustMatch('password', 'confirmPassword') }
-    );
+    this.appContext.getUserInformation()
+        .pipe(take(1))
+        .subscribe({
+          next: (data: any) => {
+            if(data && data.id){
+              this.authService.email$.next(data.email);
+              this.router.navigate(['/vendors-onboarding/signup-continue/', data?.id]);
+            } else {
+              this.signupForm = this.fb.group(
+                {
+                  firstName: ['', [Validators.required]],
+                  lastName: ['', [Validators.required]],
+                  email: ['', [Validators.required, Validators.pattern(this.commonServices.email)]],
+                  phone: ['', [Validators.required]],
+                  password: [
+                    '',
+                    [
+                      Validators.required,
+                      Validators.minLength(6),
+                      this.commonServices.regexValidator(
+                        new RegExp(this.commonServices.oneDigit),
+                        { oneDigit: '' }
+                      ),
+                      this.commonServices.regexValidator(
+                        new RegExp(this.commonServices.oneLowerCase),
+                        { oneLowerCase: '' }
+                      ),
+                      this.commonServices.regexValidator(
+                        new RegExp(this.commonServices.oneUpperCase),
+                        { oneUpperCase: '' }
+                      ),
+                      this.commonServices.regexValidator(
+                        new RegExp(this.commonServices.specialChar),
+                        { specialChar: '' }
+                      ),
+                    ],
+                  ],
+                  confirmPassword: ['', [Validators.required]],
+                  referralCode: ['']
+                }
+                ,
+                { validators: this.commonServices.mustMatch('password', 'confirmPassword') }
+              );
+            }
+          },
+        });
   }
 
   showEyes() {

@@ -29,6 +29,7 @@ import { GatewayDialogComponent } from './dialogs/gateway-dialog/gateway-dialog.
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 import { LoaderComponent } from './components/loader/loader.component';
 import { AddAddressComponent } from './dialogs/add-address/add-address.component';
+import { ActivateEmailComponent } from './dialogs/activate-email/activate-email.component';
 import { Loader2Component } from './components/loader_2/loader.component';
 
 const MY_DATE_FORMAT = {
@@ -67,6 +68,7 @@ export function playerFactory() {
     GatewayDialogComponent,
     LoaderComponent,
     AddAddressComponent,
+    ActivateEmailComponent,
     Loader2Component
 
   ],
@@ -117,6 +119,7 @@ export function playerFactory() {
     LoaderComponent,
     NgxMaskDirective, NgxMaskPipe,
     AddAddressComponent,
+    ActivateEmailComponent,
     Loader2Component
   ]
 })

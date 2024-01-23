@@ -189,18 +189,9 @@
           </button>
         </div>
         <!-- <div class="icon"></div> -->
-        <div class="col-md-4 text">
-
+        <div class="col-md-4 text" *ngIf="!['SUPER_ADMIN','PROVIDER_ADMIN'].includes(role)">
           <div class="d-flex justify-content-center justify-content-sm-center justify-content-md-start pointer" routerLink="/vendors-onboarding/signup">
-
-          <span
-            >
-            <img
-              src="/assets/logo/sell.svg"
-              width="24"
-              height="24"
-              alt="Sell Icon" /></span
-          >&nbsp;
+          <span><img src="/assets/logo/sell.svg" width="24" height="24" alt="Sell Icon" /></span>&nbsp;
           <span>Sell on Home Service.</span>
         </div>
         </div>
