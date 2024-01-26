@@ -40,7 +40,7 @@ export class VendorUsersListComponent implements OnInit {
   getSubscribers() {
     this.container['subscribersLoading'] = true;
     this.http
-      .get(`${environment.baseApiUrl}/admin/users?userRole=PROVIDER,PROVIDER_ADMIN&tenantId=${this.tenant.id}`)
+      .get(`${environment.baseApiUrl}/admin/users?r=PROVIDER,PROVIDER_ADMIN&tenantId=${this.tenant.id}`)
       .subscribe(
         (response: any) => {
           this.tenantsCustDataSource = response.users;

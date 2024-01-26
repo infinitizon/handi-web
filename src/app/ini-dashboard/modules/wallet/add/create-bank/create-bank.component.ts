@@ -91,16 +91,16 @@ export class CreateBankComponent implements OnInit {
     if (nuban?.length === 10) {
       const chosenBank = this.createBankForm.get('bankCode')?.value;
       this.container['loadingBankName'] = true;
-      const fd = { bank_code: chosenBank?.code, nuban: nuban };
+      const fd = { bankCode: chosenBank?.code, nuban: nuban };
       this.http
-        .post(`${environment.baseApiUrl}/verifications/bank-account`, fd)
+        .post(`${environment.baseApiUrl}/verifications/nuban`, fd)
         .pipe(debounceTime(0), distinctUntilChanged())
         .subscribe(
           (resp: any) => {
             this.container['loadingBankName'] = false;
             this.container['bankAccountName'] = {
               success: true,
-              name: resp?.data?.account_name,
+              name: resp?.data?.accountName,
             };
           },
           (errResp) => {

@@ -45,7 +45,7 @@ export class CustomerListComponent implements OnInit {
   getCategories() {
     this.container['categoriesLoading'] = true;
     this.http
-      .get(`${environment.baseApiUrl}/admin/users?userRole=CUSTOMER`)
+      .get(`${environment.baseApiUrl}/admin/users?r=CUSTOMER`)
       .subscribe({
         next: (response: any) => {
           this.container['category'] = response.users;
