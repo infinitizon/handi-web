@@ -15,6 +15,7 @@ export class VendorsListComponent implements OnInit {
   vendorsDisplayedColumns: any = [
     { name: 'expand', title:  '', type: 'expand' },
     { name: 'name', title: 'Business Name', type: '' },
+    { name: 'Products', title: 'Category', type: '' },
     { name: 'email', title: 'Email', type: '' },
     { name: 'phone', title: 'phone', type: '' },
     { name: 'createdAt', title: 'Date', type: 'date' }
@@ -24,6 +25,7 @@ export class VendorsListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  Object = Object;
   container: any = {};
   total_count: number = 0;
   pageSize: number = 10;
@@ -61,7 +63,12 @@ export class VendorsListComponent implements OnInit {
     this.vendorsDataSource.paginator = this.paginator;
   }
 
-
+  showCategory(category = []) {
+    // return (category.filter(cat => cat?.type=='category').map(cat => cat.title));
+    const cats = (category.filter(cat => cat?.type=='category').map(cat => cat.title));
+    console.log(cats);
+    return cats
+  }
 
   goBack() {
     this.location.back();

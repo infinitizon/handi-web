@@ -47,6 +47,9 @@
                           <i *ngIf="element.expanded" (click)="element.expanded=false" class="ri-arrow-up-s-line pointer"></i>
                         </ng-container>
                       </div>
+                      <div *ngSwitchCase="'Products'">
+                        {{ showCategory(element[column['name']])  }}
+                      </div>
                       <div *ngSwitchCase="'createdAt'">
                         {{ element?.createdAt | date }}
                       </div>
