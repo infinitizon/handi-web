@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild, } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, ViewChild, } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -21,12 +21,13 @@ export class ChatComponent implements OnInit {
   chats = new Array
   container = {};
 
+  @Input() data: any;
 
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ChatComponent>,
+    // @Inject(MAT_DIALOG_DATA) public data: any,
+    // public dialogRef: MatDialogRef<ChatComponent>,
     private appContext: ApplicationContextService,
     private socket: Socket,
     private http: HttpClient,
@@ -36,6 +37,7 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     console.log(this.data);
 
+    // console.log(this.data);
     this.msgForm = this.fb.group({
       message: [null, [Validators.required ],],
     });

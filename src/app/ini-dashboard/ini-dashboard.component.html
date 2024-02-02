@@ -48,7 +48,7 @@
                 Favorite
               </a>
             </li> -->
-            <li class="menu-item">
+            <li class="menu-item" *ngIf="role === 'PROVIDER_ADMIN'">
               <a [routerLink]="['help']" routerLinkActive="current">
                 <span class="dash-menu-icon">
                   <img
