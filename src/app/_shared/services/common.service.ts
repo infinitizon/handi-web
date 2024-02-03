@@ -178,25 +178,14 @@ export class CommonService {
     return new Blob([ia], { type: mimeString });
   }
 
-  successSnackBar(message: string) {
-    this._snackBar.openFromComponent(SnackBarComponent, {
-      duration: 2000,
-      data: {
-        message: message,
-        icon: 'ri-checkbox-circle-fill',
-      },
-      panelClass: ['success'],
-    });
-  }
-
-  openSnackBar(message: string) {
+  snackBar(message: string, successOrError='success') {
     this._snackBar.openFromComponent(SnackBarComponent, {
       duration: 2000,
       data: {
         message: message,
         icon: 'ri-close-circle-fill',
       },
-      panelClass: ['error'],
+      panelClass: [successOrError],
     });
   }
 }

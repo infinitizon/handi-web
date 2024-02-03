@@ -107,10 +107,10 @@ export class CartComponent implements OnInit {
     this.http.patch(`${environment.baseApiUrl}/users/cart/${orderId}/update`, {value})
       .subscribe({
         next: (response: any) => {
-          this.commonServices.successSnackBar(response?.message);
+          this.commonServices.snackBar(response?.message);
         },
         error: (errResp: any) => {
-            this.commonServices.openSnackBar(errResp?.error?.error?.message || `Error updating cart`);
+            this.commonServices.snackBar(errResp?.error?.error?.message || `Error updating cart`, 'error');
         }
     });
   }

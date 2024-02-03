@@ -78,10 +78,10 @@ export class GatewayComponent implements OnInit {
           this.container['submitting'] = false;
           window.location = response.data.authorization_url;
 
-          this.commonServices.successSnackBar(response?.message);
+          this.commonServices.snackBar(response?.message);
         },
         error: (errResp: any) => {
-            this.commonServices.openSnackBar(errResp?.error?.error?.message || `Error saving request`);
+            this.commonServices.snackBar(errResp?.error?.error?.message || `Error saving request`, 'error');
         }
     });
   }

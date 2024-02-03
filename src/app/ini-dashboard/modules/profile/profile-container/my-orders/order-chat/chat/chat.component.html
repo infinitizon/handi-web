@@ -1,0 +1,71 @@
+<div mat-dialog-content class="gateway-wrapper mt-3">
+  <div class="title gateway-header">
+    <div class="chat card border">
+      <div class="card-header d-flex justify-content-between">
+        <div class="d-flex justify-content-start">
+          <div class="img_cont mr-5 ">
+            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
+            <span class="online_icon"></span>
+          </div>
+          <div class="ml-4">
+            <div class="align-middle">
+              <h3>Chat with {{data?.Tenant?.name ?? 'Vendor'}}</h3>
+            </div>
+            <div class="video_cam">
+              <span><i class="fas fa-video"></i></span>
+              <span><i class="fas fa-phone"></i></span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span [matMenuTriggerFor]="chatOptions" id="action_menu_btn"><mat-icon>more_vert</mat-icon></span>
+          <mat-menu #chatOptions="matMenu" class="profile-menu-dropdown">
+            <div class="action_menu">
+              <ul>
+                <li><i class="fas fa-user-circle"></i> View profile</li>
+                <li><i class="fas fa-users"></i> Add to close friends</li>
+                <li><i class="fas fa-plus"></i> Add to group</li>
+                <li><i class="fas fa-ban"></i> Block</li>
+              </ul>
+            </div>
+          </mat-menu>
+        </div>
+      </div>
+      <div class="card-body msg_card_body">
+        <cdk-virtual-scroll-viewport appendOnly [itemSize]="10" class="viewport example-viewport w-100" [style.height]="calculateContainerHeight()" #scrollViewport>
+          <div *cdkVirtualFor="let chat of chats" class="example-item">{{chat | json}}</div>
+        </cdk-virtual-scroll-viewport>
+        <!-- <div class="d-flex justify-content-start mb-4">
+          <div class="img_cont_msg">
+            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
+          </div>
+          <div class="msg_cotainer">
+            Hi, how are you samim?
+            <span class="msg_time">8:40 AM, Today</span>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end mb-4">
+          <div class="msg_cotainer_send">
+            Hi Khalid i am good tnx how about you?
+            <span class="msg_time_send">8:55 AM, Today</span>
+          </div>
+          <div class="img_cont_msg">
+          <img src="">
+        </div> -->
+      </div>
+      <div class="card-footer">
+        <form id="message" [formGroup]="msgForm" (ngSubmit)="onChatSubmit(msgForm.value)">
+          <div class="input-group">
+            <mat-form-field appearance="outline" class="col-md-12 w-100 input">
+              <mat-label>Enter Chat</mat-label>
+              <input matInput class="form-control " formControlName="message" >
+              <button type="submit" matSuffix mat-icon-button aria-label="Submit">
+                <mat-icon>send</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

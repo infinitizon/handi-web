@@ -132,7 +132,7 @@ export class SignUpContinueComponent implements OnInit {
          this.submitting = false;
         //  this.authService.email$.next(fd.email);
          this.successSnackBar("Business Signup successful");
-        this.router.navigate(['/auth/verify-otp']);
+        this.router.navigate(['/vendors-onboarding/verify-otp']);
                 },
        errResp => {
           this.submitting = false;

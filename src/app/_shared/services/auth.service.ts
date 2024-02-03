@@ -29,7 +29,7 @@ export class AuthService {
 
   setToken(data: any) {
     localStorage.setItem(this.landlordStorageKey, data?.token);
-    localStorage.setItem(this.logoutKey, data?.uuid_token);
+    localStorage.setItem(this.logoutKey, data.xUUIDToken);
   }
 
   get reqType() {

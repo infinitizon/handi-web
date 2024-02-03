@@ -143,7 +143,7 @@ export class ViewCheckoutComponent implements OnInit {
           this.container['submitting'] = false;
           this.router.navigateByUrl(`/app/home/cart`);
 
-          this.commonServices.successSnackBar(response?.message);
+          this.commonServices.snackBar(response?.message);
         },
         error: (errResp: any) => {
           if(errResp.status === 402) {
@@ -164,7 +164,7 @@ export class ViewCheckoutComponent implements OnInit {
               }
             });
           } else {
-            this.commonServices.openSnackBar(errResp?.error?.error?.message || `Error saving request`);
+            this.commonServices.snackBar(errResp?.error?.error?.message || `Error saving request`, 'error');
           }
         }
     });

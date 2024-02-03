@@ -11,6 +11,8 @@ import { Observable, Subscription, startWith, switchMap, take } from 'rxjs';
 import * as moment from 'moment';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { OrderChatComponent } from './order-chat/order-chat.component';
 
 
 @Component({
@@ -48,7 +50,8 @@ export class MyOrdersComponent implements OnInit {
     private offerService: OffersService,
     public appContext: ApplicationContextService,
     private http: HttpClient,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -149,8 +152,19 @@ export class MyOrdersComponent implements OnInit {
     return obj ? Object.keys(obj).sort((a: any, b: any) => (b > a ? 1 : -1)) : null;
   }
 
-  routeToDetail(method: any) {
-    this.router.navigate(['/app/orders/detail', method.id]);
+  routeToDetail(order: any) {
+    const data = {...order};
+    const categoryDialog = this.dialog.open(OrderChatComponent, {
+      data,
+      minWidth: '50%',
+      minHeight: '80%',
+      disableClose: false,
+    });
+
+    categoryDialog.afterClosed().subscribe((response) => {
+      this.container['category'] = [];
+       this.getOrders();
+    })
   }
 
   ngOnDestroy(): void {
