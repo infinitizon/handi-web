@@ -6,6 +6,7 @@ import { Socket } from 'ngx-socket-io';
 import { ApplicationContextService } from '@app/_shared/services/application-context.service';
 import { BehaviorSubject, Observable, map, mergeMap, scan, tap, throttleTime } from 'rxjs';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-chat',
@@ -33,6 +34,8 @@ export class ChatComponent implements OnInit {
 
   }
   ngOnInit() {
+    console.log(this.data);
+
     this.msgForm = this.fb.group({
       message: [null, [Validators.required ],],
     });
@@ -40,7 +43,7 @@ export class ChatComponent implements OnInit {
       .getUserInformation()
       .subscribe((user: any) => {
         this.container['user'] = user;
-          this.container['sessionUsers'] = { sessionId: this.data.id, participants: [{userId: user.id},{userId: this.data.id}] }
+          this.container['sessionUsers'] = { sessionId: this.data.id, participants: [{userId: user.id, tenantId: this.data.Tenant?.id}] }
 
           this.socket.emit('get-session-users', this.container['sessionUsers']);
           this.socket.emit('get-session-chats', { sessionId: this.data.id });
@@ -48,16 +51,28 @@ export class ChatComponent implements OnInit {
   }
 
   onChatSubmit(chat: any) {
-    chat.timestamp = new Date().toString();
-    // this.chats.push(chat)
+    chat = { ...chat, userId: this.container['user']?.id, timestamp: new Date().toString(), strike: false };
     this.chats = [...this.chats, chat];
+    this.msgForm.patchValue({message: null});
+    this.saveChat(chat);
   }
 
+  saveChat(chat: any) {
+    this.http.post(`${environment.baseApiUrl}/chats`, chat)
+              .subscribe({
+                next: (response: any) => {
+                  chat.delivered = true;
+                },
+                error: (err: any) => {
+                  chat.strike = true
+                }
+              })
+  }
 
   calculateContainerHeight(): string {
     const numberOfItems = this.chats.length;
     // This should be the height of your item in pixels
-    const itemHeight = 30;
+    const itemHeight = 50;
     // The final number of items you want to keep visible
     const visibleItems = 10;
 

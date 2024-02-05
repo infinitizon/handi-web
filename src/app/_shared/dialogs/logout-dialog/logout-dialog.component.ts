@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from '@app/_shared/services/auth.service';
+import { environment } from '@environments/environment';
 
 
 @Component({
@@ -10,6 +11,8 @@ import { AuthService } from '@app/_shared/services/auth.service';
   styleUrls: ['./logout-dialog.component.scss']
 })
 export class LogoutDialogComponent implements OnInit {
+
+  container = {};
 
   constructor(private auth: AuthService,
     public _dialogRef: MatDialogRef<LogoutDialogComponent>,
@@ -21,14 +24,19 @@ export class LogoutDialogComponent implements OnInit {
   }
 
   logout(): void {
-    this.auth.logout();
-    // this.http.post(`${environment.baseApiUrl}/auth/user/logout`, {},)
-    //   .subscribe((response: any) => {
-    //     this.auth.logout();
-    //     this._dialogRef.close();
-    //   },
-    //   errResp => {
-        this._dialogRef.close();
-      // });
+    // this.auth.logout();
+    this.container['submitting'] = true;
+    this.http.post(`${environment.baseApiUrl}/auth/user/logout`, {},)
+      .subscribe({
+        next: (response: any) => {
+          this.container['submitting'] = false
+          this.auth.logout();
+          this._dialogRef.close();
+        },
+        error: (errResp) => {
+          this.container['submitting'] = false
+          this._dialogRef.close();
+        }
+      });
   }
 }

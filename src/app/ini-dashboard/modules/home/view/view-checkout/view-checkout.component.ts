@@ -45,7 +45,12 @@ export class ViewCheckoutComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private gMapService: GMapService,
-  ) { }
+  ) {
+    this.gMapService.api.then((maps) => {
+      // this.initAutocomplete(maps);
+      this.container['loadedMaps'] = true;
+    });
+  }
 
   ngOnInit() {
     this.aRoute.paramMap.subscribe(paramMap => {
