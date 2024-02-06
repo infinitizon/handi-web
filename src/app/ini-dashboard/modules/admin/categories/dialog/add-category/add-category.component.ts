@@ -17,7 +17,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AddCategoryComponent implements OnInit {
   categoryForm!: FormGroup;
-  container: any = {};
+  container: any = {
+    imageFile: {link: "", file: {}, name: ""}
+  };
   errors: any = [];
   formErrors: any = FormErrors;
   uiErrors: any = FormErrors;
@@ -38,16 +40,37 @@ export class AddCategoryComponent implements OnInit {
 
   ngOnInit() {
     this.categoryForm = this.fb.group({
+      image: [null],
       title: [this.data?.title, [Validators.required]],
       summary: [this.data?.summary, [Validators.required]],
       sku: [this.data?.sku, [Validators.required]],
       type: [this.data?.type],
-      description: [''],
+      description: [this.data?.summary],
       // pId: [this.data?.pId || '']
     })
+    this.container['imageFile'] = {
+      link: this.data?.Media?.find((i:any)=>i.objectType==="product-image")?.response?.url,
+    };
+    console.log(this.container['imageFile']);
+
   }
 
-
+  onImagePicked(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      this.container['working-file'] = true;
+      const reader = new FileReader();
+      reader.onload = (_event: any) => {
+          this.container['imageFile'] = {
+              link: _event.target.result,
+              file: event.srcElement.files[0],
+              name: event.srcElement.files[0].name
+          };
+          this.container['working-file'] = false;
+          this.categoryForm.patchValue({ image: event.target.files[0]});
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
   submit() {
       this.container['submitting'] = true;
       if (this.categoryForm.invalid) {
@@ -59,16 +82,25 @@ export class AddCategoryComponent implements OnInit {
         this.container['submitting'] = false;
         return;
       }
-      const fd = JSON.parse(JSON.stringify(this.categoryForm.value));
-      fd.description = fd.summary;
-      if(fd.type === 'sub_category') {
-        fd.pId = this.data.pId
-      }
-      const payload = {...this.data, ...fd};
-      (this.data?.id ? this.http
-        .patch(`${environment.baseApiUrl}/admin/products/${this.data.id}`, payload) :
-        this.http
-        .post(`${environment.baseApiUrl}/admin/products`, fd))
+      // const fd = JSON.parse(JSON.stringify(this.categoryForm.value));
+      const formData: FormData = new FormData();
+      // if(this.data.id) {
+      //   Object.keys(this.data).forEach(key=>{
+      //     key==='pId'?0:formData.append(key, this.data[key]);
+      //   })
+      // }
+      Object.keys(this.categoryForm.getRawValue()).forEach(key=>{
+        if(key === 'sub_category') {
+          formData.append(`pId`, this.data.pId);
+        }
+        formData.append(key, this.categoryForm.getRawValue()[key]);
+      })
+      console.log(this.data);
+      // return;
+
+      (this.data?.id ?
+        this.http.patch(`${environment.baseApiUrl}/admin/products/${this.data.id}`, formData) :
+        this.http.post(`${environment.baseApiUrl}/admin/products`, formData))
         .subscribe(
           (response: any) => {
             this.container['submitting'] = false;

@@ -26,7 +26,7 @@ export class DetailsContainerComponent implements OnInit {
     .pipe(
       switchMap((params: any) => {
         this.container['loading'] = true;
-        return params.get('id') ? this.http.get(`${environment.baseApiUrl}/admin/vendors/${params.get('id')}?includes=users&roles=provider_admin`) : of({data: {}});
+        return params.get('id') ? this.http.get(`${environment.baseApiUrl}/admin/vendor/${params.get('id')}?includes=users&roles=provider_admin`) : of({data: {}});
       })
       // ).subscribe((security: any)  => {
     )

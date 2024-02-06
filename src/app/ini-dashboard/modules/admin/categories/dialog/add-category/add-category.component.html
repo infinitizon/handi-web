@@ -10,25 +10,32 @@
 
   <div class="gateway-content mt-4">
     <form [formGroup]="categoryForm" [autocomplete]="'off'">
+
       <div class="form-group">
-        <label
-          ><div class="gateway-label d-flex justify-content-between">
+        <div class="pic-holder">
+          <input class="uploadProfileInput" type="file" name="profile_pic" id="newProfilePhoto" accept="image/*" style="opacity: 0" (change)="onImagePicked($event)" height="140" width="140" />
+          <label for="newProfilePhoto" class="upload-file-block">
+            <div class="text-center">
+              <div class="mb-2">
+                <img [src]="container['imageFile']?.link || '/assets/img/gallery-add.svg'" alt="Profile image" height="140" width="140" *ngIf="!container['working-file']" />
+                <mat-spinner *ngIf="container['working-file']"></mat-spinner>
+              </div>
+              <div class="text-uppercase">Click here to Upload product photo</div>
+            </div>
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>
+          <div class="gateway-label d-flex justify-content-between">
             <div>Title</div>
             <div class="units"></div>
-          </div></label
-        >
+          </div>
+        </label>
         <div class="input mt-1">
           <mat-form-field appearance="outline" class="col-md-12 w-100 input">
-            <input
-              autocomplete="off"
-              matInput
-              name="title"
-              type="text"
-              class=""
-              placeholder=""
-              formControlName="title"
-              (keyup)="controlChanged('title')"
-            />
+            <input autocomplete="off" matInput name="title" type="text"
+              class="" placeholder="" formControlName="title" (keyup)="controlChanged('title')" />
           </mat-form-field>
           <div class="error-wrapper">
             <span *ngIf="uiErrors.title" class="error">{{
@@ -39,24 +46,16 @@
       </div>
 
       <div class="form-group mt-3">
-        <label
-          ><div class="gateway-label d-flex justify-content-between">
+        <label>
+          <div class="gateway-label d-flex justify-content-between">
             <div>Sku</div>
             <div class="units"></div>
-          </div></label
-        >
+          </div>
+        </label>
         <div class="input mt-1">
           <mat-form-field appearance="outline" class="col-md-12 w-100 input">
-            <input
-              autocomplete="off"
-              matInput
-              name="sku"
-              type="text"
-              class=""
-              placeholder=""
-              formControlName="sku"
-              (keyup)="controlChanged('sku')"
-            />
+            <input autocomplete="off" matInput name="sku" type="text" class=""
+              placeholder="" formControlName="sku" (keyup)="controlChanged('sku')" />
           </mat-form-field>
           <div class="error-wrapper">
             <span *ngIf="uiErrors.sku" class="error">{{
@@ -68,24 +67,16 @@
 
 
       <div class="form-group mt-3">
-        <label
-          ><div class="gateway-label d-flex justify-content-between">
+        <label>
+          <div class="gateway-label d-flex justify-content-between">
             <div>Summary</div>
             <div class="units"></div>
-          </div></label
-        >
+          </div>
+        </label>
         <div class="input mt-1">
           <mat-form-field appearance="outline" class="col-md-12 w-100 input">
-            <input
-              autocomplete="off"
-              matInput
-              name="summary"
-              type="text"
-              class=""
-              placeholder=""
-              formControlName="summary"
-              (keyup)="controlChanged('summary')"
-            />
+            <input autocomplete="off" matInput name="summary" type="text" class=""
+              placeholder="" formControlName="summary" (keyup)="controlChanged('summary')" />
           </mat-form-field>
           <div class="error-wrapper">
             <span *ngIf="uiErrors.summary" class="error">{{
