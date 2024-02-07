@@ -48,7 +48,7 @@
                 Favorite
               </a>
             </li> -->
-            <li class="menu-item">
+            <li class="menu-item" *ngIf="role === 'PROVIDER_ADMIN'">
               <a [routerLink]="['help']" routerLinkActive="current">
                 <span class="dash-menu-icon">
                   <img
@@ -136,6 +136,16 @@
                   <!-- <i class="ri-home-line"></i> -->
                 </span>
                 Configure Sub-Category
+              </a>
+            </li>
+
+            <li class="menu-item">
+              <a (click)="route('/app/admin/business-info')" routerLinkActive="current">
+                <span class="dash-menu-icon">
+                  <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
+                  <!-- <i class="ri-home-line"></i> -->
+                </span>
+                Business Info
               </a>
             </li>
           </ul>

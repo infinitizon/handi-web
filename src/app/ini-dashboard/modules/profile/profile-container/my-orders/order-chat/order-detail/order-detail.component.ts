@@ -39,7 +39,7 @@ export class OrderDetailComponent implements OnInit {
     ).subscribe({
         next: (response: any) => {
           this.container.orders = response.data;
-          console.log(this.container.orders);
+          // console.log(this.container.orders);
           this.container.total = response.count;
           this.container['ordersLoading'] = false;
         },

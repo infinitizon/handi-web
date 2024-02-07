@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { AnimationItem } from 'ngx-lottie/lib/symbols';
 
@@ -8,6 +8,8 @@ import { AnimationItem } from 'ngx-lottie/lib/symbols';
   styleUrls: ['./empty-data.component.css'],
 })
 export class EmptyDataComponent implements OnInit {
+
+  @Input() emptyData: any
   options: AnimationOptions = {
     path: 'https://assets2.lottiefiles.com/packages/lf20_olbyptqd.json',
   };
