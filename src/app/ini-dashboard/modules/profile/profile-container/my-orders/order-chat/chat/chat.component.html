@@ -4,7 +4,7 @@
       <div class="card-header d-flex justify-content-between">
         <div class="d-flex justify-content-start">
           <div class="img_cont mr-5 ">
-            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
+            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img" width="35">
             <span class="online_icon"></span>
           </div>
           <div class="ml-4">
@@ -32,39 +32,7 @@
         </div>
       </div>
       <div class="card-body msg_card_body">
-        <cdk-virtual-scroll-viewport appendOnly [itemSize]="10" class="viewport example-viewport w-100" [style.height]="calculateContainerHeight()" #scrollViewport>
-          <div *cdkVirtualFor="let chat of chats" class="example-item">
-            <div class="d-flex justify-content-{{chat.userId === container['user'].id ? 'end': 'start'}} mb-4">
-              <div class="img_cont_msg">
-                <!-- <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg"> -->
-                <span class="profileName">
-                  {{ (container['user']?.firstName | titlecase) | slice : 0 : 1 }}{{ (container['user']?.lastName| titlecase) | slice : 0 : 1 }}
-                </span>
-              </div>
-              <div class="msg_cotainer {{chat.strike == true ? 'text-decoration-line-through' : ''}}">
-                {{ chat.message }}
-                <span class="msg_time">{{ chat.timestamp | date }}</span>
-              </div>
-            </div>
-          </div>
-        </cdk-virtual-scroll-viewport>
-        <!-- <div class="d-flex justify-content-start mb-4">
-          <div class="img_cont_msg">
-            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
-          </div>
-          <div class="msg_cotainer">
-            Hi, how are you samim?
-            <span class="msg_time">8:40 AM, Today</span>
-          </div>
-        </div>
-        <div class="d-flex justify-content-end mb-4">
-          <div class="msg_cotainer_send">
-            Hi Khalid i am good tnx how about you?
-            <span class="msg_time_send">8:55 AM, Today</span>
-          </div>
-          <div class="img_cont_msg">
-          <img src="">
-        </div> -->
+        <app-chat-pane [chats]="chats" [user]="container['user']"></app-chat-pane>
       </div>
       <div class="card-footer">
         <form id="message" [formGroup]="msgForm" (ngSubmit)="onChatSubmit(msgForm.value)">

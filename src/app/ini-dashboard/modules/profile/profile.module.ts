@@ -15,8 +15,6 @@ import { OrderDetailComponent } from './profile-container/my-orders/order-chat/o
 import { ChatComponent } from './profile-container/my-orders/order-chat/chat/chat.component';
 
 import { environment } from '@environments/environment';
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-const config: SocketIoConfig = { url: environment.SOCKET_BASE, options: {} };
 
 @NgModule({
   imports: [
@@ -24,7 +22,6 @@ const config: SocketIoConfig = { url: environment.SOCKET_BASE, options: {} };
     SharedModule,
     ProfileRoutingModule,
     ScrollingModule,
-    SocketIoModule.forRoot(config),
   ],
   declarations: [
     ProfileComponent,

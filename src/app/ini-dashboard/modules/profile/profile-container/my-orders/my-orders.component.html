@@ -57,22 +57,12 @@
                 <div
                   class="orders-status mx-4"
                   [ngClass]="{
-                    success: trans?.status === 'success',
-                    pending:
-                      trans?.status === 'pending' ||
-                      trans?.status === 'pending_approval',
+                    success: trans?.status === 'done',
+                    pending: trans?.status === 'pending' ,
                     failed: trans?.status === 'failed'
                   }"
                 >
-                  <span>{{
-                    trans?.status === "success"
-                      ? "Successful"
-                      : trans?.status === "pending"
-                      ? "Pending"
-                      : trans?.status === "pending_approval"
-                      ? "Pending Approval"
-                      : "Failed"
-                  }}</span>
+                  <span>{{ trans?.status }}</span>
                 </div>
               </div>
             </div>
@@ -146,15 +136,7 @@
             failed: container?.status === 'failed'
           }"
         >
-          <span>{{
-            container?.status === "success"
-              ? "Successful"
-              : container?.status === "pending"
-              ? "Pending"
-              : container?.status === "pending_approval"
-              ? "Pending Approval"
-              : "Failed"
-          }}</span>
+          <span>{{ container?.status }}</span>
         </span>
       </div>
       <div class="overlay-body mt-3" *ngFor="let item of container.orders">

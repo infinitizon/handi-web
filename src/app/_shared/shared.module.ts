@@ -12,6 +12,7 @@ import { MessageDialogComponent } from './dialogs/message-dialog/message-dialog.
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { NgxOtpInputModule } from 'ngx-otp-input';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
+import { ChatPaneComponent } from './components/chat-pane/chat-pane.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { GatewayComponent } from './dialogs/gateway/gateway.component';
 import { GetStartedComponent } from './dialogs/get-started/get-started.component';
@@ -31,6 +32,9 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { AddAddressComponent } from './dialogs/add-address/add-address.component';
 import { ActivateEmailComponent } from './dialogs/activate-email/activate-email.component';
 import { Loader2Component } from './components/loader_2/loader.component';
+import { environment } from '@environments/environment';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+const config: SocketIoConfig = { url: environment.SOCKET_BASE, options: {} };
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -54,7 +58,7 @@ export function playerFactory() {
     DurationFormatPipe,
     SafeHtml,
     BackbuttonComponent,
-    SnackBarComponent,
+    SnackBarComponent, ChatPaneComponent,
     GatewayComponent,
     GetStartedComponent,
     ProfileSelectComponent,
@@ -88,7 +92,8 @@ export function playerFactory() {
     FileUploadModule,
     NgbModule,
     LottieModule.forRoot({ player: playerFactory }),
-    NgxMaskDirective, NgxMaskPipe
+    NgxMaskDirective, NgxMaskPipe,
+    SocketIoModule.forRoot(config),
   ],
   exports: [
     CommonModule,
@@ -99,7 +104,7 @@ export function playerFactory() {
     BackbuttonComponent,
     NgxMatIntlTelInputComponent,
     NgxOtpInputModule,
-    SnackBarComponent,
+    SnackBarComponent, ChatPaneComponent,
     NgApexchartsModule,
     GatewayComponent,
     GetStartedComponent,
@@ -120,7 +125,8 @@ export function playerFactory() {
     NgxMaskDirective, NgxMaskPipe,
     AddAddressComponent,
     ActivateEmailComponent,
-    Loader2Component
+    Loader2Component,
+    SocketIoModule
   ]
 })
 export class SharedModule { }
