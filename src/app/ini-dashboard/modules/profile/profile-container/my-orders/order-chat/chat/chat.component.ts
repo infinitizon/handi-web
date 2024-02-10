@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, ViewChild, } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ChangeDetectionStrategy, Component, Input, OnInit, } from '@angular/core';
+import { MatDialog, } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Socket } from 'ngx-socket-io';
 import { ApplicationContextService } from '@app/_shared/services/application-context.service';
 import { environment } from '@environments/environment';
@@ -15,17 +14,13 @@ import { CommonService } from '@app/_shared/services/common.service';
 })
 export class ChatComponent implements OnInit {
   // https://www.youtube.com/watch?v=cUNmtRNc-8s
-  msgForm!: FormGroup;
   chats = new Array
   container = {};
 
   @Input() data: any;
 
   constructor(
-    private fb: FormBuilder,
     public dialog: MatDialog,
-    // @Inject(MAT_DIALOG_DATA) public data: any,
-    // public dialogRef: MatDialogRef<ChatComponent>,
     private commonServices: CommonService,
     private appContext: ApplicationContextService,
     private socket: Socket,
@@ -35,9 +30,6 @@ export class ChatComponent implements OnInit {
   }
   ngOnInit() {
     this.socket.connect()
-    this.msgForm = this.fb.group({
-      message: [null, [Validators.required ],],
-    });
     this.appContext
       .getUserInformation()
       .subscribe((user: any) => {
@@ -70,24 +62,8 @@ export class ChatComponent implements OnInit {
               })
   }
 
-  onChatSubmit(chat: any) {
-    chat = { ...chat, userId: this.container['user']?.id, timestamp: new Date().toString(), strike: false, sessionId: this.container['session']?.sessionId};
-    this.chats = [...this.chats, chat];
-    this.msgForm.patchValue({message: null});
+  chatted(chat: any) {
     this.socket.emit(`sendMessage`, chat)
-    this.saveChat(chat);
-  }
-
-  saveChat(chat: any) {
-    this.http.post(`${environment.baseApiUrl}/chats/messages`, chat)
-              .subscribe({
-                next: (response: any) => {
-                  chat.delivered = true;
-                },
-                error: (err: any) => {
-                  chat.strike = true
-                }
-              })
   }
 
   getChatHistory(session) {

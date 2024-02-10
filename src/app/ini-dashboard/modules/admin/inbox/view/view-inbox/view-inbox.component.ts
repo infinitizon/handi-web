@@ -4,19 +4,11 @@ import {
   ElementRef,
   Input,
   OnInit,
-  Renderer2,
   ViewChild,
 } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
 import { environment } from '@environments/environment';
 import { ApplicationContextService } from '@app/_shared/services/application-context.service';
 import { CommonService } from '@app/_shared/services/common.service';
-import { GMapService, Maps } from '@app/_shared/services/google-map.service';
 import { Socket } from 'ngx-socket-io';
 import { switchMap } from 'rxjs';
 
@@ -34,15 +26,12 @@ export class ViewInboxComponent implements OnInit {
     countdown: 20,
   };
   userInformation!: any;
-  msgForm!: FormGroup;
   chats = new Array
 
   submitting = false;
   id: any;
   categories: any;
   constructor(
-    private fb: FormBuilder,
-    private renderer: Renderer2,
     private http: HttpClient,
     private commonServices: CommonService,
     public appContext: ApplicationContextService,
@@ -52,9 +41,6 @@ export class ViewInboxComponent implements OnInit {
 
   ngOnInit() {
     this.socket.connect()
-    this.msgForm = this.fb.group({
-      message: [null, [Validators.required ],],
-    });
     this.appContext
       .getUserInformation()
       .pipe(switchMap((user: any)=>{
@@ -76,7 +62,6 @@ export class ViewInboxComponent implements OnInit {
         this.container.onlineUsers = onlineUsers;
       })
       this.socket.on(`getMessage`, (msg) =>{
-        console.log(msg);
         if(msg.userId != this.container['user'].id && this.container['session'] == msg.sessionId) this.chats = [...this.chats, msg];
         const owner = this.container['sessions'].find(sess=>sess.sessionId == msg.sessionId)
         owner.message = msg.message
@@ -133,23 +118,8 @@ export class ViewInboxComponent implements OnInit {
             })
 
   }
-  onChatSubmit(chat: any) {
-    chat = { ...chat, userId: this.container['user']?.id, timestamp: new Date().toString(), strike: false, sessionId: this.container['session']};
-    this.chats = [...this.chats, chat];
-    this.msgForm.patchValue({message: null});
+  chatted(chat: any) {
     this.socket.emit(`sendMessage`, chat)
-    this.saveChat(chat);
-  }
-  saveChat(chat: any) {
-    this.http.post(`${environment.baseApiUrl}/chats/messages`, chat)
-              .subscribe({
-                next: (response: any) => {
-                  chat.delivered = true;
-                },
-                error: (err: any) => {
-                  chat.strike = true
-                }
-              })
   }
 
   ngOnDestroy() {

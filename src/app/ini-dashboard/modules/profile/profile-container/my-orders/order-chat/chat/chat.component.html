@@ -32,20 +32,7 @@
         </div>
       </div>
       <div class="card-body msg_card_body">
-        <app-chat-pane [chats]="chats" [user]="container['user']"></app-chat-pane>
-      </div>
-      <div class="card-footer">
-        <form id="message" [formGroup]="msgForm" (ngSubmit)="onChatSubmit(msgForm.value)">
-          <div class="input-group">
-            <mat-form-field appearance="outline" class="col-md-12 w-100 input">
-              <mat-label>Enter Chat</mat-label>
-              <input matInput class="form-control " formControlName="message" >
-              <button type="submit" matSuffix mat-icon-button aria-label="Submit">
-                <mat-icon>send</mat-icon>
-              </button>
-            </mat-form-field>
-          </div>
-        </form>
+        <app-chat-pane [chats]="chats" [user]="container['user']" [sessionId]="container['session']?.sessionId" (chatted)="chatted($event)"></app-chat-pane>
       </div>
     </div>
   </div>
