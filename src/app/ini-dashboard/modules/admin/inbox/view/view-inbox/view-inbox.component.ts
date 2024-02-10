@@ -77,8 +77,11 @@ export class ViewInboxComponent implements OnInit {
       })
       this.socket.on(`getMessage`, (msg) =>{
         console.log(msg);
-        if(msg.userId != this.container['user'].id)
-          this.chats = [...this.chats, msg];
+        if(msg.userId != this.container['user'].id && this.container['session'] == msg.sessionId) this.chats = [...this.chats, msg];
+        const owner = this.container['sessions'].find(sess=>sess.sessionId == msg.sessionId)
+        owner.message = msg.message
+        owner.timestamp = msg.timestamp
+        owner.count = (owner.count||0 )+ 1
       })
   }
 
