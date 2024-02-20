@@ -156,8 +156,9 @@
                       [disabled]="loginForm.invalid || submitting"
                       (click)="onSubmit()"
                     >
-                      Continue
-                      <i *ngIf="submitting" class="ri-loader-4-fill"></i>
+                    <div class="d-flex justify-content-center align-items-center">
+                      <span class="">Log in </span> <app-loader2 *ngIf="submitting"></app-loader2>
+                    </div>
                     </button>
                   </div>
                   <div class="auth-footer-wrapper mt-3">

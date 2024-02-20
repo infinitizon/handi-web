@@ -2,7 +2,7 @@
   <div class="outer">
     <div class="middle">
       <div class="row align-items-center">
-        <div class="col-md-6 p-0 m-0 auth-first-column">
+        <div class="col-md-6 p-0 m-0 auth-first-column v1">
           <app-auth-left-bar></app-auth-left-bar>
         </div>
         <div class="col mx-2 mx-sm-2 mx-md-0 px-2 px-sm-2 px-md-0  d-flex justify-content-md-center">
@@ -149,8 +149,8 @@
 
                   <div class="button-wrapper mt-4">
                     <button (click)="onSubmit()"  type="submit" class="action-btn col-md-12 w-100" [disabled]="signupForm.invalid">
-                      <div class="d-flex justify-content-center align-items-center">
-                      <span>Continue</span> &nbsp;<i style="font-size: 14px;" class="ri-arrow-right-line"></i>
+                    <div class="d-flex justify-content-center align-items-center">
+                      <span class="">Continue </span> <app-loader2 *ngIf="submitting"></app-loader2>
                     </div>
                     </button>
                   </div>

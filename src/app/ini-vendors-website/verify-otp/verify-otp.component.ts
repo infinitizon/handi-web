@@ -121,7 +121,7 @@ export class VerifyOtpComponent implements OnInit {
       duration: 2000,
       data: {
         message: message,
-        icon: 'ri-close-circle-fill',
+        icon: 'ri-checkbox-circle-fill',
       },
       panelClass: ['success'],
     });

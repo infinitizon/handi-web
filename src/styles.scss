@@ -314,7 +314,11 @@ body {
 
 .auth-first-column {
   background-color: var(--primary);
-  height: 100vh;
+  height: 116vh;
+
+  &.v1 {
+    height: 116vh;
+  }
 }
 
 .category-wrapper {
@@ -3179,4 +3183,9 @@ a { text-decoration: none;}
   font-style: normal;
   font-weight: 700;
   line-height: 160%;
+}
+
+.mat-mdc-unelevated-button {
+  --mat-mdc-button-persistent-ripple-color: #fff !important;
+  --mat-mdc-button-ripple-color: #fff !important;
 }

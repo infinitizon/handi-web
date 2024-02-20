@@ -152,8 +152,8 @@
 
                   <div class="button-wrapper mt-4">
                     <button (click)="onSubmit()"  type="submit" class="action-btn col-md-12 w-100" [disabled]="submitting">
-                      <div class="d-flex justify-content-center align-items-center">
-                      <span>Continue</span> &nbsp;<i *ngIf="submitting" style="font-size: 14px;" class="ri-arrow-right-line"></i>
+                    <div class="d-flex justify-content-center align-items-center">
+                      <span class="">Continue </span> <app-loader2 *ngIf="submitting"></app-loader2>
                     </div>
                     </button>
                   </div>
