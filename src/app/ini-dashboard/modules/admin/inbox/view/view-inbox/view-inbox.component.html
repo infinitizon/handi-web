@@ -27,7 +27,7 @@
                       <small>{{ (session.message?.length>25)? (session.message | slice:0:25)+'...':(session.message) }}</small>
                     </div>
                   </div>
-                  <div class="d-flex flex-column align-items-end">
+                  <div class="d-flex flex-column align-items-end" style="font-size: 0.7rem;">
                     <small class="date">{{session.timestamp | date}}</small>
                     <div class="this-user-notifications" *ngIf="session.count">{{session.count}}</div>
                   </div>

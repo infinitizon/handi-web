@@ -4,8 +4,8 @@
     <div class="media-body ml-3 d-flex justify-content-between">
       <img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="35" class="rounded-circle">
       <div class="{{chat.userId === user.id ? 'bg-primary text-white': 'bg-light'}} rounded py-2 px-3 mb-2">
-        <p class="text-small mb-0">{{ chat.message }}</p>
-        <small *ngIf="false" class="text-muted">{{ chat.timestamp | date }}</small>
+        <p class="{{chat.userId === user.id ? 'bg-primary text-white': 'bg-light'}} text-small mb-0" (click)="!container.showtime">{{ chat.message }}</p>
+        <small *ngIf="container.showtime" class="text-muted">{{ chat.timestamp | date }}</small>
       </div>
     </div>
   </div>

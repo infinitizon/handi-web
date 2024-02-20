@@ -42,17 +42,16 @@ export class ChatComponent implements OnInit {
     })
   }
   startSession() {
-    console.log(`Starting...`,this.data);
-
+    this.chats = [];
     const session = { sessionId: this.data.id, tenantId: this.data?.Tenant?.id }
     this.http.post(`${environment.baseApiUrl}/chats/claim-session`, {session})
               .subscribe({
                 next: (response: any) => {
                   this.container['startSessMsg'] = null;
 
-                  this.getChatHistory(session)
                   this.socket.emit(`joinRoom`, {userId: this.container['user'].id, sessionId: this.data.id })
                   this.container['session'] = response.data;
+                  this.getChatHistory(session)
                 },
                 error: (err: any) => {
                   const msg = `Error claiming session: ${err.message}`;
@@ -70,7 +69,8 @@ export class ChatComponent implements OnInit {
     this.http.post(`${environment.baseApiUrl}/chats/history`, session)
             .subscribe({
               next: (response: any) => {
-                this.chats = response.data;
+                console.log(`Got history...`, session, this.container['session'], response.data);
+                this.chats = [...response.data];
               },
               error: (err: any) => {
                 this.commonServices.snackBar(err.msg, 'error')

@@ -17,6 +17,9 @@ export class ChatPaneComponent implements OnInit {
   @ViewChild('chatPane') private myChatPane: ElementRef;
 
   msgForm!: FormGroup;
+  container = {
+    showtime: false
+  }
 
   constructor(
     private http: HttpClient,
