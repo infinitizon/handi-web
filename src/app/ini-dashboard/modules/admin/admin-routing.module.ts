@@ -31,13 +31,17 @@ const routes: Routes = [
         path: 'inbox',
         loadChildren: () => import('./inbox/inbox.module').then(m => m.InboxModule),
       },
-      {
-        path: 'orders',
-        loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
-      },
+      // {
+      //   path: 'orders',
+      //   loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
+      // },
       {
         path: 'business-info',
         loadChildren: () => import('../admin/business-info/business-info.module').then(m => m.BusinessInfoModule),
+      },
+      {
+        path: 'vendor-orders',
+        loadChildren: () => import('../admin/vendor-orders/vendor-orders.module').then(m => m.VendorOrdersModule),
       },
       { path: '', redirectTo: 'vendors', pathMatch: 'full' }
     ]

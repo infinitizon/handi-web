@@ -49,6 +49,7 @@ export class VerifyOtpComponent implements OnInit {
     this.verifySub = this.authService.signup$.subscribe(
       (data: any) => {
         if(data) {
+          console.log(data);
           this.email = data.email
         } else {
           this.router.navigate(['/auth/signup']);
@@ -121,7 +122,7 @@ export class VerifyOtpComponent implements OnInit {
       duration: 2000,
       data: {
         message: message,
-        icon: 'ri-close-circle-fill',
+        icon: 'ri-checkbox-circle-fill',
       },
       panelClass: ['success'],
     });

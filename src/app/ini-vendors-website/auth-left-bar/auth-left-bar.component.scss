@@ -1,7 +1,14 @@
+.left-container {
+  position: relative;
+  height: 100vh;
+
+  &.v1 {
+    height: 116vh;
+  }
 
 ngb-carousel .wrapper {
   position: relative;
-  height: 60vh;
+  height: 65vh;
   display: flex;
   justify-content: center;
   /* Keep ratio for 900x500 images */
@@ -9,7 +16,7 @@ ngb-carousel .wrapper {
 
 ngb-carousel .wrapper > img {
   position: absolute;
-  top: 10rem !important;
+  top: 7rem !important;
 }
 
 .carousel-indicators {
@@ -53,20 +60,20 @@ ngb-carousel .wrapper > img {
   }
 }
 
-.auth-left-footer-wrapper {
-  position: relative;
-  height: 23vh;
-  .auth-left-footer {
+
+  .auth-left-footer-wrapper {
     position: absolute;
     bottom: 10px;
-    color: #fff;
-
-    .footer-item {
-      font-family: DM Sans;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 160%;
+    width: 100%;
+    .auth-left-footer {
+      color: #fff;
+      .footer-item {
+        font-family: DM Sans;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%;
+      }
     }
   }
 }
