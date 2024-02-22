@@ -727,7 +727,7 @@ mat-sidenav-container {
     flex-direction: row;
     align-items: center;
     white-space: nowrap;
-    height: var(--mat-toolbar-standard-height);
+    // height: var(--mat-toolbar-standard-height);
   }
 
 
@@ -778,6 +778,22 @@ mat-sidenav-container {
       }
     }
 
+    .toolbar-sell {
+      height: 14px !important;
+      span {
+        font-size: 11px;
+        color: #6200ee;
+      }
+
+      .blink-soft {
+        animation: blinker 1.5s linear infinite;
+      }
+      @keyframes blinker {
+        50% {
+          opacity: 0;
+        }
+      }
+    }
     .toolbar {
       background-color: #ffffff;
       border-bottom: 0.5px solid rgba(0, 0, 0, 0.4) !important;
@@ -1054,7 +1070,7 @@ cdk-virtual-scroll-viewport {
 span.profileName {
   border-radius: 32px;
   // background: #512DA8;
-  background: #eae8f2;
+  background: #fff;
   text-align: center;
   color: var(--gray-gray-900, #1b1b1b);
   font-family: Inter;
@@ -3189,3 +3205,11 @@ a { text-decoration: none;}
   --mat-mdc-button-persistent-ripple-color: #fff !important;
   --mat-mdc-button-ripple-color: #fff !important;
 }
+
+
+.mat-mdc-unelevated-button.mat-unthemed {
+  --mdc-filled-button-container-color: transparent !important;
+  --mdc-filled-button-label-text-color: #000;
+}
+
+

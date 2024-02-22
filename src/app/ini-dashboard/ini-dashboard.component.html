@@ -1,4 +1,4 @@
-<mat-sidenav-container [ngClass]="{'blur': isDialogOpen}">
+<mat-sidenav-container [ngClass]="{ blur: isDialogOpen }">
   <mat-sidenav
     #sidenav
     fixedInViewport="true"
@@ -88,10 +88,15 @@
             </li> -->
           </ul>
 
-          <p class="menu-subtitle p-0 m-0" *ngIf="role === 'SUPER_ADMIN'">ADMIN</p>
+          <p class="menu-subtitle p-0 m-0" *ngIf="role === 'SUPER_ADMIN'">
+            ADMIN
+          </p>
           <ul class="menu" *ngIf="role === 'SUPER_ADMIN'">
             <li class="menu-item">
-              <a (click)="route('/app/admin/categories')" routerLinkActive="current">
+              <a
+                (click)="route('/app/admin/categories')"
+                routerLinkActive="current"
+              >
                 <span class="dash-menu-icon">
                   <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
                   <!-- <i class="ri-home-line"></i> -->
@@ -100,7 +105,10 @@
               </a>
             </li>
             <li class="menu-item">
-              <a (click)="route('/app/admin/vendors')" routerLinkActive="current">
+              <a
+                (click)="route('/app/admin/vendors')"
+                routerLinkActive="current"
+              >
                 <span class="dash-menu-icon">
                   <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
                   <!-- <i class="ri-home-line"></i> -->
@@ -109,7 +117,10 @@
               </a>
             </li>
             <li class="menu-item">
-              <a (click)="route('/app/admin/product-xter')" routerLinkActive="current">
+              <a
+                (click)="route('/app/admin/product-xter')"
+                routerLinkActive="current"
+              >
                 <span class="dash-menu-icon">
                   <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
                   <!-- <i class="ri-home-line"></i> -->
@@ -118,7 +129,10 @@
               </a>
             </li>
             <li class="menu-item">
-              <a (click)="route('/app/admin/customers')" routerLinkActive="current">
+              <a
+                (click)="route('/app/admin/customers')"
+                routerLinkActive="current"
+              >
                 <span class="dash-menu-icon">
                   <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
                   <!-- <i class="ri-home-line"></i> -->
@@ -127,10 +141,15 @@
               </a>
             </li>
           </ul>
-          <p class="menu-subtitle p-0 m-0" *ngIf="role === 'PROVIDER_ADMIN'">VENDOR</p>
+          <p class="menu-subtitle p-0 m-0" *ngIf="role === 'PROVIDER_ADMIN'">
+            VENDOR
+          </p>
           <ul class="menu" *ngIf="role === 'PROVIDER_ADMIN'">
             <li class="menu-item">
-              <a (click)="route('/app/admin/vendor/configure')" routerLinkActive="current">
+              <a
+                (click)="route('/app/admin/vendor/configure')"
+                routerLinkActive="current"
+              >
                 <span class="dash-menu-icon">
                   <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
                   <!-- <i class="ri-home-line"></i> -->
@@ -140,7 +159,10 @@
             </li>
 
             <li class="menu-item">
-              <a (click)="route('/app/admin/vendor-orders')" routerLinkActive="current">
+              <a
+                (click)="route('/app/admin/vendor-orders')"
+                routerLinkActive="current"
+              >
                 <span class="dash-menu-icon">
                   <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
                   <!-- <i class="ri-home-line"></i> -->
@@ -157,7 +179,10 @@
               </a>
             </li>
             <li class="menu-item">
-              <a (click)="route('/app/admin/business-info')" routerLinkActive="current">
+              <a
+                (click)="route('/app/admin/business-info')"
+                routerLinkActive="current"
+              >
                 <span class="dash-menu-icon">
                   <img src="/assets/logo/faq.svg" alt="FAQ Icon" />
                   <!-- <i class="ri-home-line"></i> -->
@@ -210,17 +235,48 @@
   <mat-sidenav-content class="main-content">
     <mat-toolbar class="notify-toolbar">
       <div class="d-flex flex-md-row align-items-center w-100">
-        <div class="col-md-1">
-          <button mat-icon-button  (click)="sidenav.toggle()" class="sidemenu-toggle">
+        <div class="">
+          <button
+            mat-icon-button
+            (click)="sidenav.toggle()"
+            class="sidemenu-toggle"
+          >
             <mat-icon>menu</mat-icon>
           </button>
         </div>
         <!-- <div class="icon"></div> -->
-        <div class="col-md-4 text" *ngIf="!['SUPER_ADMIN','PROVIDER_ADMIN'].includes(role)">
+        <!-- <div class="col-md-4 text" *ngIf="!['SUPER_ADMIN','PROVIDER_ADMIN'].includes(role)">
           <div class="d-flex justify-content-center justify-content-sm-center justify-content-md-start pointer" routerLink="/vendors-onboarding/signup">
           <span><img src="/assets/logo/sell.svg" width="24" height="24" alt="Sell Icon" /></span>&nbsp;
           <span>Sell on Home Service.</span>
         </div>
+        </div> -->
+
+        <div class="spacer"></div>
+        <div class="ps-sm-1 ps-1">
+          <div class="d-flex justify-content-between align-items-center">
+            <button mat-flat-button class="profile-menu">
+              <span class="profileName">
+                <i class="ri-notification-4-line"></i>
+              </span>
+            </button>
+            <!-- <span mat-menu-item class="profile-name" [matMenuTriggerFor]="menu" disableRipple>Hi{{'Test'? ', ' + 'Testing' : ''}}</span> -->
+            <button
+              mat-flat-button
+              [matMenuTriggerFor]="menu"
+              class="profile-menu"
+            >
+              <span *ngIf="userInformation" class="profileName">
+                {{ userInformation?.firstName | titlecase | slice : 0 : 1
+                }}{{ userInformation?.lastName | titlecase | slice : 0 : 1 }}
+              </span>
+              <span *ngIf="!userInformation" class="profileName">
+                <i class="ri-user-3-line"></i>
+              </span>
+              <img *ngIf="false" [src]="" alt="" />
+              <!-- <mat-icon>expand_more</mat-icon> -->
+            </button>
+          </div>
         </div>
         <!-- <div class="col-12 col-sm-12 col-md-4 btn">
           <div class="d-flex justify-content-center">
@@ -238,53 +294,53 @@
         </div> -->
       </div>
     </mat-toolbar>
+    <mat-toolbar class="toolbar-sell" *ngIf="!['SUPER_ADMIN','PROVIDER_ADMIN'].includes(role)">
+      <div class="toolbar-wrapper-sell w-100">
+         <div class=" d-flex justify-content-center" >
+          <div class="d-flex justify-content-center justify-content-sm-center justify-content-md-start pointer" routerLink="/vendors-onboarding/signup">
+          <!-- <span><img src="/assets/logo/sell.svg" width="24" height="24" alt="Sell Icon" /></span>&nbsp; -->
+          <span class="blink-soft">Sell on Home Service.</span>
+        </div>
+        </div>
+      </div>
+    </mat-toolbar>
     <mat-toolbar class="toolbar">
       <!-- (click)="sidenav.toggle()" -->
       <div
         class="toolbar-wrapper d-flex flex-column flex-sm-column d-md-flex justify-content-md-between align-items-md-center flex-md-row w-100"
       >
         <div class="sidemenu-toggle">
-          <div
-            class="welcome d-flex align-items-start"
-
-          >
-            <h3 class="m-0 p-0 ps-sm-1 ps-1 ps-md-4">Welcome</h3>
+          <div class="welcome d-flex align-items-start">
+            <h3 class="m-0 p-0 ps-sm-1 ps-1 ps-md-4">
+              {{
+                !userInformation
+                  ? "Welcome"
+                  : "Hi " + userInformation?.firstName + ","
+              }}
+            </h3>
           </div>
           <div class="cheers">
             <p class="m-0 p-0 ps-sm-1 ps-1 ps-md-4">
-              Cheers and happy activities - {{today}}
+              Cheers and happy activities - {{ today }}
             </p>
           </div>
         </div>
 
         <div class="spacer"></div>
-          <div class="ps-sm-1 ps-1">
-            <div class="d-flex justify-content-between align-items-center ">
-            <div class="input-box"    *ngIf="dashboardService?.isHome">
-              <i class="ri-search-line"></i>
-              <input type="text" class="form-control-sm" placeholder="Search" />
-            </div>
-            <button mat-flat-button class="profile-menu">
-              <span class="profileName">
-                <i class="ri-notification-4-line"></i>
-              </span>
-            </button>
-            <!-- <span mat-menu-item class="profile-name" [matMenuTriggerFor]="menu" disableRipple>Hi{{'Test'? ', ' + 'Testing' : ''}}</span> -->
-            <button mat-flat-button [matMenuTriggerFor]="menu" class="profile-menu">
-              <span *ngIf="userInformation" class="profileName">
-                {{ (userInformation?.firstName | titlecase) | slice : 0 : 1 }}{{ (userInformation?.lastName| titlecase) | slice : 0 : 1 }}
-              </span>
-              <span *ngIf="!userInformation" class="profileName">
-                <i class="ri-user-3-line"></i>
-                </span>
-              <img *ngIf="false" [src]="" alt="" />
-              <!-- <mat-icon>expand_more</mat-icon> -->
-            </button>
-          </div>
+        <div class="ps-sm-1 ps-1">
+          <!-- <div class="input-box" *ngIf="dashboardService?.isHome">
+          <i class="ri-search-line"></i>
+          <input type="text" class="form-control-sm" placeholder="Search" />
+        </div> -->
         </div>
       </div>
       <mat-menu #menu="matMenu" class="profile-menu-dropdown">
-        <a class="profile" [routerLink]="['profile']" mat-menu-item *ngIf="userInformation">
+        <a
+          class="profile"
+          [routerLink]="['profile']"
+          mat-menu-item
+          *ngIf="userInformation"
+        >
           <div class="d-flex align-items-start">
             <div class="flex-grow-1">
               <div class="d-flex align-items-center">
@@ -325,7 +381,6 @@
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         [(ngModel)]="referrals"
-
                       />
                       <span class="input-group-text" id="basic-addon2"
                         ><a (click)="copyReferral()">Copy link</a></span
@@ -337,7 +392,12 @@
             </div>
           </div>
         </a>
-        <a class="profile" *ngIf="userInformation" (click)="openLogOutDialog()" mat-menu-item>
+        <a
+          class="profile"
+          *ngIf="userInformation"
+          (click)="openLogOutDialog()"
+          mat-menu-item
+        >
           <div class="d-flex align-items-start">
             <div class="flex-grow-1">
               <div class="d-flex align-items-center">
@@ -356,7 +416,12 @@
             </div>
           </div>
         </a>
-        <a class="profile" *ngIf="!userInformation" [routerLink]="['/auth/login']" mat-menu-item>
+        <a
+          class="profile"
+          *ngIf="!userInformation"
+          [routerLink]="['/auth/login']"
+          mat-menu-item
+        >
           <div class="d-flex align-items-start">
             <div class="flex-grow-1">
               <div class="d-flex align-items-center">
@@ -376,10 +441,9 @@
           </div>
         </a>
       </mat-menu>
-
     </mat-toolbar>
-  <div class="main-router">
-    <router-outlet></router-outlet>
-  </div>
+    <div class="main-router">
+      <router-outlet></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
