@@ -47,7 +47,7 @@ export class CategoriesListComponent implements OnInit {
       .get(`${environment.baseApiUrl}/products/category`)
       .subscribe(
         (response: any) => {
-          this.container['category'] = response;
+          this.container['category'] = response.data;
           // this.total_count = response.data.length;
           this.container['categoriesLoading'] = false;
         },

@@ -3,6 +3,8 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { HttpClient } from '@angular/common/http';
 import { ApplicationContextService } from '@app/_shared/services/application-context.service';
 import { environment } from '@environments/environment';
+import { MatDialog } from '@angular/material/dialog';
+import { PasswordChangeComponent } from '@app/_shared/dialogs/password-change/password-change.component';
 
 @Component({
   selector: 'app-security',
@@ -15,7 +17,8 @@ export class SecurityComponent implements OnInit {
   userInformation!: any;
   constructor(
     private http: HttpClient,
-    public appContext: ApplicationContextService
+    public appContext: ApplicationContextService,
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -47,6 +50,17 @@ export class SecurityComponent implements OnInit {
   }
 
   onChangePassword() {
+    const profileSelectDialog = this.dialog.open(
+      PasswordChangeComponent,
+      {
+        data: {},
+        width: '408px',
+      }
+    );
 
+    profileSelectDialog.afterClosed().subscribe((result) => {
+      if (result) {
+      }
+    });
   }
 }

@@ -30,6 +30,7 @@ import { GatewayDialogComponent } from './dialogs/gateway-dialog/gateway-dialog.
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 import { LoaderComponent } from './components/loader/loader.component';
 import { AddAddressComponent } from './dialogs/add-address/add-address.component';
+import { PasswordChangeComponent } from './dialogs/password-change/password-change.component';
 import { ActivateEmailComponent } from './dialogs/activate-email/activate-email.component';
 import { Loader2Component } from './components/loader_2/loader.component';
 import { environment } from '@environments/environment';
@@ -73,8 +74,8 @@ export function playerFactory() {
     LoaderComponent,
     AddAddressComponent,
     ActivateEmailComponent,
-    Loader2Component
-
+    Loader2Component,
+    PasswordChangeComponent
   ],
   providers: [
     provideNgxMask()
@@ -124,6 +125,7 @@ export function playerFactory() {
     LoaderComponent,
     NgxMaskDirective, NgxMaskPipe,
     AddAddressComponent,
+    PasswordChangeComponent,
     ActivateEmailComponent,
     Loader2Component,
     SocketIoModule

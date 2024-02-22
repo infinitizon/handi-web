@@ -31,7 +31,7 @@ export class ViewHomeComponent implements OnInit {
       .get(`${environment.baseApiUrl}/products/category`)
       .subscribe(
         (response: any) => {
-          this.categoriesData = response;
+          this.categoriesData = response.data;
           this.container['categoriesLoading'] = false;       },
         (errResp) => {
           this.container['categoriesLoading'] = false;

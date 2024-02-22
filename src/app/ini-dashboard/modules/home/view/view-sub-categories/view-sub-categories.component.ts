@@ -33,7 +33,8 @@ export class ViewSubCategoriesComponent implements OnInit {
       .get(`${environment.baseApiUrl}/products/category/${this.id}`)
       .subscribe(
         (response: any) => {
-          this.subCategoriesData = response;
+          this.container['category'] = response.category;
+          this.subCategoriesData = response.data;
           this.container['subCategoriesLoading'] = false; },
         (errResp) => {
           this.container['subCategoriesLoading'] = false;

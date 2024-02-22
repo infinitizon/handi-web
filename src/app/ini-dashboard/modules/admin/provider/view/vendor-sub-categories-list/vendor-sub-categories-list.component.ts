@@ -47,7 +47,7 @@ getCategories() {
     .get(`${environment.baseApiUrl}/admin/products/sub-category/${this.category.id}`)
     .subscribe(
       (response: any) => {
-        this.container['category'] = response;
+        this.container['category'] = response.data;
         // this.categoriesDataSource = new MatTableDataSource<any>(response);
         // this.total_count = response.data.length;
         this.container['categoriesLoading'] = false;
