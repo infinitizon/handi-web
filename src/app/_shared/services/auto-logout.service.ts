@@ -56,7 +56,7 @@ export class AutoLogoutService {
     if (
       isTimeout &&
       !localStorage.getItem('rememberMe') &&
-      localStorage.getItem('investnaija-invest-jwt') &&
+      localStorage.getItem('HandiServices-invest-jwt') &&
       localStorage.getItem('session') !== 'true'
     ) {
       // this.commonService.dialog.closeAll();

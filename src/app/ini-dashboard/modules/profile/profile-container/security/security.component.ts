@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { HttpClient } from '@angular/common/http';
 import { ApplicationContextService } from '@app/_shared/services/application-context.service';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-security',
@@ -10,7 +13,10 @@ export class SecurityComponent implements OnInit {
   enableN: boolean = false;
   container: any = {};
   userInformation!: any;
-  constructor(public appContext: ApplicationContextService) {}
+  constructor(
+    private http: HttpClient,
+    public appContext: ApplicationContextService
+  ) {}
 
   ngOnInit() {
     this.appContext.getUserInformation().subscribe({
@@ -22,5 +28,25 @@ export class SecurityComponent implements OnInit {
 
   enableNotify() {
     this.enableN = !this.enableN;
+  }
+
+  onToggle2FA(event: MatSlideToggleChange) {
+    this.container['setting2fa'] = true;
+    this.http
+      .patch(`${environment.baseApiUrl}/users/profile/update`, {twoFactorAuth: event.checked})
+      .subscribe({
+        next: (response: any) => {
+          this.container['setting2fa'] = false;
+          this.appContext.userInformation$.next(response.data);
+        },
+        error: (errResp) => {
+          this.container['setting2fa'] = false;
+          console.log(errResp);
+        }
+      });
+  }
+
+  onChangePassword() {
+
   }
 }
