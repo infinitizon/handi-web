@@ -28,11 +28,11 @@ const routes: Routes = [
       loadChildren: () => import('./modules/wallet/wallet.module').then(m => m.WalletModule),
       canActivate: [AuthGuard]
      },
-      // {
-      //   path: 'faq',
-      //   loadChildren: () => import('./modules/faq/faq.module').then(m => m.FaqModule),
-      //   // canActivate: [AuthGuard]
-      // },
+      {
+        path: 'faq',
+        loadChildren: () => import('./modules/faq/faq.module').then(m => m.FaqModule),
+        // canActivate: [AuthGuard]
+      },
       {
         path: 'feedback',
         loadChildren: () => import('./modules/feedback/feedback.module').then(m => m.FeedbackModule),

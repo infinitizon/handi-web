@@ -1,7 +1,15 @@
 export const issueData: IssueDTO[] = [
   {
-    name: 'Poor query',
-    value: 'Poor query'
+    name: 'Service Quality',
+    value: 'Service Quality'
+  },
+  {
+    name: 'Vendor Issue',
+    value: 'Vendor Issue'
+  },
+  {
+    name: 'Payment Issues',
+    value: 'Payment Issues'
   },
   {
     name: 'Others',
