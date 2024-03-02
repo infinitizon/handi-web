@@ -9,7 +9,7 @@ import { CommonService } from '@app/_shared/services/common.service';
 import { environment } from '@environments/environment';
 import { NgxOtpInputConfig } from 'ngx-otp-input';
 import { Subscription } from 'rxjs';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-verify-otp',
   templateUrl: './verify-otp.component.html',
@@ -34,7 +34,7 @@ export class VerifyOtpComponent implements OnInit {
   verifySub!: Subscription;
   email: string = '';
   submitting: boolean = false;
-
+  countdown: any;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -43,7 +43,24 @@ export class VerifyOtpComponent implements OnInit {
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     )
-     { }
+     {
+      const duration = moment.duration(600, 's');
+
+      const intervalId = setInterval(() => {
+        duration.subtract(1, "s");
+
+        const inMilliseconds = duration.asMilliseconds();
+
+        // "mm:ss:SS" will include milliseconds
+        this.countdown = moment.utc(inMilliseconds).format("mm:ss")
+
+        if (inMilliseconds !== 0) return;
+
+        clearInterval(intervalId);
+        this.countdown = "Otp expired!, Resend"
+        // console.warn("Times up!");
+      }, 1000);
+     }
 
   ngOnInit() {
     this.verifySub = this.authService.emailData().subscribe(

@@ -1,4 +1,5 @@
 <div class="container-fluid">
+
   <div class="outer">
     <div class="middle">
       <div class="row align-items-center">
@@ -7,6 +8,9 @@
         </div>
         <div class="col d-flex justify-content-md-center">
           <div class="user-category-wrapper col-md-8">
+            <div class="back-button-v2 back-top">
+              <in-backbutton></in-backbutton>
+            </div>
             <div class="user-category">
               <div class="title col-md-11">
                 <h4 class="mb-0 signup">Verify your account</h4>
@@ -31,11 +35,12 @@
 
                 <div class="auth-footer-wrapper mt-2">
                   <div class="auth-footer text-center">
-                    <span>OTP expires in <a  style="color: var(--foundation-text-text-600, #2E2E2E);
+                    <!-- <span>OTP expires in <a  >9:58</a></span> -->
+                      <div class="countdown" style="color: var(--foundation-text-text-600, #2E2E2E);
                       font-size: 14px;
                       font-style: normal;
                       font-weight: 700;
-                      line-height: 160%;">9:58</a></span>
+                      line-height: 160%;">OTP expires in {{countdown}}</div>
                   </div>
                 </div>
 
