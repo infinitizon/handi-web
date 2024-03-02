@@ -23,6 +23,7 @@ export class ViewHomeComponent implements OnInit {
 
   ngOnInit() {
     this.getCategories();
+    this.getRecommended();
   }
 
   getCategories() {
@@ -35,6 +36,20 @@ export class ViewHomeComponent implements OnInit {
           this.container['categoriesLoading'] = false;       },
         (errResp) => {
           this.container['categoriesLoading'] = false;
+        }
+      );
+  }
+
+  getRecommended() {
+    this.container['recommendedLoading'] = true;
+    this.http
+      .get(`${environment.baseApiUrl}/users/vendors/recommend`)
+      .subscribe(
+        (response: any) => {
+          this.container['recommended'] = response.data;
+          this.container['recommendedLoading'] = false;       },
+        (errResp) => {
+          this.container['recommendedLoading'] = false;
         }
       );
   }

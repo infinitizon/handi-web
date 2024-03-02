@@ -26,8 +26,8 @@ export class ViewBusinessInfoContainerComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           if(data) {
-          this.userInformation = data;
-          this.getBusinessInfo(this.userInformation?.Tenant[0]?.id);
+            this.userInformation = data;
+            this.getBusinessInfo(this.userInformation?.Tenant[0]?.id);
           }
         },
       });
@@ -37,7 +37,7 @@ export class ViewBusinessInfoContainerComponent implements OnInit {
 
   getBusinessInfo(id: string) {
     this.http.get(
-      `${environment.baseApiUrl}/admin/vendor/${id}`
+      `${environment.baseApiUrl}/admin/vendor/${id}?includes=Media`
     ) .subscribe(
       (response: any) => {
         this.businessInfo = response.data;

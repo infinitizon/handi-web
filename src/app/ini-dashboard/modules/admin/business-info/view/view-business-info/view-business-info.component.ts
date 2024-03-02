@@ -30,7 +30,7 @@ import { switchMap } from 'rxjs';
   styleUrls: ['./view-business-info.component.scss'],
 })
 export class ViewBusinessInfoComponent implements OnInit {
-  @Input() data: any;
+  @Input() data = [];
   @ViewChild('search') searchElementRef: ElementRef = {
     nativeElement: undefined,
   };
@@ -77,17 +77,18 @@ export class ViewBusinessInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.data);
+    let category = this.data[0]?.Products.find(c=>c.pId==null)
     this.getCategories();
 
     this.signupForm = this.fb.group({
-      name: [this.data[0]?.name, [Validators.required]],
+      id: [this.data[0].id],
+      name: [this.data[0].name, [Validators.required]],
       email: [
-        this.data[0]?.email,
+        this.data[0].email,
         [Validators.required, Validators.pattern(this.commonServices.email)],
       ],
       userId: [this.data[0]?.id],
-      category: ['', [Validators.required]],
+      category: [category.id, [Validators.required]],
       address: ['', [Validators.required]],
     });
   }
@@ -116,39 +117,16 @@ export class ViewBusinessInfoComponent implements OnInit {
 
   fileChangeEvent(fileInput: any) {
     // this.imageError = null;
-    this.uploadAvatar(fileInput.target.files[0]);
+    this.container.image = fileInput.target.files[0];
+    // this.uploadAvatar(fileInput.target.files[0]);
   }
 
-  uploadAvatar(avatarImageBase64: any) {
-    // this.commonService.showLoading(this.uploadAvatarButton.nativeElement);
-    console.log(avatarImageBase64);
-
-    const formData: FormData = new FormData();
-    formData.append('avatar', avatarImageBase64, avatarImageBase64.name);
-    this.http
-      .patch(`${environment.baseApiUrl}/users/profile/update`, formData)
-      .subscribe(
-        (response: any) => {
-          this.userInformation.image = avatarImageBase64;
-          this.commonServices.snackBar(response.message);
-          // this.commonService.removeLoading(
-          //   this.uploadAvatarButton.nativeElement
-          // );
-        },
-        (response) => {
-          this.commonServices.snackBar(response.message, 'error');
-          // this.commonService.removeLoading(
-          //   this.uploadAvatarButton.nativeElement
-          // );
-        }
-      );
-  }
 
   getCategories() {
     this.container['categoriesLoading'] = true;
     this.http.get(`${environment.baseApiUrl}/products/category`).subscribe(
       (response: any) => {
-        this.categories = response;
+        this.categories = response.data;
         // this.total_count = response.data.length;
         this.container['categoriesLoading'] = false;
       },
@@ -170,33 +148,42 @@ export class ViewBusinessInfoComponent implements OnInit {
       return;
     }
 
-    const fd = JSON.parse(JSON.stringify(this.signupForm.value));
-    fd.Addresses = [
-      {
-        no: this.container?.address?.number,
-        address1: this.container?.address?.address1,
-        address2: this.container?.address?.address2,
-        city: this.container?.address?.city,
-        lga: this.container?.address?.lga,
-        state: this.container?.address?.state?.code,
-        country: this.container?.address?.country?.code,
-        lng: this.container?.address?.geometry?.lng,
-        lat: this.container?.address?.geometry?.lat,
-      },
-    ];
-    delete fd.address;
-    //  console.log(fd); return
+    const formData: FormData = new FormData();
+    formData.append('fileType', 'tenant');
+    if(this.container.image) {
+      formData.append('profile', this.container.image, this.container.image.name);
+    }
+    for(let fd in this.signupForm.value) {
+      formData.append(fd, this.signupForm.value[fd]);
+    }
+    if(this.data[0]?.Addresses[0]?.lat != this.container?.address?.geometry?.lat && this.data[0]?.Addresses[0]?.lng != this.container?.address?.geometry?.lng) {
+        formData.append('Addresses', JSON.stringify(
+          {
+            id: this.data[0]?.Addresses[0]?.id,
+            no: this.container?.address?.number,
+            address1: this.container?.address?.address1,
+            address2: this.container?.address?.address2,
+            city: this.container?.address?.city,
+            lga: this.container?.address?.lga,
+            state: this.container?.address?.state?.code,
+            country: this.container?.address?.country?.code,
+            lng: this.container?.address?.geometry?.lng,
+            lat: this.container?.address?.geometry?.lat,
+          },
+        ));
+    }
 
     this.http
-      .post(`${environment.baseApiUrl}/auth/tenant/complete`, fd)
-      .subscribe(
-        (response: any) => {
+      .patch(`${environment.baseApiUrl}/admin/vendor/${this.data[0].id}`, formData)
+      .subscribe({
+        next: (response: any) => {
           this.submitting = false;
+          this.container.file = null
         },
-        (errResp) => {
+        error: (errResp) => {
           this.submitting = false;
         }
-      );
+      });
   }
 
   initAutocomplete(maps: Maps) {
