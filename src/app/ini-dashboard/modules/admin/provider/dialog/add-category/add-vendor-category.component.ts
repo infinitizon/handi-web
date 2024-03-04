@@ -49,7 +49,7 @@ export class AddVendorCategoryComponent implements OnInit {
       .get(`${environment.baseApiUrl}/products/category/${this.data.category}`)
       .subscribe(
         (response: any) => {
-          this.container.categories = response;
+          this.container.categories = response.data;
           // this.total_count = response.data.length;
           this.container['categoriesLoading'] = false;
         },

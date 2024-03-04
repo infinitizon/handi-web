@@ -47,14 +47,10 @@ export class ViewBusinessInfoComponent implements OnInit {
   categories: any;
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
     private gMapService: GMapService,
     private renderer: Renderer2,
     private commonServices: CommonService,
-    private router: Router,
     private http: HttpClient,
-    private _snackBar: MatSnackBar,
-    private activatedRoute: ActivatedRoute,
     public appContext: ApplicationContextService
   ) {
     let interval = setInterval(() => {
@@ -178,9 +174,11 @@ export class ViewBusinessInfoComponent implements OnInit {
       .subscribe({
         next: (response: any) => {
           this.submitting = false;
+          this.commonServices.snackBar(response?.message || `Record updated successfully`)
           this.container.file = null
         },
         error: (errResp) => {
+          this.commonServices.snackBar(errResp?.message || `Error occured while updating record`, 'error')
           this.submitting = false;
         }
       });
