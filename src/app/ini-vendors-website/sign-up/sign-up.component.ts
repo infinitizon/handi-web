@@ -115,15 +115,18 @@ export class SignUpComponent implements OnInit {
     delete fd.confirmPassword;
 
      this.http.post(`${environment.baseApiUrl}/auth/user/signup`, fd,)
-       .subscribe((response: any) => {
-         this.submitting = false;
-         this.authService.email$.next(fd.email);
-         this.successSnackBar("Signup successful")
-         this.router.navigate(['/vendors-onboarding/signup-continue/', response.user?.id]);
-       },
-       errResp => {
-          this.submitting = false;
-         this.openSnackBar(errResp?.error?.error?.message)
+       .subscribe({
+          next: (response: any) => {
+            this.submitting = false;
+            this.authService.email$.next(fd.email);
+            this.successSnackBar("Signup successful")
+            this.router.navigate(['/vendors-onboarding/signup-continue/', response.user?.id]);
+            console.log(`Vendor signup`)
+          },
+          error: errResp => {
+              this.submitting = false;
+            this.openSnackBar(errResp?.error?.error?.message)
+          }
        });
    }
 

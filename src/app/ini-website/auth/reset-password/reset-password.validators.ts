@@ -1,4 +1,7 @@
 export const ValidationMessages = {
+  token: {
+    required: 'Token is required'
+  },
   password: {
     required: 'Password is required',
     minlength: 'Must be minimum of 6 characters',
@@ -15,10 +18,12 @@ export const ValidationMessages = {
 export let FormErrors = {
   password: '',
   confirmPassword: '',
+  token: ''
 
 };
 
 export interface ResetPassword {
   password: string;
   confirmPassword: string;
+  token: number;
 }

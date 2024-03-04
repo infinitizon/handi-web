@@ -106,17 +106,21 @@ export class SignUpComponent implements OnInit {
     delete fd.confirmPassword;
 
      this.http.post(`${environment.baseApiUrl}/auth/user/signup`, fd,)
-       .subscribe((response: any) => {
-         this.submitting = false;
-         this.http.post(`${environment.baseApiUrl}/auth/user/signup`, fd,)
-         this.authService.email$.next(fd.email);
-         this.successSnackBar("Signup successful")
-         this.router.navigate(['/auth/verify-otp']);
-       },
-       errResp => {
+       .subscribe({
+        next: (response: any) => {
           this.submitting = false;
-         this.openSnackBar(errResp?.error?.error?.message)
-       });
+          //  this.http.post(`${environment.baseApiUrl}/auth/user/signup`, fd,)
+          this.authService.email$.next(fd.email);
+          this.successSnackBar("Signup successful")
+          this.router.navigate(['/auth/verify-otp']);
+          console.log(`Customer signup`);
+
+        },
+        error: errResp => {
+            this.submitting = false;
+          this.openSnackBar(errResp?.error?.error?.message)
+        }
+      });
    }
 
   controlChanged(ctrlName: string) {

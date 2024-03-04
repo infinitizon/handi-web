@@ -89,7 +89,7 @@ export class SignUpContinueComponent implements OnInit {
       .get(`${environment.baseApiUrl}/products/category`)
       .subscribe(
         (response: any) => {
-          this.categories = response;
+          this.categories = response.data;
           // this.total_count = response.data.length;
           this.container['categoriesLoading'] = false;
         },
@@ -128,16 +128,18 @@ export class SignUpContinueComponent implements OnInit {
 
 
      this.http.post(`${environment.baseApiUrl}/auth/tenant/complete`, fd,)
-       .subscribe((response: any) => {
-         this.submitting = false;
-        //  this.authService.email$.next(fd.email);
-         this.successSnackBar("Business Signup successful");
-        this.router.navigate(['/vendors-onboarding/verify-otp']);
-                },
-       errResp => {
-          this.submitting = false;
-         this.openSnackBar(errResp?.error?.error?.message)
-       });
+       .subscribe({
+          next: (response: any) => {
+            this.submitting = false;
+            //  this.authService.email$.next(fd.email);
+            this.commonServices.snackBar("Business Signup successful");
+            this.router.navigate(['/vendors-onboarding/verify-otp']);
+          },
+          error: errResp => {
+            this.submitting = false;
+            this.commonServices.snackBar(errResp?.error?.error?.message, 'error')
+          }
+      });
    }
 
   initAutocomplete(maps: Maps) {
@@ -198,28 +200,6 @@ export class SignUpContinueComponent implements OnInit {
       Object.keys(this.errors[control]).forEach((error: any) => {
         this.uiErrors[control] = this.validationMessages[control][error];
       })
-    });
-  }
-
-  openSnackBar(message: string) {
-    this._snackBar.openFromComponent(SnackBarComponent, {
-      duration: 2000,
-      data: {
-        message: message,
-        icon: 'ri-close-circle-fill',
-      },
-      panelClass: ['error'],
-    });
-  }
-
-  successSnackBar(message: string) {
-    this._snackBar.openFromComponent(SnackBarComponent, {
-      duration: 2000,
-      data: {
-        message: message,
-        icon: 'ri-checkbox-circle-fill',
-      },
-      panelClass: ['success'],
     });
   }
 }
