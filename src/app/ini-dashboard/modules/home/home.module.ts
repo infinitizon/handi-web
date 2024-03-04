@@ -9,9 +9,12 @@ import { HomeRoutingModule } from './home-routing.module';
 import { ViewCategoriesComponent } from './view/view-categories/view-categories.component';
 import { ViewSubCategoriesComponent } from './view/view-sub-categories/view-sub-categories.component';
 import { ViewProvidersComponent } from './view/view-providers/view-providers.component';
+import { RecommendedComponent } from './view/recommended/recommended.component';
+import { ViewRecommendedComponent } from './view/view-recommended/view-recommended.component';
 import { ViewProviderAttrComponent } from './view/view-provider-attr/provider-attr.component';
 import { ViewCheckoutComponent } from './view/view-checkout/view-checkout.component';
 import { CartComponent } from './view/cart/cart.component';
+import { ViewRecommendedDetailComponent } from './view/view-recommended-detail/view-recommended-detail.component';
 
 @NgModule({
   imports: [
@@ -26,6 +29,8 @@ import { CartComponent } from './view/cart/cart.component';
     ViewCategoriesComponent,
     ViewSubCategoriesComponent,
     ViewProvidersComponent,
+    ViewRecommendedComponent, RecommendedComponent,
+    ViewRecommendedDetailComponent,
     ViewProviderAttrComponent,
     ViewCheckoutComponent,
     CartComponent,

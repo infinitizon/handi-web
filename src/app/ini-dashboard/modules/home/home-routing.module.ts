@@ -7,6 +7,7 @@ import { ViewSubCategoriesComponent } from './view/view-sub-categories/view-sub-
 import { ViewProvidersComponent } from './view/view-providers/view-providers.component';
 import { ViewCheckoutComponent } from './view/view-checkout/view-checkout.component';
 import { CartComponent } from './view/cart/cart.component';
+import { ViewRecommendedComponent } from './view/view-recommended/view-recommended.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
       {
         path: 'view-categories',
         component: ViewCategoriesComponent
+      },
+      {
+        path: 'recommended',
+        component: ViewRecommendedComponent
       },
       {
         path: 'view-sub-categories/:id',
