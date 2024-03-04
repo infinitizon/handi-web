@@ -25,10 +25,11 @@ export class ViewRecommendedDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.data);
+    // console.log(this.data);
     this.getServices();
   }
   getServices() {
+    this.container['categoriesLoading'] = true;
     const category = this.data.Products?.find(p=>!p.pId)
     this.http
       .get(`${environment.baseApiUrl}/products/category/${category.id}?tenantId=${category?.TenantCategory?.tenantId}`)

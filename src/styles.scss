@@ -2546,6 +2546,12 @@ input::placeholder {
       box-shadow: 0px 8px 28px 0px rgba(128, 128, 128, 0.2);
       // height: 248px;
 
+      &.v2 {
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+      }
+
       .description {
         color: var(--foundation-primary-primary-300, #656666);
         /* Body/Small: Regular */
@@ -2572,6 +2578,10 @@ input::placeholder {
             background-color: #fff;
             // width: 100px;
           }
+
+           p {
+            color: var(--foundation-primary-primary-300, #656666);
+          }
         }
         .btn-book {
           button {
@@ -2593,9 +2603,9 @@ input::placeholder {
   }
 }
 
-.service-provider-wrapper {
-  margin-top: 40px;
-}
+// .service-provider-wrapper {
+//   margin-top: 40px;
+// }
 
 .services-provider-details-icon-wrapper {
   i {
