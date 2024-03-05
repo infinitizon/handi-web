@@ -110,8 +110,8 @@ export class SignUpComponent implements OnInit {
         next: (response: any) => {
           this.submitting = false;
           //  this.http.post(`${environment.baseApiUrl}/auth/user/signup`, fd,)
-          this.authService.email$.next(fd.email);
-          this.successSnackBar("Signup successful")
+          this.authService.signup$.next({email: fd.email});
+          this.successSnackBar(response.message || `Signup successful`)
           this.router.navigate(['/auth/verify-otp']);
           console.log(`Customer signup`);
 

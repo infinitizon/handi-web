@@ -131,7 +131,7 @@ export class SignUpContinueComponent implements OnInit {
        .subscribe({
           next: (response: any) => {
             this.submitting = false;
-            //  this.authService.email$.next(fd.email);
+            this.authService.email$.next(fd.email);
             this.commonServices.snackBar("Business Signup successful");
             this.router.navigate(['/vendors-onboarding/verify-otp']);
           },
