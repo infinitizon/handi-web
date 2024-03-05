@@ -11,6 +11,7 @@ import { SnackBarComponent } from '@app/_shared/components/snack-bar/snack-bar.c
 import { Crypto } from '@app/_shared/classes/Crypto';
 import { ApplicationContextService } from '@app/_shared/services/application-context.service';
 import { GMapService, Maps } from '@app/_shared/services/google-map.service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up-continue',
@@ -22,7 +23,10 @@ export class SignUpContinueComponent implements OnInit {
     nativeElement: undefined
   };
   signupForm!: FormGroup;
-  container: any = {countdown: 20};
+  container: any = {
+    countdown: 20,
+    gettingUser: true,
+  };
   errors: any = [];
   formErrors: any = FormErrors;
   uiErrors: any = FormErrors;
@@ -30,7 +34,6 @@ export class SignUpContinueComponent implements OnInit {
 
 
   submitting = false;
-  id: any;
   categories: any;
   constructor(
     private fb: FormBuilder,
@@ -41,7 +44,7 @@ export class SignUpContinueComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     private _snackBar: MatSnackBar,
-    private activatedRoute: ActivatedRoute,
+    private aRoute: ActivatedRoute,
     public appContext: ApplicationContextService,
     ) {
       let interval = setInterval(()=>{
@@ -60,25 +63,35 @@ export class SignUpContinueComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.id = this.activatedRoute.snapshot.paramMap.get('id');
-    // if (this.authService.isLoggedIn()) {
-    //   this.router.navigate(['/app']);
-    // }
-    // this.authService.logout();
-
-    this.signupForm = this.fb.group(
-      {
-        name: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.pattern(this.commonServices.email)]],
-        userId: [this.id],
-        category: ['', [Validators.required]],
-        address: ['', [Validators.required]],
+    this.container.gettingUser = true;
+    this.aRoute.paramMap.pipe(
+      switchMap(params=>{
+        return this.http.get(`${environment.baseApiUrl}/users/${params.get('id')}`)
+      })
+    ).subscribe({
+      next: (user: any)=>{
+        if(!user.data) {
+          this.router.navigate(['/vendors-onboarding/signup']);
+          this.commonServices.snackBar(`There is no user attached to this account. Please register or contact admin`, 'error');
+          return;
+        }
+        this.container.user = user.data
+        this.signupForm = this.fb.group(
+            {
+              name: ['', [Validators.required]],
+              email: ['', [Validators.required, Validators.pattern(this.commonServices.email)]],
+              userId: [user?.data?.id],
+              category: ['', [Validators.required]],
+              address: ['', [Validators.required]],
+            }
+        )
+        this.container.gettingUser = false;
       }
-    );
-
+    })
     this.getCategories();
   }
 
+  getRegisteredUser
   showEyes() {
     this.container['fieldTextType'] = !this.container['fieldTextType'];
   }
@@ -131,7 +144,7 @@ export class SignUpContinueComponent implements OnInit {
        .subscribe({
           next: (response: any) => {
             this.submitting = false;
-            this.authService.email$.next(fd.email);
+            this.authService.signup$.next({email: fd.email});
             this.commonServices.snackBar("Business Signup successful");
             this.router.navigate(['/vendors-onboarding/verify-otp']);
           },

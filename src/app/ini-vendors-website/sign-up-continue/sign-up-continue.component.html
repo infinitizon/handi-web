@@ -18,7 +18,10 @@
                 </p>
               </div>
 
-              <div class="user-category-body col-md-12">
+              <div class="user-category-body col-md-12" *ngIf="container.gettingUser">
+                Loading...
+              </div>
+              <div class="user-category-body col-md-12" *ngIf="!container.gettingUser">
                 <form [formGroup]="signupForm" [autocomplete]="'off'">
                   <div class="form-group mt-4">
                     <label>Business Name</label>
