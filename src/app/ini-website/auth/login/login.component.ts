@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
         [Validators.required, Validators.pattern(this.commonService.email)],
       ],
       password: [null, [Validators.required]],
-      // rememberMe: [null],
+      rememberMe: [null],
     });
   }
 

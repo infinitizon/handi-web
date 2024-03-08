@@ -66,7 +66,7 @@ export class SignUpContinueComponent implements OnInit {
     this.container.gettingUser = true;
     this.aRoute.paramMap.pipe(
       switchMap(params=>{
-        return this.http.get(`${environment.baseApiUrl}/users/${params.get('id')}`)
+        return this.http.get(`${environment.baseApiUrl}/users/vendor/user/${params.get('id')}`)
       })
     ).subscribe({
       next: (user: any)=>{

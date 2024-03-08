@@ -143,12 +143,15 @@
                   </div>
 
                   <div class="auth-footer-wrapper fg-password">
-                    <div class="auth-footer d-flex justify-content-end">
+                    <div class="auth-footer d-flex justify-content-between">
                       <span>
-                        <a class="pointer" routerLink="/auth/forgot-password"
-                          >Forgot password?</a
-                        ></span
-                      >
+                        <mat-checkbox formControlName="rememberMe" class="m-0 p-0">
+                          Remember Me!
+                        </mat-checkbox>
+                      </span>
+                      <span>
+                        <a class="pointer" routerLink="/auth/forgot-password">Forgot password?</a>
+                      </span>
                     </div>
                   </div>
 
