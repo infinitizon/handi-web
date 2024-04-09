@@ -175,6 +175,18 @@ export class MyOrdersComponent implements OnInit {
       ? Object.keys(obj).sort((a: any, b: any) => (b > a ? 1 : -1))
       : null;
   }
+  onOrderStatusChange(orderId, status) {
+    this.http
+        .patch(`${environment.baseApiUrl}/users/order/${orderId}/status`, {status: status.key})
+        .subscribe({
+          next: resp => {
+            console.log(resp);
+          },
+          error: err => {
+            console.log(err);
+          }
+        })
+  }
 
   routeToDetail(order: any) {
     const data = {...order};

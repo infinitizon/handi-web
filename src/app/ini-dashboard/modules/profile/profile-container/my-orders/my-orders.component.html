@@ -35,6 +35,32 @@
         (click)="show(trans?.id, trans?.createdAt, trans?.amount, trans?.status, trans)"
       >
         <div class="d-flex align-items-center">
+          <div (click)="$event.stopPropagation();">
+            <ng-container>
+              <i class="ri-more-2-fill" [matMenuTriggerFor]="availableStatus"></i>
+              <mat-menu #availableStatus="matMenu" class="profile-menu-dropdown">
+                <a class="profile" (click)="onOrderStatusChange(trans.id, orderStatus)" mat-menu-item *ngFor="let orderStatus of trans?.availableOrderStatus">
+                  <div class="d-flex align-items-start">
+                    <div class="flex-grow-1">
+                      <div class="d-flex align-items-center">
+                        <div class="profile-icon">
+                          <i [ngClass]="{
+                            'ri-shake-hands-line': orderStatus?.key === 'completed',
+                            'ri-delete-bin-6-line': orderStatus?.key === 'cancelled',
+                          }"class=""></i>
+                        </div>
+                        <div class="d-flex align-items-start flex-column ml-4">
+                          <div class="profile-title px-4 mb-0">
+                            <h3 class="mb-0">{{orderStatus?.name}}</h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </mat-menu>
+            </ng-container>
+          </div>
           <div class="p-2 flex-grow-1">
             <div class="d-flex align-items-center">
               <!-- <div class="p-2">

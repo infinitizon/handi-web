@@ -177,7 +177,7 @@ export class ViewOrdersComponent implements OnInit {
   }
   onOrderStatusChange(orderId, status) {
     this.http
-        .put(`${environment.baseApiUrl}/admin/order/${orderId}/status`, {status: status.key})
+        .patch(`${environment.baseApiUrl}/admin/order/${orderId}/status`, {status: status.key})
         .subscribe({
           next: resp => {
             console.log(resp);
