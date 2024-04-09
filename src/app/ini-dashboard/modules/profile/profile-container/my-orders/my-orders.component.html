@@ -32,9 +32,7 @@
       <div
         *ngFor="let trans of orders[type]"
         class="orders-content mt-3 col-md-9 pointer"
-        (click)="
-          show(trans?.id, trans?.createdAt, trans?.amount, trans?.status, trans)
-        "
+        (click)="show(trans?.id, trans?.createdAt, trans?.amount, trans?.status, trans)"
       >
         <div class="d-flex align-items-center">
           <div class="p-2 flex-grow-1">

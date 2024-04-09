@@ -116,8 +116,8 @@
 
     <div class="col-md-6">
       <div class="d-flex justify-content-center">
-        <div class="overlay-detail">
-          <button class="btn btn-md accept-btn">Accept Order</button>
+        <div class="overlay-detail" *ngIf="container.id">
+          <button class="btn btn-md accept-btn" *ngFor="let status of orderData?.availableOrderStatus" (click)="onOrderStatusChange(container.id, status)">{{status?.name}}</button> &nbsp;
         </div>
       </div>
     </div>

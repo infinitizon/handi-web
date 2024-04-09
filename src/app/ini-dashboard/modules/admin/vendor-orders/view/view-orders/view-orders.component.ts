@@ -19,6 +19,7 @@ import * as moment from 'moment';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { Orderstatus } from './OrderStatus';
 
 @Component({
   selector: 'app-view-orders',
@@ -29,7 +30,8 @@ export class ViewOrdersComponent implements OnInit {
   options: AnimationOptions = {
     path: 'https://assets2.lottiefiles.com/packages/lf20_olbyptqd.json',
   };
-
+  Orderstatus = Orderstatus
+  availableOrderStatus: any;
   container: any = {};
   userInformation!: User;
   orders!: any;
@@ -110,6 +112,7 @@ export class ViewOrdersComponent implements OnInit {
   }
 
   getOrderDetail(id: any, createdAt: any, amount: any, status: any) {
+    this.availableOrderStatus = null;
     this.http.get(`${environment.baseApiUrl}/users/cart?orderId=${id}`)
       .subscribe({
         next: (response: any) => {
@@ -130,7 +133,6 @@ export class ViewOrdersComponent implements OnInit {
   hide() {
     this.isDialogOpen = false;
   }
-
   getOrders() {
     this.mainSubscription$ = this.paginator.page
     .pipe(
@@ -173,7 +175,18 @@ export class ViewOrdersComponent implements OnInit {
       ? Object.keys(obj).sort((a: any, b: any) => (b > a ? 1 : -1))
       : null;
   }
-
+  onOrderStatusChange(orderId, status) {
+    this.http
+        .put(`${environment.baseApiUrl}/admin/order/${orderId}/status`, {status: status.key})
+        .subscribe({
+          next: resp => {
+            console.log(resp);
+          },
+          error: err => {
+            console.log(err);
+          }
+        })
+  }
 
 
   ngOnDestroy(): void {
