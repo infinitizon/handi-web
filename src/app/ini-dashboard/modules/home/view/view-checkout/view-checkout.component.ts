@@ -92,6 +92,8 @@ export class ViewCheckoutComponent implements OnInit {
 
           const geocoder = new google.maps.Geocoder();
           geocoder.geocode({location: coord },  (results, status)=>{
+            console.log(coord, results, status);
+
             if (status == google.maps.GeocoderStatus.OK) {
               this.container.address = this.gMapService.getAddresses(results?.find(a=>a.types.includes("street_address") && !a.plus_code)?.address_components);
             }
@@ -140,7 +142,19 @@ export class ViewCheckoutComponent implements OnInit {
       this.container['submitting'] = false;
       return;
     }
-    const payload =  this.priceForm.getRawValue();
+
+    const addresses = this.activeAddress ? [this.activeAddress] : [{
+      houseNo: this.container?.address?.number,
+      address1: this.container?.address?.address1,
+      address2: this.container?.address?.address2,
+      city: this.container?.address?.city,
+      lga: this.container?.address?.lga,
+      state: this.container?.address?.state?.code,
+      country: this.container?.address?.country?.code,
+      lng: this.container?.address?.geometry?.lng,
+      lat: this.container?.address?.geometry?.lat
+    }]
+    const payload =  {addresses, orders: this.priceForm.getRawValue()};
 
     this.http.post(`${environment.baseApiUrl}/users/cartify/${this.providerId}/${this.subCategoryId}`, payload)
       .subscribe({

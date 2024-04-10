@@ -97,7 +97,7 @@
             </h6>
           </div>
           <div class="p-2 orders-amount">
-            <h6>Items: {{ trans?.totalitems }}</h6>
+            <h6>Items: {{ trans?.totalItems }}</h6>
           </div>
 
           <div class="p-0 orders-icon">
@@ -178,61 +178,29 @@
     </div>
 
     <div class="line-v2"></div>
-
-    <div class="overlay-body-wrapper">
-      <div class="d-flex">
-        <div class="col-md-6">
-          <div class="">
-            <div class="overlay-address-header">
-              <span>Billing Address</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="">
-            <div class="overlay-address-header v2">
-              <span>Shipping Address</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="overlay-body-wrapper v2">
       <div class="d-flex">
-        <div class="col-md-6">
+        <div class="col-md-6" *ngFor="let address of orderData?.Addresses; index as i">
+          <div class="overlay-address-header v2 text-start">
+            <span class="text-start">{{i==0? 'Shipping Address': ''}}</span>
+          </div>
           <div class="">
-            <div class="overlay-address-body"><span>John Doe</span></div>
+            <div class="overlay-address-body"><span>{{address?.houseNo ? address?.houseNo +',':''}} {{address?.address1 ? address?.address1 + ",":''}}</span></div>
           </div>
           <div class="mt-2">
-            <div class="overlay-address-body"><span>16, Ajah road</span></div>
+            <div class="overlay-address-body"><span>{{address?.address2 ? address?.address2+',' : ''}}</span></div>
           </div>
           <div class="mt-2">
+            <div class="overlay-address-body"><span>{{address?.city ? address?.city+',':''}} {{address?.state ? address?.state+',' : ''}}</span></div>
+          </div>
+          <div class="mt-2">
+            <div class="overlay-address-body"><span>{{address?.country ? address?.country : ''}}</span></div>
+          </div>
+          <!-- <div class="mt-2">
             <div class="overlay-address-body">
               <span>john@mortue@.com</span>
             </div>
-          </div>
-          <div class="mt-2">
-            <div class="overlay-address-body"><span>+2345788238</span></div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="">
-            <div class="overlay-address-body v2"><span>John Doe</span></div>
-          </div>
-          <div class="mt-2">
-            <div class="overlay-address-body v2">
-              <span>16, Ajah road</span>
-            </div>
-          </div>
-          <div class="mt-2">
-            <div class="overlay-address-body v2">
-              <span>john@mortue@.com</span>
-            </div>
-          </div>
-          <div class="mt-2">
-            <div class="overlay-address-body v2"><span>+2345788238</span></div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
