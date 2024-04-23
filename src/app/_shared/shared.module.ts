@@ -35,6 +35,7 @@ import { ActivateEmailComponent } from './dialogs/activate-email/activate-email.
 import { Loader2Component } from './components/loader_2/loader.component';
 import { environment } from '@environments/environment';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 const config: SocketIoConfig = { url: environment.SOCKET_BASE, options: {} };
 
 const MY_DATE_FORMAT = {
@@ -95,6 +96,7 @@ export function playerFactory() {
     LottieModule.forRoot({ player: playerFactory }),
     NgxMaskDirective, NgxMaskPipe,
     SocketIoModule.forRoot(config),
+    AutocompleteLibModule
   ],
   exports: [
     CommonModule,
@@ -128,7 +130,8 @@ export function playerFactory() {
     PasswordChangeComponent,
     ActivateEmailComponent,
     Loader2Component,
-    SocketIoModule
+    SocketIoModule,
+    AutocompleteLibModule
   ]
 })
 export class SharedModule { }

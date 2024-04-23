@@ -15,6 +15,7 @@ import { ViewProviderAttrComponent } from './view/view-provider-attr/provider-at
 import { ViewCheckoutComponent } from './view/view-checkout/view-checkout.component';
 import { CartComponent } from './view/cart/cart.component';
 import { ViewRecommendedDetailComponent } from './view/view-recommended-detail/view-recommended-detail.component';
+import { ViewSearchProductComponent } from './view/view-search-product/view-search-product.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { ViewRecommendedDetailComponent } from './view/view-recommended-detail/v
     ViewProviderAttrComponent,
     ViewCheckoutComponent,
     CartComponent,
+    ViewSearchProductComponent
   ]
 })
 export class HomeModule { }

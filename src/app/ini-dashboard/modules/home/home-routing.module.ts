@@ -8,6 +8,7 @@ import { ViewProvidersComponent } from './view/view-providers/view-providers.com
 import { ViewCheckoutComponent } from './view/view-checkout/view-checkout.component';
 import { CartComponent } from './view/cart/cart.component';
 import { ViewRecommendedComponent } from './view/view-recommended/view-recommended.component';
+import { ViewSearchProductComponent } from './view/view-search-product/view-search-product.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
       {
         path: 'cart',
         component: CartComponent
+      },
+      {
+        path: 'search/:id',
+        component: ViewSearchProductComponent
       },
       { path: '', redirectTo: 'view', pathMatch: 'full' }
     ]

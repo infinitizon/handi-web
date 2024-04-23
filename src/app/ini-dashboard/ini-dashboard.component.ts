@@ -59,6 +59,10 @@ export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   referrals: any;
   role: any;
 
+  keyword = 'product_title';
+  searchData: any = [];
+
+
   constructor(
     public dialog: MatDialog,
     private router: Router,
@@ -91,8 +95,6 @@ export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-
-
   copyReferral() {
     this.clipboard.copy(this.referrals);
   }
@@ -116,6 +118,7 @@ export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         (errResp) => {}
       );
   }
+
 
   ngAfterViewInit() {
     this.scroller
@@ -196,6 +199,29 @@ export class IniDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openLogOutDialog(): void {
     this.dialog.open(LogoutDialogComponent);
+  }
+
+
+  selectEvent(item) {
+    this.router.navigate(['/app/home/view-checkout', item?.Tenant?.id, item?.Product.id, 'characteristics'])
+    // do something with selected item
+  }
+
+  onChangeSearch(val: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+    this.http
+    .get(`${environment.baseApiUrl}/products/search?q=${val}`)
+    .subscribe(
+      (response: any) => {
+       this.searchData = response.data;
+      },
+      (errResp) => {}
+    );
+  }
+
+  onFocused(e){
+    // do something when input is focused
   }
 
   ngOnDestroy() {
